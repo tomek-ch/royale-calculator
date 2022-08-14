@@ -5,6 +5,7 @@ type Variant = keyof typeof styles;
 type ButtonProps = {
   variant?: Variant;
   children: ReactNode;
+  className?: string;
 };
 
 const styles = {
@@ -12,12 +13,17 @@ const styles = {
   secondary: "border-solid border-[1px] border-gray-300 hover:border-gray-400",
 } as const;
 
-export const Button = ({ variant = "secondary", children }: ButtonProps) => {
+export const Button = ({
+  variant = "secondary",
+  children,
+  className = "",
+}: ButtonProps) => {
   return (
     <button
       className={`
         block py-1 px-3 rounded-md active:scale-95 transition-all
         ${styles[variant]}
+        ${className}
       `}
     >
       {children}
