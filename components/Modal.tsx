@@ -5,6 +5,7 @@ import { ModalHeader } from "./ModalHeader";
 type Size = keyof typeof sizeClasses;
 
 type ModalProps = {
+  type?: keyof typeof modalStyles;
   size?: Size;
   title?: string;
   children: ReactNode;
@@ -15,7 +16,19 @@ const sizeClasses = {
   md: "max-w-md",
 };
 
+const modalStyles = {
+  modal: {
+    body: "rounded-md",
+    wrapper: "p4 top-1/2 -translate-y-1/2",
+  },
+  drawer: {
+    body: "rounded-t-md h-full",
+    wrapper: "pb-0 h-full top-10",
+  },
+};
+
 export const Modal = ({
+  type = "modal",
   title = "",
   size = "md",
   children,
@@ -24,6 +37,11 @@ export const Modal = ({
   isExiting,
   finishExit,
 }: ModalProps) => {
+  const [enteringAnimation, exitingAnimation] =
+    type === "modal"
+      ? ["animate-pop-up", "animate-hide"]
+      : ["animate-slide-up", "animate-slide-down"];
+
   if (isOpen) {
     return (
       <>
@@ -40,16 +58,16 @@ export const Modal = ({
         />
         <div
           className={`
-          fixed p-4 w-full z-10 ${sizeClasses[size]}
-          top-1/2 left-1/2
-          -translate-x-1/2 -translate-y-1/2
+          fixed p-4 w-full z-10 left-1/2 -translate-x-1/2
+          ${sizeClasses[size]}
+          ${modalStyles[type].wrapper}
           `}
         >
           <div
             className={`
-            ${isExiting ? "animate-hide" : "animate-pop-up"}
-            p-6 bg-white w-full
-            rounded-md shadow-md
+            ${isExiting ? exitingAnimation : enteringAnimation}
+            p-6 bg-white w-full shadow-md
+            ${modalStyles[type].body}
             `}
           >
             <ModalHeader close={toggle} title={title} />
