@@ -19,11 +19,11 @@ const sizeClasses = {
 const modalStyles = {
   modal: {
     body: "rounded-md",
-    wrapper: "p4 top-1/2 -translate-y-1/2",
+    wrapper: "p4 top-1/2 -translate-y-1/2 p-4",
   },
   drawer: {
     body: "rounded-t-md h-full",
-    wrapper: "pb-0 h-full top-10",
+    wrapper: "h-full top-10",
   },
 };
 
@@ -58,7 +58,7 @@ export const Modal = ({
         />
         <div
           className={`
-          fixed p-4 w-full z-10 left-1/2 -translate-x-1/2
+          fixed w-full z-10 left-1/2 -translate-x-1/2
           ${sizeClasses[size]}
           ${modalStyles[type].wrapper}
           `}
