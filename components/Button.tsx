@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Spinner } from "./icons/Spinner";
 
 type Variant = keyof typeof styles;
 
@@ -6,11 +7,13 @@ type ButtonProps = {
   variant?: Variant;
   children: ReactNode;
   className?: string;
-  onClick: () => void;
+  onClick?: () => void;
+  loading?: boolean;
 };
 
 const styles = {
-  primary: "bg-blue-500 text-white hover:bg-blue-600",
+  primary:
+    "bg-blue-500 text-white hover:bg-blue-600 disabled:hover:bg-blue-500",
   secondary: "border-solid border-[1px] border-gray-300 hover:border-gray-400",
 } as const;
 
@@ -19,17 +22,28 @@ export const Button = ({
   children,
   className = "",
   onClick,
+  loading,
 }: ButtonProps) => {
   return (
     <button
+      disabled={loading}
       className={`
-        block py-1 px-3 rounded-md active:scale-95 transition-all
-        ${styles[variant]}
-        ${className}
-      `}
-      onClick={onClick}
+      block py-2 px-4 rounded-md transition-all whitespace-nowrap leading-5
+      active:scale-95 active:disabled:scale-100 relative
+      ${styles[variant]}
+      ${loading ? "text-transparent" : ""}
+      ${className}
+    `}
+      onClick={() => onClick?.()}
     >
-      {children}
+      {loading ? (
+        <>
+          <Spinner className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
+          {children}
+        </>
+      ) : (
+        children
+      )}
     </button>
   );
 };

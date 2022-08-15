@@ -2,13 +2,22 @@ import { ReactNode } from "react";
 import { useModal } from "../hooks/useModal";
 import { ModalHeader } from "./ModalHeader";
 
+type Size = keyof typeof sizeClasses;
+
 type ModalProps = {
+  size?: Size;
   title?: string;
   children: ReactNode;
 } & ReturnType<typeof useModal>;
 
+const sizeClasses = {
+  sm: "max-w-sm",
+  md: "max-w-md",
+};
+
 export const Modal = ({
   title = "",
+  size = "md",
   children,
   toggle,
   isOpen,
@@ -30,16 +39,16 @@ export const Modal = ({
           }}
         />
         <div
-          className="
-          fixed p-4 w-full max-w-md z-10
+          className={`
+          fixed p-4 w-full z-10 ${sizeClasses[size]}
           top-1/2 left-1/2
           -translate-x-1/2 -translate-y-1/2
-          "
+          `}
         >
           <div
             className={`
             ${isExiting ? "animate-hide" : "animate-pop-up"}
-            p-4 bg-white w-full
+            p-6 bg-white w-full
             rounded-md shadow-md
             `}
           >

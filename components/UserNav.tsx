@@ -1,5 +1,6 @@
 import { useModal } from "../hooks/useModal";
 import { Button } from "./Button";
+import { LogInForm } from "./LogInForm";
 import { Modal } from "./Modal";
 
 export const UserNav = () => {
@@ -7,8 +8,8 @@ export const UserNav = () => {
   return (
     <>
       <Button onClick={modal.toggle}>Log in</Button>
-      <Modal {...modal} title="Player tag">
-        hello
+      <Modal {...modal} title="Player tag" size="sm">
+        <LogInForm />
       </Modal>
     </>
   );
