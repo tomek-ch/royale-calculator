@@ -37,6 +37,7 @@ export const getStaticProps: GetStaticProps = async () => {
         name,
         icon: medium,
         rarity: rarities[maxLevel],
+        startingLevel: 15 - maxLevel,
       };
     }
   );

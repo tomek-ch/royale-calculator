@@ -5,9 +5,10 @@ import { Input } from "./Input";
 
 interface CardSearchProps {
   cards: Card[];
+  onCardSelect: (card: Card) => void;
 }
 
-export const CardSearch = ({ cards }: CardSearchProps) => {
+export const CardSearch = ({ cards, onCardSelect }: CardSearchProps) => {
   const { input, handleChange } = useInput();
   return (
     <>
@@ -19,7 +20,11 @@ export const CardSearch = ({ cards }: CardSearchProps) => {
       />
       <div className="grid grid-cols-4 gap-2 mt-4 overflow-y-scroll h-[calc(100%-124px)] pr-2">
         {cards.map((card) => (
-          <CardThumbnail key={card.id} card={card} onClick={() => {}} />
+          <CardThumbnail
+            key={card.id}
+            card={card}
+            onClick={() => onCardSelect(card)}
+          />
         ))}
       </div>
     </>

@@ -21,4 +21,11 @@ export interface Card {
   name: string;
   rarity: Rarity;
   icon: string;
+  startingLevel: number;
+}
+
+export interface SelectedCard {
+  card: Card;
+  fromLevel: number;
+  toLevel: number;
 }

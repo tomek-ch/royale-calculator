@@ -1,7 +1,6 @@
+import { SelectedCard } from "../utils/types";
 import { Alert } from "./Alert";
 import { Card } from "./Card";
-
-interface SelectedCard {}
 
 export const SelectedCardsList = () => {
   const cards: SelectedCard[] = [];
