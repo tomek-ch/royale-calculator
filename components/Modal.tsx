@@ -23,7 +23,7 @@ const modalStyles = {
   },
   drawer: {
     body: "rounded-t-md h-full",
-    wrapper: "h-full top-10",
+    wrapper: "bottom-0 h-full top-10",
   },
 };
 
