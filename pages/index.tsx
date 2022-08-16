@@ -21,7 +21,7 @@ const Home: NextPage<HomeProps> = ({ cards }) => {
 export default Home;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch("https://api.clashroyale.com/v1/cards", {
+  const res = await fetch("https://proxy.royaleapi.dev/v1/cards", {
     headers: { authorization: `Bearer ${process.env.API_TOKEN}` },
   });
   const data: CardFromApi[] = (await res.json()).items;
