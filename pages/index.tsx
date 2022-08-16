@@ -21,10 +21,11 @@ const Home: NextPage<HomeProps> = ({ cards }) => {
 export default Home;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch("https://api.clashroyale.com/v1/cards", {
-    headers: { authorization: `Bearer ${process.env.API_TOKEN}` },
-  });
-  const data = (await res.json()).items as CardFromApi[];
+  // const res = await fetch("https://api.clashroyale.com/v1/cards", {
+  //   headers: { authorization: `Bearer ${process.env.API_TOKEN}` },
+  // });
+  // const data = (await res.json()).items as CardFromApi[];
+  const data: CardFromApi[] = [];
 
   const cards: Card[] = data.flatMap(
     ({ name, id, iconUrls: { medium }, maxLevel }) => {
