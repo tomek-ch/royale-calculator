@@ -11,8 +11,8 @@ export const SelectedCardsList = () => {
 
   return (
     <>
-      {cards.map(() => (
-        <Card />
+      {cards.map((selectCard) => (
+        <Card key={selectCard.card.id} />
       ))}
     </>
   );
