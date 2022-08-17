@@ -27,7 +27,7 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
     <>
       <h2 className="mt-5 mb-3">Selected cards</h2>
       <SelectedCardsList />
-      <Button variant="primary" className="mt-2 ml-auto" onClick={modal.toggle}>
+      <Button variant="primary" className="mt-3 ml-auto" onClick={modal.toggle}>
         Add a card
       </Button>
       <Modal {...modal} type="drawer" title="Add a card">
