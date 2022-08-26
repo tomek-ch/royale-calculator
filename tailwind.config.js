@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        fill: "repeat(auto-fill, minmax(73px, 1fr))",
+      },
       keyframes: {
         "fade-in": {
           "0%": { opacity: 0 },

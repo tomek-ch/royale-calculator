@@ -18,7 +18,7 @@ export const CardSearch = ({ cards, onCardSelect }: CardSearchProps) => {
         placeholder="Search for cards"
         autoFocus
       />
-      <div className="grid grid-cols-4 gap-2 mt-4 overflow-y-scroll h-[calc(100%-124px)] pr-2">
+      <div className="grid gap-2 grid-cols-fill mt-4 overflow-y-scroll h-[calc(100%-124px)] pr-2">
         {cards.map((card) => (
           <CardThumbnail
             key={card.id}

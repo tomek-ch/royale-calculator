@@ -59,7 +59,7 @@ export const Modal = ({
         <div
           className={`
           fixed w-full z-10 left-1/2 -translate-x-1/2
-          ${sizeClasses[size]}
+          ${type === "modal" ? sizeClasses[size] : "max-w-2xl"}
           ${modalStyles[type].wrapper}
           `}
         >
