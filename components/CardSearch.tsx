@@ -18,14 +18,22 @@ export const CardSearch = ({ cards, onCardSelect }: CardSearchProps) => {
         placeholder="Search for cards"
         autoFocus
       />
-      <div className="grid gap-2 grid-cols-fill mt-4 overflow-y-scroll h-[calc(100%-124px)] pr-2">
-        {cards.map((card) => (
-          <CardThumbnail
-            key={card.id}
-            card={card}
-            onClick={() => onCardSelect(card)}
-          />
-        ))}
+      <div className="grid gap-2 grid-cols-fill auto-rows-min mt-4 overflow-y-scroll h-[calc(100%-124px)] pr-2">
+        {cards.flatMap((card) => {
+          if (
+            !input ||
+            card.name.toLocaleLowerCase().includes(input.toLocaleLowerCase())
+          ) {
+            return (
+              <CardThumbnail
+                key={card.id}
+                card={card}
+                onClick={() => onCardSelect(card)}
+              />
+            );
+          }
+          return [];
+        })}
       </div>
     </>
   );
