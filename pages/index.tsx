@@ -28,6 +28,11 @@ export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch("https://proxy.royaleapi.dev/v1/cards", {
     headers: { authorization: `Bearer ${process.env.API_TOKEN}` },
   });
+
+  if (!res.ok) {
+    throw new Error(`API request failed with status ${res.status}`);
+  }
+
   const data: CardFromApi[] = (await res.json()).items;
 
   const cards: Card[] = data.flatMap(
