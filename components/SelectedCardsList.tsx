@@ -12,7 +12,7 @@ export const SelectedCardsList = ({ cards }: SelectedCardsListProps) => {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 sm:grid grid-cols-2 lg:grid-cols-3">
       {cards.map((selectedCard) => (
         <SelectedCardData
           selectedCard={selectedCard}
