@@ -14,6 +14,7 @@ const Home: NextPage<HomeProps> = ({ cards }) => {
     <div className="px-4 max-w-md mx-auto flex flex-col min-h-full">
       <Head>
         <title>Royale Calculator</title>
+        <link rel="icon" href="favicon.svg" />
       </Head>
       <Header />
       <SelectedCards cards={cards} />
