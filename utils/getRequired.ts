@@ -27,8 +27,6 @@ const levelOffsets = Object.fromEntries(
   ])
 );
 
-console.log(levelOffsets);
-
 const getRequired =
   (data: typeof cardsRequired) =>
   (card: Card, fromLevel: number, toLevel: number) => {
