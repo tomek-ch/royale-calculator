@@ -1,5 +1,4 @@
 import type { GetStaticProps, NextPage } from "next";
-import Head from "next/head";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { SelectedCards } from "../components/SelectedCards";
@@ -11,15 +10,11 @@ type HomeProps = {
 
 const Home: NextPage<HomeProps> = ({ cards }) => {
   return (
-    <div className="px-4 max-w-5xl mx-auto flex flex-col min-h-full">
-      <Head>
-        <title>Royale Calculator</title>
-        <link rel="icon" href="favicon.svg" />
-      </Head>
+    <>
       <Header />
       <SelectedCards cards={cards} />
       <Footer />
-    </div>
+    </>
   );
 };
 

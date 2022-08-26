@@ -1,8 +1,17 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <div className="px-4 max-w-5xl mx-auto flex flex-col min-h-full">
+      <Head>
+        <title>Royale Calculator</title>
+        <link rel="icon" href="favicon.svg" />
+      </Head>
+      <Component {...pageProps} />
+    </div>
+  );
 }
 
-export default MyApp
+export default MyApp;
