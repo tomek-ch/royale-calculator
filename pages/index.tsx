@@ -10,11 +10,11 @@ type HomeProps = {
 };
 
 const Home: NextPage<HomeProps> = ({ cards }) => {
-  <Head>
-    <title>Royale Calculator</title>
-  </Head>;
   return (
     <div className="px-4 max-w-md mx-auto flex flex-col min-h-full">
+      <Head>
+        <title>Royale Calculator</title>
+      </Head>
       <Header />
       <SelectedCards cards={cards} />
       <Footer />
