@@ -6,6 +6,7 @@ import { SelectedCardsList } from "./SelectedCardsList";
 import { useState } from "react";
 import { CardSearch } from "./CardSearch";
 import { CardUpgradeForm } from "./CardUpgradeForm";
+import { getRequiredCards, getRequiredGold } from "../utils/getRequired";
 
 interface SelectedCardsProps {
   cards: Card[];
@@ -15,12 +16,14 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
   const [myCards, setMyCards] = useState<SelectedCard[]>([]);
   const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null);
 
-  const selectCard = (card: Card) => {
+  const selectCard = (card: Card, fromLevel: number, toLevel: number) => {
     if (!myCards.find(({ card: { id } }) => id === card.id)) {
       setSelectedCard({
         card,
         fromLevel: card.startingLevel,
         toLevel: 14,
+        cardsRequired: getRequiredCards(card, fromLevel, toLevel),
+        goldRequired: getRequiredGold(card, fromLevel, toLevel),
       });
     }
   };

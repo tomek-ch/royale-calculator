@@ -5,7 +5,7 @@ import { Input } from "./Input";
 
 interface CardSearchProps {
   cards: Card[];
-  onCardSelect: (card: Card) => void;
+  onCardSelect: (card: Card, fromLevel: number, toLevel: number) => void;
 }
 
 export const CardSearch = ({ cards, onCardSelect }: CardSearchProps) => {
@@ -28,7 +28,7 @@ export const CardSearch = ({ cards, onCardSelect }: CardSearchProps) => {
               <CardBtn
                 key={card.id}
                 card={card}
-                onClick={() => onCardSelect(card)}
+                onClick={() => onCardSelect(card, card.startingLevel, 14)}
               />
             );
           }
