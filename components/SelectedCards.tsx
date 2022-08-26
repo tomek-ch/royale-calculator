@@ -5,34 +5,51 @@ import { Modal } from "./Modal";
 import { SelectedCardsList } from "./SelectedCardsList";
 import { useState } from "react";
 import { CardSearch } from "./CardSearch";
-import { UpgradeForm } from "./UpgradeForm";
+import { CardUpgradeForm } from "./CardUpgradeForm";
 
 interface SelectedCardsProps {
   cards: Card[];
 }
 
 export const SelectedCards = ({ cards }: SelectedCardsProps) => {
-  const modal = useModal();
+  const [myCards, setMyCards] = useState<SelectedCard[]>([]);
   const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null);
 
   const selectCard = (card: Card) => {
-    setSelectedCard({
-      card,
-      fromLevel: card.startingLevel,
-      toLevel: 14,
-    });
+    if (!myCards.find(({ card: { id } }) => id === card.id)) {
+      setSelectedCard({
+        card,
+        fromLevel: card.startingLevel,
+        toLevel: 14,
+      });
+    }
+  };
+
+  const resetCard = () => {
+    setSelectedCard(null);
+  };
+
+  const modal = useModal({ onClose: resetCard });
+
+  const addSelectedCard = () => {
+    setMyCards((prev) => [...prev, selectedCard as SelectedCard]);
+    modal.toggle();
   };
 
   return (
     <>
       <h2 className="mt-5 mb-3">Selected cards</h2>
-      <SelectedCardsList />
+      <SelectedCardsList cards={myCards} />
       <Button variant="primary" className="mt-3 ml-auto" onClick={modal.toggle}>
         Add a card
       </Button>
       <Modal {...modal} type="drawer" title="Add a card">
         {selectedCard ? (
-          <UpgradeForm />
+          <CardUpgradeForm
+            selectedCard={selectedCard}
+            addToDeck={addSelectedCard}
+            goBack={resetCard}
+          />
         ) : (
           <CardSearch cards={cards} onCardSelect={selectCard} />
         )}

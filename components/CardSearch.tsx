@@ -1,6 +1,6 @@
 import { useInput } from "../hooks/useInput";
 import { Card } from "../utils/types";
-import { CardThumbnail } from "./CardThumbnail";
+import { CardBtn } from "./CardBtn";
 import { Input } from "./Input";
 
 interface CardSearchProps {
@@ -25,7 +25,7 @@ export const CardSearch = ({ cards, onCardSelect }: CardSearchProps) => {
             card.name.toLocaleLowerCase().includes(input.toLocaleLowerCase())
           ) {
             return (
-              <CardThumbnail
+              <CardBtn
                 key={card.id}
                 card={card}
                 onClick={() => onCardSelect(card)}
