@@ -9,6 +9,9 @@ module.exports = {
       gridTemplateColumns: {
         fill: "repeat(auto-fill, minmax(73px, 1fr))",
       },
+      boxShadow: {
+        md: "0 2px 10px rgba(0, 0, 0, 0.07)",
+      },
       keyframes: {
         "fade-in": {
           "0%": { opacity: 0 },

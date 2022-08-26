@@ -22,7 +22,7 @@ export const CardUpgradeForm = ({
         </button>
         Selected card
       </h3>
-      <SelectedCardData selectedCard={selectedCard} />
+      <SelectedCardData selectedCard={selectedCard} withShadow={false} />
       <Button variant="primary" className="mt-3 ml-auto" onClick={addToDeck}>
         Add to deck
       </Button>

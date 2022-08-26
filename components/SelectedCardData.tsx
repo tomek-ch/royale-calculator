@@ -3,11 +3,19 @@ import { CardImg } from "./CardImg";
 
 interface SelectedCardDataProps {
   selectedCard: SelectedCard;
+  withShadow?: boolean;
 }
 
-export const SelectedCardData = ({ selectedCard }: SelectedCardDataProps) => {
+export const SelectedCardData = ({
+  selectedCard,
+  withShadow = true,
+}: SelectedCardDataProps) => {
   return (
-    <div className="p-3 rounded-xl bg-slate-200 flex gap-3 items-start">
+    <div
+      className={`p-4 rounded-xl flex gap-4 items-start ${
+        withShadow ? "shadow-md" : "bg-slate-200"
+      }`}
+    >
       <CardImg card={selectedCard.card} />
       <div className="flex flex-col gap-2">
         <h4 className="text-lg font-medium">{selectedCard.card.name}</h4>
