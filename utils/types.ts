@@ -28,6 +28,4 @@ export interface SelectedCard {
   card: Card;
   fromLevel: number;
   toLevel: number;
-  cardsRequired: number;
-  goldRequired: number;
 }

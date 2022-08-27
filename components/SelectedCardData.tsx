@@ -1,3 +1,4 @@
+import { getRequiredCards, getRequiredGold } from "../utils/getRequired";
 import { SelectedCard } from "../utils/types";
 import { CardImg } from "./CardImg";
 import { Option, Options } from "./Options";
@@ -30,8 +31,8 @@ export const SelectedCardData = ({
         <div>
           Required for level {selectedCard.toLevel}:
           <ul className="list-disc ml-4">
-            <li>{selectedCard.goldRequired.toLocaleString()} gold</li>
-            <li>{selectedCard.cardsRequired.toLocaleString()} cards</li>
+            <li>{getRequiredGold(selectedCard).toLocaleString()} gold</li>
+            <li>{getRequiredCards(selectedCard).toLocaleString()} cards</li>
           </ul>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { Card, rarities } from "./types";
+import { Card, rarities, SelectedCard } from "./types";
 
 const cardsRequired = {
   common: [2, 4, 10, 20, 50, 100, 200, 400, 800, 1000, 1500, 3000, 5000],
@@ -29,7 +29,7 @@ const levelOffsets = Object.fromEntries(
 
 const getRequired =
   (data: typeof cardsRequired) =>
-  (card: Card, fromLevel: number, toLevel: number) => {
+  ({ card, fromLevel, toLevel }: SelectedCard) => {
     const range = data[card.rarity].slice(
       fromLevel - 1 - levelOffsets[card.rarity],
       toLevel - levelOffsets[card.rarity]

@@ -16,14 +16,12 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
   const [myCards, setMyCards] = useState<SelectedCard[]>([]);
   const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null);
 
-  const selectCard = (card: Card, fromLevel: number, toLevel: number) => {
+  const selectCard = (card: Card) => {
     if (!myCards.find(({ card: { id } }) => id === card.id)) {
       setSelectedCard({
         card,
         fromLevel: card.startingLevel,
         toLevel: 14,
-        cardsRequired: getRequiredCards(card, fromLevel, toLevel),
-        goldRequired: getRequiredGold(card, fromLevel, toLevel),
       });
     }
   };
