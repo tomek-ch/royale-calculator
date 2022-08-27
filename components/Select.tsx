@@ -12,7 +12,7 @@ const Context = createContext({
   isActive: false,
   selected: null as unknown,
   toggle: () => {},
-  onChange: (value: any) => {},
+  onChange: (_value: any) => {},
 });
 
 export const SelectBtn = ({ children }: { children: ReactNode }) => {
@@ -20,7 +20,7 @@ export const SelectBtn = ({ children }: { children: ReactNode }) => {
   return (
     <button
       onClick={toggle}
-      className="py-2 px-3 leading-5 rounded-md bg-gray-200 w-full text-left"
+      className={`py-2 px-3 leading-5 bg-gray-200 w-full text-left`}
     >
       {children}
     </button>
@@ -52,17 +52,15 @@ export const SelectOption = <T,>({
 };
 
 export const SelectOptions = ({ children }: { children: ReactNode }) => {
-  const { isActive } = useContext(Context);
-
-  if (isActive) {
-    return (
-      <div className="absolute flex flex-col bg-white shadow-md w-full rounded-md mt-1">
-        {children}
-      </div>
-    );
-  }
-
-  return null;
+  const ref = useRef<HTMLDivElement | null>(null);
+  return (
+    <div
+      ref={ref}
+      className="absolute flex flex-col bg-white shadow-md w-full rounded-b-md"
+    >
+      {children}
+    </div>
+  );
 };
 
 export const Select = <T,>({
@@ -72,18 +70,23 @@ export const Select = <T,>({
   className = "",
 }: SelectProps<T>) => {
   const [isActive, setIsActive] = useState(false);
-  const container = useRef(null);
-  useClickOutside([isActive, setIsActive], container?.current);
 
+  const ref = useRef<HTMLDivElement | null>(null);
   const toggle = () => setIsActive((prev) => !prev);
+  useClickOutside([isActive, toggle], ref?.current);
 
   return (
     <Context.Provider value={{ isActive, toggle, selected, onChange }}>
-      <div
-        className={`relative ${className} ${isActive ? "z-10" : ""}`}
-        ref={container}
-      >
-        {children}
+      <div className="relative h-9">
+        <div
+          style={isActive ? { height: ref.current?.scrollHeight } : {}}
+          className={`outline outline-blue-500 absolute top-0 rounded-md transition-all overflow-hidden ${className} ${
+            isActive ? "z-10 outline-2" : "h-full outline-0"
+          }`}
+          ref={ref}
+        >
+          {children}
+        </div>
       </div>
     </Context.Provider>
   );
