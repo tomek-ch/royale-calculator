@@ -39,7 +39,7 @@ export const Options = ({ children }: OptionsProps) => {
   };
 
   const optionsContainer = useRef<HTMLDivElement | null>(null);
-  useClickOutside([isActive, setIsActive], optionsContainer?.current);
+  useClickOutside([isActive, toggle], optionsContainer?.current);
 
   return (
     <Context.Provider value={toggle}>
