@@ -1,11 +1,5 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { createContext, ReactNode, useContext, useRef, useState } from "react";
+import { useClickOutside } from "../hooks/useClickOutside";
 import { VerticalDots } from "./icons/VerticalDots";
 
 interface OptionsProps {
@@ -45,24 +39,7 @@ export const Options = ({ children }: OptionsProps) => {
   };
 
   const optionsContainer = useRef<HTMLDivElement | null>(null);
-  const handleClickOutside = (event: Event) => {
-    if (!optionsContainer.current?.contains(event.target as Node)) {
-      setIsActive(false);
-    }
-  };
-
-  useEffect(() => {
-    const unsubscribe = () =>
-      document.removeEventListener("click", handleClickOutside);
-
-    if (isActive) {
-      document.addEventListener("click", handleClickOutside);
-    } else {
-      unsubscribe();
-    }
-
-    return unsubscribe;
-  }, [isActive]);
+  useClickOutside([isActive, setIsActive], optionsContainer?.current);
 
   return (
     <Context.Provider value={toggle}>
