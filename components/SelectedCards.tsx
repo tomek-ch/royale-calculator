@@ -37,6 +37,11 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
     modal.toggle();
   };
 
+  const setFromLevel = (fromLevel: number) =>
+    setSelectedCard((prev) => ({ ...(prev as SelectedCard), fromLevel }));
+  const setToLevel = (toLevel: number) =>
+    setSelectedCard((prev) => ({ ...(prev as SelectedCard), toLevel }));
+
   return (
     <>
       <h2 className="mt-5 mb-3">Selected cards</h2>
@@ -50,6 +55,8 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
             selectedCard={selectedCard}
             addToDeck={addSelectedCard}
             goBack={resetCard}
+            setFromLevel={setFromLevel}
+            setToLevel={setToLevel}
           />
         ) : (
           <CardSearch cards={cards} onCardSelect={selectCard} />

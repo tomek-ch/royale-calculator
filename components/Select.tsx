@@ -56,7 +56,7 @@ export const SelectOptions = ({ children }: { children: ReactNode }) => {
   return (
     <div
       ref={ref}
-      className="absolute flex flex-col bg-white shadow-md w-full rounded-b-md"
+      className="absolute flex flex-col bg-white shadow-md w-full rounded-b-md max-h-36 overflow-auto"
     >
       {children}
     </div>

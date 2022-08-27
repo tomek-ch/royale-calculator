@@ -1,3 +1,4 @@
+import { getRange } from "../utils/range";
 import { SelectedCard } from "../utils/types";
 import { Button } from "./Button";
 import { ArrowLeft } from "./icons/ArrowLeft";
@@ -8,13 +9,23 @@ interface CardUpgradeFormProps {
   selectedCard: SelectedCard;
   addToDeck: () => void;
   goBack: () => void;
+  setFromLevel: (fromLevel: number) => void;
+  setToLevel: (toLevel: number) => void;
 }
 
 export const CardUpgradeForm = ({
   selectedCard,
   addToDeck,
   goBack,
+  setFromLevel,
+  setToLevel,
 }: CardUpgradeFormProps) => {
+  const handleFromLevelChange = (value: number) => {
+    if (value > selectedCard.toLevel) {
+      setToLevel(Math.min(14, value + 1));
+    }
+    setFromLevel(value);
+  };
   return (
     <>
       <h3 className="mb-3 flex gap-2">
@@ -26,11 +37,14 @@ export const CardUpgradeForm = ({
       <SelectedCardData selectedCard={selectedCard} withShadow={false} />
       <div>
         <div className="mt-4 mb-2">What level is your card?</div>
-        <Select selected={1} onChange={console.log} className="w-16">
-          <SelectBtn>1</SelectBtn>
+        <Select selected={1} onChange={handleFromLevelChange} className="w-16">
+          <SelectBtn>{selectedCard.fromLevel}</SelectBtn>
           <SelectOptions>
-            <SelectOption value={1}>1</SelectOption>
-            <SelectOption value={2}>2</SelectOption>
+            {getRange(selectedCard.card.startingLevel - 1, 14).map((n) => (
+              <SelectOption key={n} value={n}>
+                {n}
+              </SelectOption>
+            ))}
           </SelectOptions>
         </Select>
       </div>
@@ -38,11 +52,14 @@ export const CardUpgradeForm = ({
         <div className="mt-4 mb-2">
           What level do you want to upgrade it to?
         </div>
-        <Select selected={1} onChange={console.log} className="w-16">
-          <SelectBtn>1</SelectBtn>
+        <Select selected={1} onChange={setToLevel} className="w-16">
+          <SelectBtn>{selectedCard.toLevel}</SelectBtn>
           <SelectOptions>
-            <SelectOption value={1}>1</SelectOption>
-            <SelectOption value={2}>2</SelectOption>
+            {getRange(selectedCard.fromLevel, 14).map((n) => (
+              <SelectOption key={n} value={n}>
+                {n}
+              </SelectOption>
+            ))}
           </SelectOptions>
         </Select>
       </div>

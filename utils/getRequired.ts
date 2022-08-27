@@ -18,7 +18,7 @@ const goldRequired = {
   champion: [35000, 75000, 100000],
 };
 
-const sum = (arr: number[]) => arr.reduce((sum, n) => sum + n);
+const sum = (arr: number[]) => arr.reduce((sum, n) => sum + n, 0);
 
 const levelOffsets = Object.fromEntries(
   Object.entries(rarities).map(([offset, rarity]) => [
