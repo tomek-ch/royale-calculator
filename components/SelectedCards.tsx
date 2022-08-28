@@ -3,18 +3,29 @@ import { Card, SelectedCard } from "../utils/types";
 import { Button } from "./Button";
 import { Modal } from "./Modal";
 import { SelectedCardsList } from "./SelectedCardsList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CardSearch } from "./CardSearch";
 import { CardUpgradeForm } from "./CardUpgradeForm";
+import { getFromStorage } from "../utils/getFromStorage";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface SelectedCardsProps {
   cards: Card[];
 }
 
+const STORAGE_KEY = "cards";
+
 export const SelectedCards = ({ cards }: SelectedCardsProps) => {
   const [myCards, setMyCards] = useState<SelectedCard[]>([]);
-  const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null);
+  const [isHydrated, setIsHydrated] = useState(false);
 
+  useLocalStorage(STORAGE_KEY, myCards, isHydrated);
+  useEffect(() => {
+    setMyCards(getFromStorage(STORAGE_KEY));
+    setIsHydrated(true);
+  }, []);
+
+  const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null);
   const selectCard = (card: Card) => {
     if (!myCards.find(({ card: { id } }) => id === card.id)) {
       setSelectedCard({
@@ -48,7 +59,7 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
   return (
     <>
       <h2 className="mt-5 mb-3">Selected cards</h2>
-      <SelectedCardsList cards={myCards} remove={remove} />
+      {isHydrated && <SelectedCardsList cards={myCards} remove={remove} />}
       <Button variant="primary" className="mt-3 ml-auto" onClick={modal.toggle}>
         Add a card
       </Button>
