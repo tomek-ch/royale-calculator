@@ -3,9 +3,8 @@ export const getRange = (
   to: number,
   arr: number[] = []
 ): number[] => {
-  if (from === to) {
+  if (from > to) {
     return arr;
   }
-  const i = from + 1;
-  return getRange(i, to, [...arr, i]);
+  return getRange(from + 1, to, [...arr, from]);
 };

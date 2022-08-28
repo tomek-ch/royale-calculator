@@ -22,7 +22,7 @@ export const CardUpgradeForm = ({
 }: CardUpgradeFormProps) => {
   const handleFromLevelChange = (value: number) => {
     if (value > selectedCard.toLevel) {
-      setToLevel(Math.min(14, value + 1));
+      setToLevel(value);
     }
     setFromLevel(value);
   };
@@ -40,7 +40,7 @@ export const CardUpgradeForm = ({
         <Select selected={1} onChange={handleFromLevelChange} className="w-16">
           <SelectBtn>{selectedCard.fromLevel}</SelectBtn>
           <SelectOptions>
-            {getRange(selectedCard.card.startingLevel - 1, 14).map((n) => (
+            {getRange(selectedCard.card.startingLevel, 14).map((n) => (
               <SelectOption key={n} value={n}>
                 {n}
               </SelectOption>

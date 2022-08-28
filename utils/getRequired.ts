@@ -32,7 +32,7 @@ const getRequired =
   ({ card, fromLevel, toLevel }: SelectedCard) => {
     const range = data[card.rarity].slice(
       fromLevel - 1 - levelOffsets[card.rarity],
-      toLevel - levelOffsets[card.rarity]
+      toLevel - 1 - levelOffsets[card.rarity]
     );
     return sum(range);
   };
