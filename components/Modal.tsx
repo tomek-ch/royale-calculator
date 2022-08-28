@@ -33,7 +33,7 @@ export const Modal = ({
   size = "md",
   children,
   toggle,
-  isOpen,
+  isActive,
   isExiting,
   finishExit,
 }: ModalProps) => {
@@ -42,7 +42,7 @@ export const Modal = ({
       ? ["animate-pop-up", "animate-hide"]
       : ["animate-slide-up", "animate-slide-down"];
 
-  if (isOpen) {
+  if (isActive) {
     return (
       <>
         <div

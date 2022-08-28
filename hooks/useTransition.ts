@@ -2,24 +2,24 @@ import { useState } from "react";
 import { flushSync } from "react-dom";
 
 export const useTransition = ({ onClose } = { onClose: () => {} }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
 
   const toggle = () => {
-    if (isOpen) {
+    if (isActive) {
       setIsExiting(true);
     } else {
-      setIsOpen(true);
+      setIsActive(true);
     }
   };
 
   const finishExit = () => {
     flushSync(() => {
       setIsExiting(false);
-      setIsOpen(false);
+      setIsActive(false);
       onClose();
     });
   };
 
-  return { isOpen, isExiting, toggle, finishExit };
+  return { isActive, isExiting, toggle, finishExit };
 };
