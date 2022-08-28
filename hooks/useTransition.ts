@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { flushSync } from "react-dom";
 
-export const useModal = ({ onClose } = { onClose: () => {} }) => {
+export const useTransition = ({ onClose } = { onClose: () => {} }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
 

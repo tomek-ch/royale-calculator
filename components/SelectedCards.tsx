@@ -1,4 +1,4 @@
-import { useModal } from "../hooks/useModal";
+import { useTransition } from "../hooks/useTransition";
 import { Card, SelectedCard } from "../utils/types";
 import { Button } from "./Button";
 import { Modal } from "./Modal";
@@ -30,7 +30,7 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
     setSelectedCard(null);
   };
 
-  const modal = useModal({ onClose: resetCard });
+  const modal = useTransition({ onClose: resetCard });
 
   const addSelectedCard = () => {
     setMyCards((prev) => [...prev, selectedCard as SelectedCard]);
