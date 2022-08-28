@@ -35,7 +35,7 @@ export const SelectOption = <T,>({
   children: ReactNode;
   value: T;
 }) => {
-  const { onChange, toggle } = useContext(Context);
+  const { onChange, toggle, isActive } = useContext(Context);
 
   const handleClick = () => {
     onChange(value);
@@ -44,6 +44,7 @@ export const SelectOption = <T,>({
 
   return (
     <button
+      {...(isActive ? {} : { tabIndex: -1 })}
       onClick={handleClick}
       className="text-left py-1 px-3 hover:bg-slate-100 transition-all"
     >
