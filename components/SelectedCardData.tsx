@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { getRequiredCards, getRequiredGold } from "../utils/getRequired";
 import { SelectedCard } from "../utils/types";
 import { CardImg } from "./CardImg";
@@ -6,11 +7,13 @@ import { Option, Options } from "./Options";
 interface SelectedCardDataProps {
   selectedCard: SelectedCard;
   withShadow?: boolean;
+  options?: ReactNode;
 }
 
 export const SelectedCardData = ({
   selectedCard,
   withShadow = true,
+  options,
 }: SelectedCardDataProps) => {
   return (
     <div
@@ -22,10 +25,7 @@ export const SelectedCardData = ({
       <div className="flex flex-col gap-2 flex-grow">
         <h4 className="text-lg font-medium flex justify-between items-center">
           {selectedCard.card.name}
-          <Options>
-            <Option onClick={() => {}}>Edit</Option>
-            <Option onClick={() => {}}>Remove</Option>
-          </Options>
+          {options}
         </h4>
         <div>Level {selectedCard.fromLevel}</div>
         <div>

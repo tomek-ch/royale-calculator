@@ -6,7 +6,6 @@ import { SelectedCardsList } from "./SelectedCardsList";
 import { useState } from "react";
 import { CardSearch } from "./CardSearch";
 import { CardUpgradeForm } from "./CardUpgradeForm";
-import { getRequiredCards, getRequiredGold } from "../utils/getRequired";
 
 interface SelectedCardsProps {
   cards: Card[];
@@ -42,10 +41,14 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
   const setToLevel = (toLevel: number) =>
     setSelectedCard((prev) => ({ ...(prev as SelectedCard), toLevel }));
 
+  const remove = (selectedCard: SelectedCard) => {
+    setMyCards((prev) => prev.filter((card) => card !== selectedCard));
+  };
+
   return (
     <>
       <h2 className="mt-5 mb-3">Selected cards</h2>
-      <SelectedCardsList cards={myCards} />
+      <SelectedCardsList cards={myCards} remove={remove} />
       <Button variant="primary" className="mt-3 ml-auto" onClick={modal.toggle}>
         Add a card
       </Button>
