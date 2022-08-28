@@ -1,5 +1,6 @@
-import { createContext, ReactNode, useContext, useRef, useState } from "react";
+import { createContext, ReactNode, useContext, useRef } from "react";
 import { useClickOutside } from "../hooks/useClickOutside";
+import { useTransition } from "../hooks/useTransition";
 
 interface SelectProps<T> {
   selected: T;
@@ -69,21 +70,27 @@ export const Select = <T,>({
   onChange,
   className = "",
 }: SelectProps<T>) => {
-  const [isActive, setIsActive] = useState(false);
+  const { isActive, toggle, isExiting, finishExit } = useTransition();
 
   const ref = useRef<HTMLDivElement | null>(null);
-  const toggle = () => setIsActive((prev) => !prev);
   useClickOutside([isActive, toggle], ref?.current);
 
   return (
     <Context.Provider value={{ isActive, toggle, selected, onChange }}>
       <div className="relative h-9">
         <div
-          style={isActive ? { height: ref.current?.scrollHeight } : {}}
-          className={`outline outline-blue-500 absolute top-0 rounded-md transition-all overflow-hidden ${className} ${
-            isActive ? "z-10 outline-2" : "h-full outline-0"
+          style={
+            isExiting || !isActive ? {} : { height: ref.current?.scrollHeight }
+          }
+          className={`h-full outline outline-blue-500 absolute top-0 rounded-md transition-all overflow-hidden ${className} ${
+            isActive ? "z-10 outline-2" : "outline-0"
           }`}
           ref={ref}
+          onTransitionEnd={() => {
+            if (isExiting) {
+              finishExit();
+            }
+          }}
         >
           {children}
         </div>
