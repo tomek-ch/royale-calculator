@@ -36,7 +36,11 @@ export const CardUpgradeForm = ({
       </h3>
       <SelectedCardData selectedCard={selectedCard} withShadow={false} />
       <div className="mt-4 mb-2">What level is your card?</div>
-      <Select selected={1} onChange={handleFromLevelChange} className="w-16">
+      <Select
+        selected={1}
+        onChange={handleFromLevelChange}
+        className="w-16 z-20"
+      >
         <SelectBtn>{selectedCard.fromLevel}</SelectBtn>
         <SelectOptions>
           {getRange(selectedCard.card.startingLevel, 14).map((n) => (
