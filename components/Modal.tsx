@@ -18,11 +18,11 @@ const sizeClasses = {
 
 const modalStyles = {
   modal: {
-    body: "rounded-md",
+    body: "rounded-xl",
     wrapper: "p4 top-1/2 -translate-y-1/2 p-4",
   },
   drawer: {
-    body: "rounded-t-md h-full",
+    body: "rounded-t-xl h-full",
     wrapper: "bottom-0 h-full top-10",
   },
 };
