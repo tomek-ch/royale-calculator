@@ -56,11 +56,9 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
     modal.toggle();
   };
 
-  const addSelectedCard = () => {
-    const isEditing = myCards.find(
-      ({ card }) => card === (selectedCard as SelectedCard).card
-    );
+  const isEditing = !!myCards.find(({ card }) => card === selectedCard?.card);
 
+  const addSelectedCard = () => {
     if (isEditing) {
       setMyCards((prev) =>
         prev.map((item) =>
@@ -92,7 +90,11 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
       <Button variant="primary" className="mt-3 ml-auto" onClick={modal.toggle}>
         Add a card
       </Button>
-      <Modal {...modal} type="drawer" title="Add a card">
+      <Modal
+        {...modal}
+        type="drawer"
+        title={isEditing ? "Editing card" : "Add a card"}
+      >
         {selectedCard ? (
           <CardUpgradeForm
             selectedCard={selectedCard}
@@ -100,6 +102,7 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
             goBack={resetCard}
             setFromLevel={setFromLevel}
             setToLevel={setToLevel}
+            isEditing={isEditing}
           />
         ) : (
           <CardSearch cards={cards} onCardSelect={selectCard} />

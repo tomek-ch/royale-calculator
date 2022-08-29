@@ -11,6 +11,7 @@ interface CardUpgradeFormProps {
   goBack: () => void;
   setFromLevel: (fromLevel: number) => void;
   setToLevel: (toLevel: number) => void;
+  isEditing: boolean;
 }
 
 export const CardUpgradeForm = ({
@@ -19,6 +20,7 @@ export const CardUpgradeForm = ({
   goBack,
   setFromLevel,
   setToLevel,
+  isEditing,
 }: CardUpgradeFormProps) => {
   const handleFromLevelChange = (value: number) => {
     if (value > selectedCard.toLevel) {
@@ -62,7 +64,7 @@ export const CardUpgradeForm = ({
         </SelectOptions>
       </Select>
       <Button variant="primary" className="mt-3 ml-auto" onClick={addToDeck}>
-        Add to deck
+        {isEditing ? "Save" : "Add to deck"}
       </Button>
     </>
   );
