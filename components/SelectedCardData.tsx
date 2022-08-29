@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import { getRequiredCards, getRequiredGold } from "../utils/getRequired";
 import { SelectedCard } from "../utils/types";
 import { CardImg } from "./CardImg";
-import { Option, Options } from "./Options";
 
 interface SelectedCardDataProps {
   selectedCard: SelectedCard;
