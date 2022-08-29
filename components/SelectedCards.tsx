@@ -9,6 +9,7 @@ import { getFromStorage } from "../utils/getFromStorage";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import dynamic from "next/dynamic";
 import { ArrowLeft } from "./icons/ArrowLeft";
+import { UpgradeSummary } from "./UpgradeSummary";
 
 const SelectedCardsList = dynamic(
   async () => {
@@ -92,6 +93,7 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
       <Button variant="primary" className="mt-3 ml-auto" onClick={modal.toggle}>
         Add a card
       </Button>
+      <UpgradeSummary selectedCards={myCards} />
       <Modal
         {...modal}
         type="drawer"

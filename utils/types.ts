@@ -7,7 +7,7 @@ export const rarities = {
 } as const;
 
 type MaxLevel = keyof typeof rarities;
-type Rarity = typeof rarities[MaxLevel];
+export type Rarity = typeof rarities[MaxLevel];
 
 export interface CardFromApi {
   name: string;
