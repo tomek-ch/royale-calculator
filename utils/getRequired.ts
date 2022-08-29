@@ -18,6 +18,14 @@ const goldRequired = {
   champion: [35000, 75000, 100000],
 };
 
+const xpGained = {
+  common: [4, 5, 6, 10, 25, 50, 100, 200, 400, 600, 800, 1600, 2000],
+  rare: [6, 10, 25, 50, 100, 200, 400, 600, 800, 1600, 2000],
+  epic: [25, 100, 200, 400, 600, 800, 1600, 2000],
+  legendary: [250, 600, 800, 1600, 2000],
+  champion: [800, 1600, 2000],
+};
+
 const sum = (arr: number[]) => arr.reduce((sum, n) => sum + n, 0);
 
 const levelOffsets = Object.fromEntries(
@@ -39,3 +47,4 @@ const getRequired =
 
 export const getRequiredCards = getRequired(cardsRequired);
 export const getRequiredGold = getRequired(goldRequired);
+export const getXpGained = getRequired(xpGained);

@@ -1,5 +1,9 @@
 import { firstCap } from "../utils/firstCap";
-import { getRequiredCards, getRequiredGold } from "../utils/getRequired";
+import {
+  getRequiredCards,
+  getRequiredGold,
+  getXpGained,
+} from "../utils/getRequired";
 import { Rarity, SelectedCard } from "../utils/types";
 
 interface UpgradeSummaryProps {
@@ -11,10 +15,11 @@ export const UpgradeSummary = ({ selectedCards }: UpgradeSummaryProps) => {
     return null;
   }
 
-  const requiredGold = selectedCards.reduce(
-    (acc, item) => acc + getRequiredGold(item),
-    0
-  );
+  const sumCards = (cb: (selectedCard: SelectedCard) => number) =>
+    selectedCards.reduce((acc, item) => acc + cb(item), 0);
+
+  const requiredGold = sumCards(getRequiredGold);
+  const gainedXp = sumCards(getXpGained);
 
   const requiredCards = selectedCards.reduce<Partial<Record<Rarity, number>>>(
     (acc, item) => ({
@@ -39,6 +44,10 @@ export const UpgradeSummary = ({ selectedCards }: UpgradeSummaryProps) => {
             </li>
           ))}
         </ul>
+        <div className="mt-4">
+          Experience gained:{" "}
+          <span className="font-medium">{gainedXp.toLocaleString()}</span>
+        </div>
       </div>
     </div>
   );
