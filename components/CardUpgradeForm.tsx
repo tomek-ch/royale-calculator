@@ -36,7 +36,11 @@ export const CardUpgradeForm = ({
         </button>
         Selected card
       </h3>
-      <SelectedCardData selectedCard={selectedCard} withShadow={false} />
+      <SelectedCardData
+        selectedCard={selectedCard}
+        withShadow={false}
+        onClick={goBack}
+      />
       <div className="mt-4 mb-2">What level is your card?</div>
       <Select
         selected={1}

@@ -22,6 +22,7 @@ export const SelectedCardsList = ({
     <div className="flex flex-col gap-4 sm:grid grid-cols-2 lg:grid-cols-3">
       {cards.map((selectedCard) => (
         <SelectedCardData
+          onClick={() => edit(selectedCard)}
           selectedCard={selectedCard}
           key={selectedCard.card.id}
           options={
