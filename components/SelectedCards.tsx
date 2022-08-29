@@ -88,7 +88,6 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
 
   return (
     <>
-      <h2 className="mt-5 mb-3">Selected cards</h2>
       <SelectedCardsList cards={myCards} remove={remove} edit={edit} />
       <Button variant="primary" className="mt-3 ml-auto" onClick={modal.toggle}>
         Add a card
