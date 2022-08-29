@@ -7,7 +7,7 @@ type Size = keyof typeof sizeClasses;
 type ModalProps = {
   type?: keyof typeof modalStyles;
   size?: Size;
-  title?: string;
+  title?: ReactNode;
   children: ReactNode;
 } & ReturnType<typeof useTransition>;
 

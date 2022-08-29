@@ -8,6 +8,7 @@ import { CardUpgradeForm } from "./CardUpgradeForm";
 import { getFromStorage } from "../utils/getFromStorage";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import dynamic from "next/dynamic";
+import { ArrowLeft } from "./icons/ArrowLeft";
 
 const SelectedCardsList = dynamic(
   async () => {
@@ -83,6 +84,8 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
     setMyCards((prev) => prev.filter((card) => card !== selectedCard));
   };
 
+  const modalTitle = isEditing ? "Editing card" : "Add a card";
+
   return (
     <>
       <h2 className="mt-5 mb-3">Selected cards</h2>
@@ -93,7 +96,18 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
       <Modal
         {...modal}
         type="drawer"
-        title={isEditing ? "Editing card" : "Add a card"}
+        title={
+          selectedCard ? (
+            <div className="mb-3 flex gap-2">
+              <button onClick={resetCard}>
+                <ArrowLeft width={16} />
+              </button>
+              {modalTitle}
+            </div>
+          ) : (
+            modalTitle
+          )
+        }
       >
         {selectedCard ? (
           <CardUpgradeForm

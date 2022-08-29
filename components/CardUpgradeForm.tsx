@@ -30,12 +30,6 @@ export const CardUpgradeForm = ({
   };
   return (
     <>
-      <h3 className="mb-3 flex gap-2">
-        <button onClick={goBack}>
-          <ArrowLeft width={16} />
-        </button>
-        Selected card
-      </h3>
       <SelectedCardData
         selectedCard={selectedCard}
         withShadow={false}

@@ -1,7 +1,8 @@
+import { ReactNode } from "react";
 import { Xmark } from "./icons/Xmark";
 
 interface ModalHeaderProps {
-  title: string;
+  title: ReactNode;
   close: () => void;
 }
 
