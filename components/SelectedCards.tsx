@@ -9,12 +9,21 @@ import { getFromStorage } from "../utils/getFromStorage";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import dynamic from "next/dynamic";
 import { ArrowLeft } from "./icons/ArrowLeft";
-import { UpgradeSummary } from "./UpgradeSummary";
 
 const SelectedCardsList = dynamic(
   async () => {
     const module = await import("./SelectedCardsList");
     return module.SelectedCardsList;
+  },
+  {
+    ssr: false,
+  }
+);
+
+const UpgradeSummary = dynamic(
+  async () => {
+    const module = await import("./UpgradeSummary");
+    return module.UpgradeSummary;
   },
   {
     ssr: false,
