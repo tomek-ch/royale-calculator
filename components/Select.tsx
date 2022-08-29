@@ -83,9 +83,12 @@ export const Select = <T,>({
           style={
             isExiting || !isActive ? {} : { height: ref.current?.scrollHeight }
           }
-          className={`h-full outline outline-blue-500 absolute top-0 rounded-md transition-all overflow-hidden ${className} ${
-            isActive ? "z-10 outline-2" : "outline-0"
-          }`}
+          className={`
+            h-full outline outline-blue-500 absolute top-0 rounded-md transition-all overflow-hidden
+            ${className}
+            ${isActive ? "z-10" : ""}
+            ${isActive && !isExiting ? "outline-2" : "outline-0"}
+          `}
           ref={ref}
           onTransitionEnd={() => {
             if (isExiting) {
