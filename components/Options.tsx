@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useContext, useRef, useState } from "react";
 import { useClickOutside } from "../hooks/useClickOutside";
+import { useTransition } from "../hooks/useTransition";
 import { VerticalDots } from "./icons/VerticalDots";
 
 interface OptionsProps {
@@ -32,11 +33,7 @@ export const Option = ({ children, onClick }: OptionProps) => {
 };
 
 export const Options = ({ children }: OptionsProps) => {
-  const [isActive, setIsActive] = useState(false);
-
-  const toggle = () => {
-    setIsActive((prev) => !prev);
-  };
+  const { isActive, toggle, finishExit, isExiting } = useTransition();
 
   const optionsContainer = useRef<HTMLDivElement | null>(null);
   useClickOutside([isActive, toggle], optionsContainer?.current);
@@ -49,13 +46,23 @@ export const Options = ({ children }: OptionsProps) => {
           className={`
           w-7 h-7 flex justify-center
           items-center rounded-full transition-all
-          ${isActive ? "bg-slate-900/10" : "hover:bg-slate-900/5"}
+          ${isActive && !isExiting ? "bg-slate-900/10" : "hover:bg-slate-900/5"}
           `}
         >
           <VerticalDots height={16} />
         </button>
         {isActive && (
-          <div className="shadow-md py-1 rounded-md absolute bg-white whitespace-nowrap right-0">
+          <div
+            className={`
+            shadow-md py-1 rounded-md absolute bg-white whitespace-nowrap right-0
+            ${isExiting ? "animate-hide" : "animate-pop-up"}
+            `}
+            onAnimationEnd={({ animationName }) => {
+              if (animationName === "hide") {
+                finishExit();
+              }
+            }}
+          >
             {children}
           </div>
         )}
