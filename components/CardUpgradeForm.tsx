@@ -35,34 +35,28 @@ export const CardUpgradeForm = ({
         Selected card
       </h3>
       <SelectedCardData selectedCard={selectedCard} withShadow={false} />
-      <div>
-        <div className="mt-4 mb-2">What level is your card?</div>
-        <Select selected={1} onChange={handleFromLevelChange} className="w-16">
-          <SelectBtn>{selectedCard.fromLevel}</SelectBtn>
-          <SelectOptions>
-            {getRange(selectedCard.card.startingLevel, 14).map((n) => (
-              <SelectOption key={n} value={n}>
-                {n}
-              </SelectOption>
-            ))}
-          </SelectOptions>
-        </Select>
-      </div>
-      <div>
-        <div className="mt-4 mb-2">
-          What level do you want to upgrade it to?
-        </div>
-        <Select selected={1} onChange={setToLevel} className="w-16">
-          <SelectBtn>{selectedCard.toLevel}</SelectBtn>
-          <SelectOptions>
-            {getRange(selectedCard.fromLevel, 14).map((n) => (
-              <SelectOption key={n} value={n}>
-                {n}
-              </SelectOption>
-            ))}
-          </SelectOptions>
-        </Select>
-      </div>
+      <div className="mt-4 mb-2">What level is your card?</div>
+      <Select selected={1} onChange={handleFromLevelChange} className="w-16">
+        <SelectBtn>{selectedCard.fromLevel}</SelectBtn>
+        <SelectOptions>
+          {getRange(selectedCard.card.startingLevel, 14).map((n) => (
+            <SelectOption key={n} value={n}>
+              {n}
+            </SelectOption>
+          ))}
+        </SelectOptions>
+      </Select>
+      <div className="mt-4 mb-2">What level do you want to upgrade it to?</div>
+      <Select selected={1} onChange={setToLevel} className="w-16">
+        <SelectBtn>{selectedCard.toLevel}</SelectBtn>
+        <SelectOptions>
+          {getRange(selectedCard.fromLevel, 14).map((n) => (
+            <SelectOption key={n} value={n}>
+              {n}
+            </SelectOption>
+          ))}
+        </SelectOptions>
+      </Select>
       <Button variant="primary" className="mt-3 ml-auto" onClick={addToDeck}>
         Add to deck
       </Button>
