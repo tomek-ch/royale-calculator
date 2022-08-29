@@ -6,11 +6,13 @@ import { SelectedCardData } from "./SelectedCardData";
 interface SelectedCardsListProps {
   cards: SelectedCard[];
   remove: (selectedCard: SelectedCard) => void;
+  edit: (selectedCard: SelectedCard) => void;
 }
 
 export const SelectedCardsList = ({
   cards,
   remove,
+  edit,
 }: SelectedCardsListProps) => {
   if (!cards.length) {
     return <Alert>No cards selected</Alert>;
@@ -24,7 +26,7 @@ export const SelectedCardsList = ({
           key={selectedCard.card.id}
           options={
             <Options>
-              <Option onClick={() => {}}>Edit</Option>
+              <Option onClick={() => edit(selectedCard)}>Edit</Option>
               <Option onClick={() => remove(selectedCard)}>Remove</Option>
             </Options>
           }

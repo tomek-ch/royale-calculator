@@ -33,7 +33,10 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
 
   const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null);
   const selectCard = (card: Card) => {
-    if (!myCards.find(({ card: { id } }) => id === card.id)) {
+    const editedCard = myCards.find(({ card: { id } }) => id === card.id);
+    if (editedCard) {
+      setSelectedCard(editedCard);
+    } else {
       setSelectedCard({
         card,
         fromLevel: card.startingLevel,
@@ -48,8 +51,28 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
 
   const modal = useTransition({ onClose: resetCard });
 
+  const edit = (selectedCard: SelectedCard) => {
+    setSelectedCard(selectedCard);
+    modal.toggle();
+  };
+
   const addSelectedCard = () => {
-    setMyCards((prev) => [...prev, selectedCard as SelectedCard]);
+    const isEditing = myCards.find(
+      ({ card }) => card === (selectedCard as SelectedCard).card
+    );
+
+    if (isEditing) {
+      setMyCards((prev) =>
+        prev.map((item) =>
+          item.card === (selectedCard as SelectedCard).card
+            ? (selectedCard as SelectedCard)
+            : item
+        )
+      );
+    } else {
+      setMyCards((prev) => [...prev, selectedCard as SelectedCard]);
+    }
+
     modal.toggle();
   };
 
@@ -65,7 +88,7 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
   return (
     <>
       <h2 className="mt-5 mb-3">Selected cards</h2>
-      <SelectedCardsList cards={myCards} remove={remove} />
+      <SelectedCardsList cards={myCards} remove={remove} edit={edit} />
       <Button variant="primary" className="mt-3 ml-auto" onClick={modal.toggle}>
         Add a card
       </Button>
