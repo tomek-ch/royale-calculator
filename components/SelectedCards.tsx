@@ -15,9 +15,7 @@ const SelectedCardsList = dynamic(
     const module = await import("./SelectedCardsList");
     return module.SelectedCardsList;
   },
-  {
-    ssr: false,
-  }
+  { ssr: false }
 );
 
 const UpgradeSummary = dynamic(
@@ -25,22 +23,50 @@ const UpgradeSummary = dynamic(
     const module = await import("./UpgradeSummary");
     return module.UpgradeSummary;
   },
-  {
-    ssr: false,
-  }
+  { ssr: false }
+);
+
+const Tabs = dynamic(
+  async () => {
+    const module = await import("./Tabs");
+    return module.Tabs;
+  },
+  { ssr: false }
 );
 
 interface SelectedCardsProps {
   cards: Card[];
 }
 
-const STORAGE_KEY = "cards";
+const DECKS_STORAGE_KEY = "decks";
+const TAB_STORAGE_KEY = "tab";
 
 export const SelectedCards = ({ cards }: SelectedCardsProps) => {
-  const [myCards, setMyCards] = useState<SelectedCard[]>(
-    getFromStorage(STORAGE_KEY) || []
+  const [decks, setDecks] = useState<SelectedCard[][]>(
+    getFromStorage(DECKS_STORAGE_KEY) || [[]]
   );
-  useLocalStorage(STORAGE_KEY, myCards);
+  const [currentTab, setCurrentTab] = useState(
+    getFromStorage(TAB_STORAGE_KEY) || 0
+  );
+
+  const myCards = decks[currentTab];
+  const setMyCards = (cb: (prev: SelectedCard[]) => SelectedCard[]) =>
+    setDecks((prev) =>
+      prev.map((deck, idx) => {
+        if (idx === currentTab) {
+          return cb(prev[currentTab]);
+        }
+        return deck;
+      })
+    );
+
+  useLocalStorage(DECKS_STORAGE_KEY, decks);
+  useLocalStorage(TAB_STORAGE_KEY, currentTab);
+
+  const addDeck = () => {
+    setDecks((prev) => [...prev, []]);
+    setCurrentTab(decks.length);
+  };
 
   const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null);
   const selectCard = (card: Card) => {
@@ -98,6 +124,12 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
 
   return (
     <>
+      <Tabs
+        tabs={decks.map((_, idx) => `Deck ${idx + 1}`)}
+        onChange={setCurrentTab}
+        onAdd={addDeck}
+        activeTab={currentTab}
+      />
       <SelectedCardsList cards={myCards} remove={remove} edit={edit} />
       <Button variant="primary" className="mt-3 ml-auto" onClick={modal.toggle}>
         Add a card
