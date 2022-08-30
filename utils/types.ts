@@ -6,6 +6,8 @@ export const rarities = {
   [4]: "champion",
 } as const;
 
+export const rarityList = Object.values(rarities);
+
 type MaxLevel = keyof typeof rarities;
 export type Rarity = typeof rarities[MaxLevel];
 

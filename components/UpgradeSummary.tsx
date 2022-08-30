@@ -3,7 +3,7 @@ import {
   getRequiredGold,
   getXpGained,
 } from "../utils/getRequired";
-import { Rarity, SelectedCard } from "../utils/types";
+import { Rarity, rarityList, SelectedCard } from "../utils/types";
 
 interface UpgradeSummaryProps {
   selectedCards: SelectedCard[];
@@ -28,6 +28,18 @@ export const UpgradeSummary = ({ selectedCards }: UpgradeSummaryProps) => {
     {}
   );
 
+  const requiredCardsSorted = rarityList
+    .flatMap((rarity) => {
+      const value = requiredCards[rarity];
+
+      if (value) {
+        return [[rarity, value]];
+      }
+
+      return [];
+    })
+    .reverse();
+
   return (
     <div>
       <div className="p-7 rounded-xl bg-slate-200 mt-4">
@@ -36,7 +48,7 @@ export const UpgradeSummary = ({ selectedCards }: UpgradeSummaryProps) => {
         <span className="font-medium">{requiredGold.toLocaleString()}</span>
         <h4 className="mt-4">Required cards:</h4>
         <ul className="list-disc ml-4 mt-1">
-          {Object.entries(requiredCards).map(([k, v]) => (
+          {requiredCardsSorted.map(([k, v]) => (
             <li className="capitalize">
               {k} - <span className="font-medium">{v.toLocaleString()}</span>
             </li>
