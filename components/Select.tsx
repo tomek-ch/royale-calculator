@@ -86,7 +86,6 @@ export const Select = <T,>({
           className={`
             h-full outline outline-blue-500 absolute top-0 rounded-md transition-all overflow-hidden
             ${className}
-            ${isActive ? "z-10" : ""}
             ${isActive && !isExiting ? "outline-2" : "outline-0"}
           `}
           ref={ref}
