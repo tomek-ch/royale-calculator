@@ -49,7 +49,7 @@ export const UpgradeSummary = ({ selectedCards }: UpgradeSummaryProps) => {
         <h4 className="mt-4">Required cards:</h4>
         <ul className="list-disc ml-4 mt-1">
           {requiredCardsSorted.map(([k, v]) => (
-            <li className="capitalize">
+            <li className="capitalize" key={k}>
               {k} - <span className="font-medium">{v.toLocaleString()}</span>
             </li>
           ))}
