@@ -1,4 +1,3 @@
-import { firstCap } from "../utils/firstCap";
 import {
   getRequiredCards,
   getRequiredGold,
@@ -38,9 +37,8 @@ export const UpgradeSummary = ({ selectedCards }: UpgradeSummaryProps) => {
         <h4 className="mt-4">Required cards:</h4>
         <ul className="list-disc ml-4 mt-1">
           {Object.entries(requiredCards).map(([k, v]) => (
-            <li>
-              {firstCap(k)} -{" "}
-              <span className="font-medium">{v.toLocaleString()}</span>
+            <li className="capitalize">
+              {k} - <span className="font-medium">{v.toLocaleString()}</span>
             </li>
           ))}
         </ul>
