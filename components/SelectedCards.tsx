@@ -68,6 +68,13 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
     setCurrentTab(decks.length);
   };
 
+  const deleteDeck = (idx: number) => {
+    if (currentTab === idx) {
+      setCurrentTab(0);
+    }
+    setDecks((prev) => prev.filter((_, i) => idx !== i));
+  };
+
   const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null);
   const selectCard = (card: Card) => {
     const editedCard = myCards.find(({ card: { id } }) => id === card.id);
@@ -129,6 +136,7 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
         onChange={setCurrentTab}
         onAdd={addDeck}
         activeTab={currentTab}
+        onDelete={deleteDeck}
       />
       <SelectedCardsList cards={myCards} remove={remove} edit={edit} />
       <Button variant="primary" className="mt-3 ml-auto" onClick={modal.toggle}>
