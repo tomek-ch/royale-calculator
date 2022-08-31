@@ -126,6 +126,13 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
 
   const modalTitle = isEditing ? "Editing card" : "Add a card";
 
+  const cancelSelect = () => setSelectedForEdit([]);
+
+  const handleTabChange = (newTab: number) => {
+    cancelSelect();
+    setCurrentTab(newTab);
+  };
+
   return (
     <>
       <Tabs
@@ -135,7 +142,7 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
           }
           return (idx + 1).toString();
         })}
-        onChange={setCurrentTab}
+        onChange={handleTabChange}
         activeTab={currentTab}
       />
       <SelectedCardsList
@@ -144,6 +151,7 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
         edit={edit}
         selectForEdit={selectForEdit}
         selectedList={selectedForEdit}
+        cancelSelect={cancelSelect}
       />
       <Button variant="primary" className="mt-3 ml-auto" onClick={modal.toggle}>
         Add a card
