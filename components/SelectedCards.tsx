@@ -48,6 +48,7 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
   const [currentTab, setCurrentTab] = useState(
     getFromStorage(TAB_STORAGE_KEY) || 0
   );
+  const [selectedForEdit, setSelectedForEdit] = useState<number[]>([]);
 
   const myCards = decks[currentTab];
   const setMyCards = (cb: (prev: SelectedCard[]) => SelectedCard[]) =>
@@ -115,6 +116,14 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
     setMyCards((prev) => prev.filter((card) => card !== selectedCard));
   };
 
+  const selectForEdit = (id: number) =>
+    setSelectedForEdit((prev) => {
+      if (prev.includes(id)) {
+        return prev.filter((item) => item !== id);
+      }
+      return [...prev, id];
+    });
+
   const modalTitle = isEditing ? "Editing card" : "Add a card";
 
   return (
@@ -129,7 +138,13 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
         onChange={setCurrentTab}
         activeTab={currentTab}
       />
-      <SelectedCardsList cards={myCards} remove={remove} edit={edit} />
+      <SelectedCardsList
+        cards={myCards}
+        remove={remove}
+        edit={edit}
+        selectForEdit={selectForEdit}
+        selectedList={selectedForEdit}
+      />
       <Button variant="primary" className="mt-3 ml-auto" onClick={modal.toggle}>
         Add a card
       </Button>

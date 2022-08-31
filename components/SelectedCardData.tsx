@@ -8,6 +8,8 @@ interface SelectedCardDataProps {
   withShadow?: boolean;
   options?: ReactNode;
   onClick: (card: Card) => void;
+  onSelect?: () => void;
+  selected?: boolean;
 }
 
 export const SelectedCardData = ({
@@ -15,12 +17,24 @@ export const SelectedCardData = ({
   withShadow = true,
   options,
   onClick,
+  onSelect,
+  selected,
 }: SelectedCardDataProps) => {
   return (
     <div
       className={`p-4 rounded-xl flex gap-4 items-start ${
         withShadow ? "shadow-md" : "bg-slate-200"
+      } ${onSelect ? "outline outline-2 transition-all" : ""} ${
+        selected
+          ? "outline-blue-500"
+          : "hover:outline-slate-200 outline-transparent"
       }`}
+      onClick={(e) => {
+        if (e.target instanceof HTMLButtonElement) {
+          return;
+        }
+        onSelect?.();
+      }}
     >
       <CardBtn card={selectedCard.card} onClick={onClick} />
       <div className="flex flex-col gap-2 flex-grow">

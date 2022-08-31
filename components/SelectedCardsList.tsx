@@ -7,12 +7,16 @@ interface SelectedCardsListProps {
   cards: SelectedCard[];
   remove: (selectedCard: SelectedCard) => void;
   edit: (selectedCard: SelectedCard) => void;
+  selectForEdit: (id: number) => void;
+  selectedList: number[];
 }
 
 export const SelectedCardsList = ({
   cards,
   remove,
   edit,
+  selectForEdit,
+  selectedList,
 }: SelectedCardsListProps) => {
   if (!cards.length) {
     return <Alert>No cards selected</Alert>;
@@ -31,6 +35,8 @@ export const SelectedCardsList = ({
               <Option onClick={() => remove(selectedCard)}>Remove</Option>
             </Options>
           }
+          onSelect={() => selectForEdit(selectedCard.card.id)}
+          selected={selectedList.includes(selectedCard.card.id)}
         />
       ))}
     </div>
