@@ -43,7 +43,7 @@ const TAB_STORAGE_KEY = "tab";
 
 export const SelectedCards = ({ cards }: SelectedCardsProps) => {
   const [decks, setDecks] = useState<SelectedCard[][]>(
-    getFromStorage(DECKS_STORAGE_KEY) || [[]]
+    getFromStorage(DECKS_STORAGE_KEY) || [[], [], [], [], []]
   );
   const [currentTab, setCurrentTab] = useState(
     getFromStorage(TAB_STORAGE_KEY) || 0
@@ -62,18 +62,6 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
 
   useLocalStorage(DECKS_STORAGE_KEY, decks);
   useLocalStorage(TAB_STORAGE_KEY, currentTab);
-
-  const addDeck = () => {
-    setDecks((prev) => [...prev, []]);
-    setCurrentTab(decks.length);
-  };
-
-  const deleteDeck = (idx: number) => {
-    if (currentTab === idx) {
-      setCurrentTab(0);
-    }
-    setDecks((prev) => prev.filter((_, i) => idx !== i));
-  };
 
   const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null);
   const selectCard = (card: Card) => {
@@ -132,11 +120,14 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
   return (
     <>
       <Tabs
-        tabs={decks.map((_, idx) => `Deck ${idx + 1}`)}
+        tabs={decks.map((_, idx) => {
+          if (idx === currentTab) {
+            return `Deck ${idx + 1}`;
+          }
+          return (idx + 1).toString();
+        })}
         onChange={setCurrentTab}
-        onAdd={addDeck}
         activeTab={currentTab}
-        onDelete={deleteDeck}
       />
       <SelectedCardsList cards={myCards} remove={remove} edit={edit} />
       <Button variant="primary" className="mt-3 ml-auto" onClick={modal.toggle}>
