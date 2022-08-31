@@ -30,7 +30,10 @@ export const SelectedCardData = ({
           : "hover:outline-slate-200 outline-transparent"
       }`}
       onClick={(e) => {
-        if (e.target instanceof HTMLButtonElement) {
+        if (
+          e.target instanceof HTMLButtonElement ||
+          e.target instanceof SVGElement
+        ) {
           return;
         }
         onSelect?.();
