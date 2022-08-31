@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { useNoScroll } from "../hooks/useNoScroll";
 import { useTransition } from "../hooks/useTransition";
 import { ModalHeader } from "./ModalHeader";
 
@@ -37,6 +38,8 @@ export const Modal = ({
   isExiting,
   finishExit,
 }: ModalProps) => {
+  useNoScroll(isActive);
+
   const [enteringAnimation, exitingAnimation] =
     type === "modal"
       ? ["animate-pop-up", "animate-hide"]
