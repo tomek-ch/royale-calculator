@@ -12,24 +12,24 @@ import { ArrowLeft } from "./icons/ArrowLeft";
 
 const SelectedCardsList = dynamic(
   async () => {
-    const module = await import("./SelectedCardsList");
-    return module.SelectedCardsList;
+    const mod = await import("./SelectedCardsList");
+    return mod.SelectedCardsList;
   },
   { ssr: false }
 );
 
 const UpgradeSummary = dynamic(
   async () => {
-    const module = await import("./UpgradeSummary");
-    return module.UpgradeSummary;
+    const mod = await import("./UpgradeSummary");
+    return mod.UpgradeSummary;
   },
   { ssr: false }
 );
 
 const Tabs = dynamic(
   async () => {
-    const module = await import("./Tabs");
-    return module.Tabs;
+    const mod = await import("./Tabs");
+    return mod.Tabs;
   },
   { ssr: false }
 );
