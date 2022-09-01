@@ -25,9 +25,7 @@ export const SelectedCardData = ({
       className={`p-4 rounded-xl flex gap-4 items-start ${
         withShadow ? "shadow-md" : "bg-slate-200"
       } ${onSelect ? "outline outline-2 transition-all" : ""} ${
-        selected
-          ? "outline-blue-500"
-          : "hover:outline-slate-200 outline-transparent"
+        selected ? "outline-blue-500" : "outline-transparent"
       }`}
       onClick={(e) => {
         if (
