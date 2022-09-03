@@ -25,7 +25,7 @@ export const Option = ({ children, onClick }: OptionProps) => {
   return (
     <button
       onClick={handleClick}
-      className="block w-full text-left px-4 py-2 font-normal text-base hover:bg-slate-100 transition-all"
+      className="block w-full text-left px-4 py-2 font-normal text-base hover:bg-slate-100 transition-all rounded-md"
     >
       {children}
     </button>
@@ -54,7 +54,7 @@ export const Options = ({ children }: OptionsProps) => {
         {isActive && (
           <div
             className={`
-            shadow-md py-1 rounded-md absolute bg-white whitespace-nowrap right-0
+            shadow-lg p-1 rounded-lg absolute bg-white whitespace-nowrap right-0
             ${isExiting ? "animate-hide" : "animate-pop-up"}
             `}
             onAnimationEnd={({ animationName }) => {
