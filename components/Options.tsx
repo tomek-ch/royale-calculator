@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useRef, useState } from "react";
+import { createContext, ReactNode, useContext, useRef } from "react";
 import { useClickOutside } from "../hooks/useClickOutside";
 import { useTransition } from "../hooks/useTransition";
 import { VerticalDots } from "./icons/VerticalDots";
@@ -36,7 +36,7 @@ export const Options = ({ children }: OptionsProps) => {
   const { isActive, toggle, finishExit, isExiting } = useTransition();
 
   const optionsContainer = useRef<HTMLDivElement | null>(null);
-  useClickOutside([isActive, toggle], optionsContainer?.current);
+  useClickOutside([optionsContainer], toggle, isActive);
 
   return (
     <Context.Provider value={toggle}>

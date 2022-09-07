@@ -28,6 +28,7 @@ export interface Card {
 
 export interface SelectedCard {
   card: Card;
+  isSelected: boolean;
   fromLevel: number;
   toLevel: number;
 }

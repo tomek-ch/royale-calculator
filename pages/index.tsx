@@ -1,8 +1,13 @@
 import type { GetStaticProps, NextPage } from "next";
+import dynamic from "next/dynamic";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
-import { SelectedCards } from "../components/SelectedCards";
 import { Card, CardFromApi, rarities } from "../utils/types";
+
+const SelectedCards = dynamic(
+  async () => (await import("../components/SelectedCards")).SelectedCards,
+  { ssr: false }
+);
 
 type HomeProps = {
   cards: Card[];

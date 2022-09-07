@@ -21,7 +21,7 @@ export const SelectBtn = ({ children }: { children: ReactNode }) => {
   return (
     <button
       onClick={toggle}
-      className={`py-2 px-3 leading-5 bg-gray-200 w-full text-left`}
+      className={`py-2 px-3 leading-5 bg-gray-200 hover:bg-gray-300 transition-colors w-full text-left`}
     >
       {children}
     </button>
@@ -54,11 +54,12 @@ export const SelectOption = <T,>({
 };
 
 export const SelectOptions = ({ children }: { children: ReactNode }) => {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const { isActive } = useContext(Context);
   return (
     <div
-      ref={ref}
-      className="absolute flex flex-col bg-white shadow-md w-full rounded-b-md max-h-36 overflow-auto"
+      className={`absolute flex flex-col bg-white shadow-md w-full rounded-b-md max-h-36 ${
+        isActive ? "overflow-auto" : "overflow-hidden"
+      }`}
     >
       {children}
     </div>
@@ -74,18 +75,17 @@ export const Select = <T,>({
   const { isActive, toggle, isExiting, finishExit } = useTransition();
 
   const ref = useRef<HTMLDivElement | null>(null);
-  useClickOutside([isActive, toggle], ref?.current);
+  useClickOutside([ref], toggle, isActive);
 
   return (
     <Context.Provider value={{ isActive, toggle, selected, onChange }}>
-      <div className="relative h-9">
+      <div className={`relative h-9 ${className}`}>
         <div
           style={
             isExiting || !isActive ? {} : { height: ref.current?.scrollHeight }
           }
           className={`
-            h-full outline outline-blue-500 absolute top-0 rounded-md transition-all overflow-hidden
-            ${className}
+            h-full w-full outline outline-blue-500 absolute top-0 rounded-md transition-all overflow-hidden
             ${isActive && !isExiting ? "outline-2" : "outline-0"}
           `}
           ref={ref}

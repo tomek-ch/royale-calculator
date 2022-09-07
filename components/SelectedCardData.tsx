@@ -30,7 +30,8 @@ export const SelectedCardData = ({
       onClick={(e) => {
         if (
           e.target instanceof HTMLButtonElement ||
-          e.target instanceof SVGElement
+          e.target instanceof SVGElement ||
+          e.target instanceof HTMLImageElement
         ) {
           return;
         }

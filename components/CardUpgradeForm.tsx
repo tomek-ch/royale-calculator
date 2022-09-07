@@ -1,7 +1,6 @@
 import { getRange } from "../utils/range";
 import { SelectedCard } from "../utils/types";
 import { Button } from "./Button";
-import { ArrowLeft } from "./icons/ArrowLeft";
 import { Select, SelectBtn, SelectOption, SelectOptions } from "./Select";
 import { SelectedCardData } from "./SelectedCardData";
 

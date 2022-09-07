@@ -1,25 +1,20 @@
-import { useEffect } from "react";
+import { RefObject } from "react";
+import { useEventListener } from "./useEventListener";
 
 export const useClickOutside = (
-  [isActive, toggle]: [boolean, () => void],
-  element: HTMLElement | null
+  refs: RefObject<(HTMLElement | null) | (HTMLElement | null)[]>[],
+  onClickOutside: () => void,
+  enabled: boolean
 ) => {
-  const handleClickOutside = (event: Event) => {
-    if (!element?.contains(event.target as Node)) {
-      toggle();
+  const handleClickOutside = (e: Event) => {
+    const isOutsideItems = refs
+      .flatMap(({ current }) => current)
+      .every((element) => !element?.contains(e.target as Node));
+
+    if (isOutsideItems) {
+      onClickOutside();
     }
   };
 
-  useEffect(() => {
-    const unsubscribe = () =>
-      document.removeEventListener("click", handleClickOutside);
-
-    if (isActive) {
-      document.addEventListener("click", handleClickOutside);
-    } else {
-      unsubscribe();
-    }
-
-    return unsubscribe;
-  }, [isActive]);
+  useEventListener(document, "click", handleClickOutside, enabled, refs);
 };

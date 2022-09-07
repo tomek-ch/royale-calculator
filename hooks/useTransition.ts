@@ -1,15 +1,34 @@
 import { useState } from "react";
 import { flushSync } from "react-dom";
 
-export const useTransition = ({ onClose } = { onClose: () => {} }) => {
+export const useTransition = ({
+  onClose,
+  onOpen,
+}: {
+  onOpen?: () => void;
+  onClose?: () => void;
+} = {}) => {
   const [isActive, setIsActive] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
+
+  const open = () => {
+    onOpen?.();
+    setIsActive(true);
+  };
 
   const toggle = () => {
     if (isActive) {
       setIsExiting(true);
     } else {
-      setIsActive(true);
+      open();
+    }
+  };
+
+  const set = (value: boolean) => {
+    if (value) {
+      open();
+    } else if (isActive) {
+      setIsExiting(true);
     }
   };
 
@@ -17,9 +36,11 @@ export const useTransition = ({ onClose } = { onClose: () => {} }) => {
     flushSync(() => {
       setIsExiting(false);
       setIsActive(false);
-      onClose();
+      onClose?.();
     });
   };
 
-  return { isActive, isExiting, toggle, finishExit };
+  return { isActive, isExiting, toggle, finishExit, set };
 };
+
+export type Transition = ReturnType<typeof useTransition>;

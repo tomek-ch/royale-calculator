@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { Spinner } from "./icons/Spinner";
 
 type Variant = keyof typeof styles;
+type Size = keyof typeof sizes;
 
 type ButtonProps = {
   variant?: Variant;
@@ -9,13 +10,19 @@ type ButtonProps = {
   className?: string;
   onClick?: () => void;
   loading?: boolean;
+  size?: Size;
 };
 
 const styles = {
   primary:
     "bg-blue-500 text-white hover:bg-blue-600 disabled:hover:bg-blue-500",
   secondary: "border-solid border-[1px] border-gray-300 hover:border-gray-400",
-  round: "h-8 w-8 grid place-content-center hover:bg-slate-100 rounded-full",
+  round: "grid place-content-center hover:bg-slate-100 rounded-full",
+} as const;
+
+const sizes = {
+  sm: "h-8 w-8",
+  md: "h-10 w-10",
 } as const;
 
 export const Button = ({
@@ -24,6 +31,7 @@ export const Button = ({
   className = "",
   onClick,
   loading,
+  size = "sm",
 }: ButtonProps) => {
   return (
     <button
@@ -33,7 +41,7 @@ export const Button = ({
       active:scale-95 active:disabled:scale-100 relative
       ${styles[variant]}
       ${loading ? "text-transparent" : ""}
-      ${variant === "round" ? "" : "py-2 px-4 rounded-md"}
+      ${variant === "round" ? sizes[size] : "py-2 px-4 rounded-md"}
       ${className}
     `}
       onClick={() => onClick?.()}

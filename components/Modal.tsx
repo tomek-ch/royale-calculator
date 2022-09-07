@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { useNoScroll } from "../hooks/useNoScroll";
-import { useTransition } from "../hooks/useTransition";
+import { Transition } from "../hooks/useTransition";
 import { ModalHeader } from "./ModalHeader";
 
 type Size = keyof typeof sizeClasses;
@@ -10,7 +10,7 @@ type ModalProps = {
   size?: Size;
   title?: ReactNode;
   children: ReactNode;
-} & ReturnType<typeof useTransition>;
+} & Transition;
 
 const sizeClasses = {
   sm: "max-w-sm",
