@@ -32,3 +32,21 @@ export interface SelectedCard {
   fromLevel: number;
   toLevel: number;
 }
+
+export interface PlayerCard {
+  id: number;
+  level: number;
+  count: number;
+}
+
+export interface PlayerFromApi {
+  name: string;
+  cards: PlayerCard[];
+  currentDeck: PlayerCard[];
+}
+
+export interface Player {
+  name: string;
+  cards: PlayerCard[];
+  currentDeck: number[];
+}

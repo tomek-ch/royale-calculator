@@ -9,7 +9,7 @@ interface CardSearchProps {
 }
 
 export const CardSearch = ({ cards, onCardSelect }: CardSearchProps) => {
-  const { input, handleChange } = useInput();
+  const [input, handleChange] = useInput();
   return (
     <>
       <Input
