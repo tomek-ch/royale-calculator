@@ -37,7 +37,7 @@ export const UpdateManyModal = ({
         numberOfSelected > 1 ? "items" : "item"
       }`}
     >
-      Upgrade cards from level
+      Upgrade from level
       <Select
         selected={inputFrom}
         onChange={setInputFrom}
@@ -53,7 +53,7 @@ export const UpdateManyModal = ({
             ))}
         </SelectOptions>
       </Select>
-      Upgrade cards to level
+      Upgrade to level
       <Select selected={inputTo} onChange={setInputTo} className="w-20 mt-2">
         <SelectBtn>{inputTo || "Mixed"}</SelectBtn>
         <SelectOptions>
