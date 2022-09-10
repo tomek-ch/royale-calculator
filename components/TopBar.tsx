@@ -10,8 +10,6 @@ export const TopBar = ({
   children,
   transition: { isExiting, isActive, finishExit },
 }: BottomBarProps) => {
-  console.log({ isExiting });
-
   if (!isActive) {
     return null;
   }

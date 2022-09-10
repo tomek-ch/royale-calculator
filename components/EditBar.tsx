@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { Transition } from "../hooks/useTransition";
 import { BottomBar } from "./BottomBar";
 import { Button } from "./Button";
@@ -15,6 +16,25 @@ interface EditBarProps {
   cancel: () => void;
   itemsSelected: number;
 }
+
+const EditBarBtn = ({
+  icon,
+  label,
+  onClick,
+}: {
+  icon: ReactNode;
+  label: string;
+  onClick: () => void;
+}) => {
+  return (
+    <label className="flex flex-col items-center w-20 md:w-auto">
+      <Button variant="round" size="md" onClick={onClick}>
+        {icon}
+      </Button>
+      <div className="md:hidden -mt-1">{label}</div>
+    </label>
+  );
+};
 
 export const EditBar = ({
   edit,
@@ -41,16 +61,16 @@ export const EditBar = ({
       <BottomBar transition={transition}>
         <div className="flex gap-6 items-center justify-between">
           <div className="ml-1 hidden md:block">{itemsSelected} selected</div>
-          <div className="flex gap-6 md:gap-2 w-full md:w-auto justify-center">
-            <Button variant="round" size="md" onClick={selectAll}>
-              <Check width="20" />
-            </Button>
-            <Button variant="round" size="md" onClick={edit}>
-              <Edit width="20" />
-            </Button>
-            <Button variant="round" size="md" onClick={remove}>
-              <Trash width="20" />
-            </Button>
+          <div className="flex md:gap-2 w-full md:w-auto justify-evenly">
+            {(
+              [
+                ["Select all", selectAll, <Check width="20" />],
+                ["Edit", edit, <Edit width="20" />],
+                ["Delete", remove, <Trash width="20" />],
+              ] as const
+            ).map(([label, onClick, icon]) => (
+              <EditBarBtn {...{ icon, label, onClick }} />
+            ))}
           </div>
           <Button className="hidden md:block" onClick={cancel}>
             Cancel
