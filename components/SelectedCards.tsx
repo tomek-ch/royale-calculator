@@ -62,14 +62,7 @@ export const SelectedCards = () => {
         }
       >
         {selectedCard ? (
-          <CardUpgradeForm
-            selectedCard={selectedCard}
-            addToDeck={handleAddToDeck}
-            goBack={resetCard}
-            setFromLevel={setFromLevel}
-            setToLevel={setToLevel}
-            isEditing={isEditing}
-          />
+          <CardUpgradeForm addToDeck={handleAddToDeck} />
         ) : (
           <CardSearch onCardSelect={selectCard} />
         )}

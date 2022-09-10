@@ -1,3 +1,4 @@
+import { useMyContext } from "../context/MyContext";
 import { getRange } from "../utils/range";
 import { SelectedCard } from "../utils/types";
 import { Button } from "./Button";
@@ -5,22 +6,21 @@ import { Select, SelectBtn, SelectOption, SelectOptions } from "./Select";
 import { SelectedCardData } from "./SelectedCardData";
 
 interface CardUpgradeFormProps {
-  selectedCard: SelectedCard;
   addToDeck: () => void;
-  goBack: () => void;
-  setFromLevel: (fromLevel: number) => void;
-  setToLevel: (toLevel: number) => void;
-  isEditing: boolean;
 }
 
-export const CardUpgradeForm = ({
-  selectedCard,
-  addToDeck,
-  goBack,
-  setFromLevel,
-  setToLevel,
-  isEditing,
-}: CardUpgradeFormProps) => {
+export const CardUpgradeForm = ({ addToDeck }: CardUpgradeFormProps) => {
+  const {
+    selectedCard: {
+      isEditing,
+      resetCard: goBack,
+      selectedCard: maybeSelectedCard,
+      setFromLevel,
+      setToLevel,
+    },
+  } = useMyContext();
+  const selectedCard = maybeSelectedCard as SelectedCard;
+
   const handleFromLevelChange = (value: number) => {
     if (value > selectedCard.toLevel) {
       setToLevel(value);
