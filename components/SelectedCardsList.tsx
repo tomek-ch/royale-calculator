@@ -1,18 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useMyContext } from "../context/MyContext";
 import { useClickOutside } from "../hooks/useClickOutside";
 import { useSync } from "../hooks/useSync";
 import { useTransition } from "../hooks/useTransition";
-import { getRange } from "../utils/range";
 import { SelectedCard } from "../utils/types";
 import { Alert } from "./Alert";
-import { Button } from "./Button";
 import { CardsEditBar } from "./CardsEditBar";
-import { EditBar } from "./EditBar";
-import { Modal } from "./Modal";
 import { Option, Options } from "./Options";
-import { Select, SelectBtn, SelectOption, SelectOptions } from "./Select";
 import { SelectedCardData } from "./SelectedCardData";
+import { UpdateManyModal } from "./UpdateManyModal";
 
 interface SelectedCardsListProps {
   edit: (selectedCard: SelectedCard) => void;
@@ -24,16 +20,10 @@ export const SelectedCardsList = ({ edit }: SelectedCardsListProps) => {
     selectedCard: { remove },
     bulkEdit: {
       selectForEdit,
-      selectAll,
       cancelSelect,
-      deleteMany,
       selectedFromLevel,
       selectedToLevel,
-      updateManyFrom,
-      updateManyTo,
-      maxStartLevel,
       isSelectMode,
-      numberOfSelected,
     },
   } = useMyContext();
   const cardTiles = useRef<(HTMLDivElement | null)[]>([]);
@@ -95,70 +85,13 @@ export const SelectedCardsList = ({ edit }: SelectedCardsListProps) => {
         <CardsEditBar transition={editBar} onEdit={updateManyModal.toggle} />
       </div>
       <div ref={modalRef}>
-        <Modal
-          {...updateManyModal}
-          title={`Editing ${numberOfSelected} ${
-            numberOfSelected > 1 ? "items" : "item"
-          }`}
-        >
-          Upgrade cards from level
-          <Select
-            selected={inputFrom}
-            onChange={setInputFrom}
-            className="w-20 mt-2 mb-4 z-10"
-          >
-            <SelectBtn>{inputFrom || "Mixed"}</SelectBtn>
-            <SelectOptions>
-              {isSelectMode &&
-                getRange(maxStartLevel, 14).map((value) => (
-                  <SelectOption key={value} value={value}>
-                    {value}
-                  </SelectOption>
-                ))}
-            </SelectOptions>
-          </Select>
-          Upgrade cards to level
-          <Select
-            selected={inputTo}
-            onChange={setInputTo}
-            className="w-20 mt-2"
-          >
-            <SelectBtn>{inputTo || "Mixed"}</SelectBtn>
-            <SelectOptions>
-              {isSelectMode &&
-                getRange(maxStartLevel, 14).map((value) => (
-                  <SelectOption key={value} value={value}>
-                    {value}
-                  </SelectOption>
-                ))}
-            </SelectOptions>
-          </Select>
-          <div className="flex justify-end gap-2 mt-4">
-            <Button
-              onClick={() => {
-                updateManyModal.toggle();
-                cancelSelect();
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="primary"
-              onClick={() => {
-                if (inputFrom) {
-                  updateManyFrom(inputFrom);
-                }
-                if (inputTo) {
-                  updateManyTo(inputTo);
-                }
-                updateManyModal.toggle();
-                cancelSelect();
-              }}
-            >
-              Save
-            </Button>
-          </div>
-        </Modal>
+        <UpdateManyModal
+          transition={updateManyModal}
+          inputFrom={inputFrom as number}
+          inputTo={inputTo as number}
+          setInputFrom={setInputFrom}
+          setInputTo={setInputTo}
+        />
       </div>
     </>
   );
