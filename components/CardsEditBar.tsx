@@ -1,4 +1,3 @@
-import { forwardRef } from "react";
 import { useMyContext } from "../context/MyContext";
 import { Transition } from "../hooks/useTransition";
 import { EditBar } from "./EditBar";
