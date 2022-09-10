@@ -11,6 +11,7 @@ import { useBulkEdit } from "../hooks/useBulkEdit";
 import { SelectedCardsList } from "./SelectedCardsList";
 import { Tabs } from "./Tabs";
 import { UpgradeSummary } from "./UpgradeSummary";
+import { DeckTabs } from "./DeckTabs";
 
 export const SelectedCards = () => {
   const { currentTab, deck, setCurrentTab, setDeck, decks } = useDecks();
@@ -44,11 +45,6 @@ export const SelectedCards = () => {
   const modal = useTransition({ onClose: resetCard });
   const modalTitle = isEditing ? "Editing card" : "Add a card";
 
-  const handleTabChange = (newTab: number) => {
-    cancelSelect();
-    setCurrentTab(newTab);
-  };
-
   const handleEdit = (newData: SelectedCard) => {
     editSelectedCard(newData);
     modal.toggle();
@@ -61,16 +57,7 @@ export const SelectedCards = () => {
 
   return (
     <>
-      <Tabs
-        tabs={decks.map((_, idx) => {
-          if (idx === currentTab) {
-            return `Deck ${idx + 1}`;
-          }
-          return (idx + 1).toString();
-        })}
-        onChange={handleTabChange}
-        activeTab={currentTab}
-      />
+      <DeckTabs />
       <SelectedCardsList
         cards={deck}
         remove={remove}
