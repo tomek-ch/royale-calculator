@@ -7,6 +7,7 @@ import { getRange } from "../utils/range";
 import { SelectedCard } from "../utils/types";
 import { Alert } from "./Alert";
 import { Button } from "./Button";
+import { CardsEditBar } from "./CardsEditBar";
 import { EditBar } from "./EditBar";
 import { Modal } from "./Modal";
 import { Option, Options } from "./Options";
@@ -90,16 +91,11 @@ export const SelectedCardsList = ({ edit }: SelectedCardsListProps) => {
       ) : (
         <Alert>No cards selected</Alert>
       )}
-      <div ref={editBarRef}>
-        <EditBar
-          cancel={cancelSelect}
-          transition={editBar}
-          itemsSelected={numberOfSelected}
-          remove={deleteMany}
-          selectAll={selectAll}
-          edit={updateManyModal.toggle}
-        />
-      </div>
+      <CardsEditBar
+        ref={editBarRef}
+        transition={editBar}
+        onEdit={updateManyModal.toggle}
+      />
       <div ref={modalRef}>
         <Modal
           {...updateManyModal}
