@@ -24,20 +24,20 @@ export const EditBar = ({
 }: EditBarProps) => {
   return (
     <BottomBar transition={transition}>
-      <div className="flex gap-2 items-center">
-        <div className="mr-4 ml-1">{itemsSelected} selected</div>
-        <Button variant="round" size="md" onClick={selectAll}>
-          <Check width="20" />
-        </Button>
-        <Button variant="round" size="md" onClick={edit}>
-          <Edit width="20" />
-        </Button>
-        <Button variant="round" size="md" onClick={remove}>
-          <Trash width="20" />
-        </Button>
-        <Button className="ml-4" onClick={cancel}>
-          Cancel
-        </Button>
+      <div className="flex gap-6 items-center justify-between">
+        <div className="ml-1">{itemsSelected} selected</div>
+        <div className="flex gap-2">
+          <Button variant="round" size="md" onClick={selectAll}>
+            <Check width="20" />
+          </Button>
+          <Button variant="round" size="md" onClick={edit}>
+            <Edit width="20" />
+          </Button>
+          <Button variant="round" size="md" onClick={remove}>
+            <Trash width="20" />
+          </Button>
+        </div>
+        <Button onClick={cancel}>Cancel</Button>
       </div>
     </BottomBar>
   );
