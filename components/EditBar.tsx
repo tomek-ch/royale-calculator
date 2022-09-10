@@ -69,7 +69,7 @@ export const EditBar = ({
                 ["Delete", remove, <Trash width="20" />],
               ] as const
             ).map(([label, onClick, icon]) => (
-              <EditBarBtn {...{ icon, label, onClick }} />
+              <EditBarBtn key={label} {...{ icon, label, onClick }} />
             ))}
           </div>
           <Button className="hidden md:block" onClick={cancel}>
