@@ -34,7 +34,7 @@ export const UpdateManyModal = ({
     <Modal
       {...transition}
       title={`Editing ${numberOfSelected} ${
-        numberOfSelected > 1 ? "items" : "item"
+        numberOfSelected === 1 ? "item" : "items"
       }`}
     >
       Upgrade from level
