@@ -30,7 +30,14 @@ export const useBulkEdit = (
     setDeck((prev) => prev.map((item) => ({ ...item, isSelected: true })));
 
   const updateMany = (key: "fromLevel" | "toLevel") => (value: number) => {
-    setDeck((prev) => prev.map((item) => ({ ...item, [key]: value })));
+    setDeck((prev) =>
+      prev.map((item) => {
+        if (item.isSelected) {
+          return { ...item, [key]: value };
+        }
+        return item;
+      })
+    );
   };
 
   const updateManyFrom = updateMany("fromLevel");
