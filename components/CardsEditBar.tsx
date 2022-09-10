@@ -8,23 +8,19 @@ interface CardsEditBarProps {
   onEdit: () => void;
 }
 
-export const CardsEditBar = forwardRef<HTMLDivElement, CardsEditBarProps>(
-  ({ transition, onEdit }, ref) => {
-    const {
-      bulkEdit: { cancelSelect, numberOfSelected, deleteMany, selectAll },
-    } = useMyContext();
+export const CardsEditBar = ({ transition, onEdit }: CardsEditBarProps) => {
+  const {
+    bulkEdit: { cancelSelect, numberOfSelected, deleteMany, selectAll },
+  } = useMyContext();
 
-    return (
-      <div ref={ref}>
-        <EditBar
-          cancel={cancelSelect}
-          transition={transition}
-          itemsSelected={numberOfSelected}
-          remove={deleteMany}
-          selectAll={selectAll}
-          edit={onEdit}
-        />
-      </div>
-    );
-  }
-);
+  return (
+    <EditBar
+      cancel={cancelSelect}
+      transition={transition}
+      itemsSelected={numberOfSelected}
+      remove={deleteMany}
+      selectAll={selectAll}
+      edit={onEdit}
+    />
+  );
+};

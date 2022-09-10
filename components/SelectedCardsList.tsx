@@ -91,11 +91,9 @@ export const SelectedCardsList = ({ edit }: SelectedCardsListProps) => {
       ) : (
         <Alert>No cards selected</Alert>
       )}
-      <CardsEditBar
-        ref={editBarRef}
-        transition={editBar}
-        onEdit={updateManyModal.toggle}
-      />
+      <div ref={editBarRef}>
+        <CardsEditBar transition={editBar} onEdit={updateManyModal.toggle} />
+      </div>
       <div ref={modalRef}>
         <Modal
           {...updateManyModal}
