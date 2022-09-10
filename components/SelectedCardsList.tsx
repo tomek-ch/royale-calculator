@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useMyContext } from "../context/MyContext";
 import { useClickOutside } from "../hooks/useClickOutside";
 import { useSync } from "../hooks/useSync";
 import { useTransition } from "../hooks/useTransition";
@@ -13,38 +14,27 @@ import { Select, SelectBtn, SelectOption, SelectOptions } from "./Select";
 import { SelectedCardData } from "./SelectedCardData";
 
 interface SelectedCardsListProps {
-  cards: SelectedCard[];
-  remove: (selectedCard: SelectedCard) => void;
   edit: (selectedCard: SelectedCard) => void;
-  selectForEdit: (id: number) => void;
-  cancelSelect: () => void;
-  selectAll: () => void;
-  deleteMany: () => void;
-  updateManyFrom: (fromLevel: number) => void;
-  updateManyTo: (toLevel: number) => void;
-  selectedFromLevel: number | null;
-  selectedToLevel: number | null;
-  maxStartLevel: number;
-  isSelectMode: boolean;
-  numberOfSelected: number;
 }
 
-export const SelectedCardsList = ({
-  cards,
-  remove,
-  edit,
-  selectForEdit,
-  cancelSelect,
-  deleteMany,
-  selectAll,
-  updateManyFrom,
-  updateManyTo,
-  selectedFromLevel,
-  selectedToLevel,
-  maxStartLevel,
-  isSelectMode,
-  numberOfSelected,
-}: SelectedCardsListProps) => {
+export const SelectedCardsList = ({ edit }: SelectedCardsListProps) => {
+  const {
+    decks: { deck: cards },
+    selectedCard: { remove },
+    bulkEdit: {
+      selectForEdit,
+      selectAll,
+      cancelSelect,
+      deleteMany,
+      selectedFromLevel,
+      selectedToLevel,
+      updateManyFrom,
+      updateManyTo,
+      maxStartLevel,
+      isSelectMode,
+      numberOfSelected,
+    },
+  } = useMyContext();
   const cardTiles = useRef<(HTMLDivElement | null)[]>([]);
 
   const editBar = useTransition();

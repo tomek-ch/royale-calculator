@@ -1,3 +1,4 @@
+import { useMyContext } from "../context/MyContext";
 import {
   getRequiredCards,
   getRequiredGold,
@@ -5,11 +6,11 @@ import {
 } from "../utils/getRequired";
 import { Rarity, rarityList, SelectedCard } from "../utils/types";
 
-interface UpgradeSummaryProps {
-  selectedCards: SelectedCard[];
-}
+export const UpgradeSummary = () => {
+  const {
+    decks: { deck: selectedCards },
+  } = useMyContext();
 
-export const UpgradeSummary = ({ selectedCards }: UpgradeSummaryProps) => {
   if (!selectedCards.length) {
     return null;
   }

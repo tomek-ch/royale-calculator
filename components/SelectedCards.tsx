@@ -5,42 +5,24 @@ import { Modal } from "./Modal";
 import { CardSearch } from "./CardSearch";
 import { CardUpgradeForm } from "./CardUpgradeForm";
 import { ArrowLeft } from "./icons/ArrowLeft";
-import { useDecks } from "../hooks/useDecks";
-import { useSelectedCard } from "../hooks/useSelectedCard";
-import { useBulkEdit } from "../hooks/useBulkEdit";
 import { SelectedCardsList } from "./SelectedCardsList";
-import { Tabs } from "./Tabs";
 import { UpgradeSummary } from "./UpgradeSummary";
 import { DeckTabs } from "./DeckTabs";
+import { useMyContext } from "../context/MyContext";
 
 export const SelectedCards = () => {
-  const { currentTab, deck, setCurrentTab, setDeck, decks } = useDecks();
-
   const {
-    addSelectedCard,
-    editSelectedCard,
-    isEditing,
-    resetCard,
-    selectCard,
-    selectedCard,
-    remove,
-    setFromLevel,
-    setToLevel,
-  } = useSelectedCard(deck, setDeck);
-
-  const {
-    cancelSelect,
-    deleteMany,
-    maxStartLevel,
-    selectAll,
-    selectForEdit,
-    selectedFromLevel,
-    selectedToLevel,
-    updateManyFrom,
-    updateManyTo,
-    isSelectMode,
-    numberOfSelected,
-  } = useBulkEdit(deck, setDeck);
+    selectedCard: {
+      editSelectedCard,
+      addSelectedCard,
+      isEditing,
+      resetCard,
+      selectCard,
+      selectedCard,
+      setFromLevel,
+      setToLevel,
+    },
+  } = useMyContext();
 
   const modal = useTransition({ onClose: resetCard });
   const modalTitle = isEditing ? "Editing card" : "Add a card";
@@ -58,26 +40,11 @@ export const SelectedCards = () => {
   return (
     <>
       <DeckTabs />
-      <SelectedCardsList
-        cards={deck}
-        remove={remove}
-        edit={handleEdit}
-        selectForEdit={selectForEdit}
-        cancelSelect={cancelSelect}
-        selectAll={selectAll}
-        deleteMany={deleteMany}
-        selectedFromLevel={selectedFromLevel}
-        selectedToLevel={selectedToLevel}
-        updateManyFrom={updateManyFrom}
-        updateManyTo={updateManyTo}
-        maxStartLevel={maxStartLevel}
-        isSelectMode={isSelectMode}
-        numberOfSelected={numberOfSelected}
-      />
+      <SelectedCardsList edit={handleEdit} />
       <Button variant="primary" className="mt-3 ml-auto" onClick={modal.toggle}>
         Add a card
       </Button>
-      <UpgradeSummary selectedCards={deck} />
+      <UpgradeSummary />
       <Modal
         {...modal}
         type="drawer"
