@@ -38,6 +38,14 @@ module.exports = {
           "0%": { opacity: 1, transform: "translateY(0)" },
           "100%": { opacity: 0, transform: "translateY(2rem)" },
         },
+        "slide-from-top": {
+          "0%": { opacity: 0, transform: "translateY(-2rem)" },
+          "100%": { opacity: 1, transform: "translateY(0)" },
+        },
+        "slide-to-top": {
+          "0%": { opacity: 1, transform: "translateY(0)" },
+          "100%": { opacity: 0, transform: "translateY(-2rem)" },
+        },
       },
       animation: {
         "fade-in": "fade-in 150ms",
@@ -46,6 +54,8 @@ module.exports = {
         hide: "hide 150ms",
         "slide-up": "slide-up 150ms",
         "slide-down": "slide-down 150ms",
+        "slide-from-top": "slide-from-top 150ms",
+        "slide-to-top": "slide-to-top 150ms",
       },
     },
   },
