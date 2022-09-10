@@ -1,5 +1,5 @@
 import { useTransition } from "../hooks/useTransition";
-import { Card, SelectedCard } from "../utils/types";
+import { SelectedCard } from "../utils/types";
 import { Button } from "./Button";
 import { Modal } from "./Modal";
 import { CardSearch } from "./CardSearch";
@@ -12,11 +12,7 @@ import { SelectedCardsList } from "./SelectedCardsList";
 import { Tabs } from "./Tabs";
 import { UpgradeSummary } from "./UpgradeSummary";
 
-interface SelectedCardsProps {
-  cards: Card[];
-}
-
-export const SelectedCards = ({ cards }: SelectedCardsProps) => {
+export const SelectedCards = () => {
   const { currentTab, deck, setCurrentTab, setDeck, decks } = useDecks();
 
   const {
@@ -121,7 +117,7 @@ export const SelectedCards = ({ cards }: SelectedCardsProps) => {
             isEditing={isEditing}
           />
         ) : (
-          <CardSearch cards={cards} onCardSelect={selectCard} />
+          <CardSearch onCardSelect={selectCard} />
         )}
       </Modal>
     </>

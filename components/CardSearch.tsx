@@ -1,15 +1,16 @@
+import { useMyContext } from "../context/MyContext";
 import { useInput } from "../hooks/useInput";
 import { Card } from "../utils/types";
 import { CardBtn } from "./CardBtn";
 import { Input } from "./Input";
 
 interface CardSearchProps {
-  cards: Card[];
   onCardSelect: (card: Card, fromLevel: number, toLevel: number) => void;
 }
 
-export const CardSearch = ({ cards, onCardSelect }: CardSearchProps) => {
+export const CardSearch = ({ onCardSelect }: CardSearchProps) => {
   const [input, handleChange] = useInput();
+  const { cards } = useMyContext();
   return (
     <>
       <Input

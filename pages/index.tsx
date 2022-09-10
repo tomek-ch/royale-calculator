@@ -2,6 +2,7 @@ import type { GetStaticProps, NextPage } from "next";
 import dynamic from "next/dynamic";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
+import { MyContextProvider } from "../context/MyContext";
 import { Card, CardFromApi, rarities } from "../utils/types";
 
 const SelectedCards = dynamic(
@@ -15,11 +16,11 @@ type HomeProps = {
 
 const Home: NextPage<HomeProps> = ({ cards }) => {
   return (
-    <>
+    <MyContextProvider cards={cards}>
       <Header />
-      <SelectedCards cards={cards} />
+      <SelectedCards />
       <Footer />
-    </>
+    </MyContextProvider>
   );
 };
 
