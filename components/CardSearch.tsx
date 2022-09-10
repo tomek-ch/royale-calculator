@@ -1,16 +1,14 @@
 import { useMyContext } from "../context/MyContext";
 import { useInput } from "../hooks/useInput";
-import { Card } from "../utils/types";
 import { CardBtn } from "./CardBtn";
 import { Input } from "./Input";
 
-interface CardSearchProps {
-  onCardSelect: (card: Card, fromLevel: number, toLevel: number) => void;
-}
-
-export const CardSearch = ({ onCardSelect }: CardSearchProps) => {
+export const CardSearch = () => {
   const [input, handleChange] = useInput();
-  const { cards } = useMyContext();
+  const {
+    cards,
+    selectedCard: { selectCard },
+  } = useMyContext();
   return (
     <>
       <Input
@@ -25,13 +23,7 @@ export const CardSearch = ({ onCardSelect }: CardSearchProps) => {
             !input ||
             card.name.toLocaleLowerCase().includes(input.toLocaleLowerCase())
           ) {
-            return (
-              <CardBtn
-                key={card.id}
-                card={card}
-                onClick={() => onCardSelect(card, card.startingLevel, 14)}
-              />
-            );
+            return <CardBtn key={card.id} card={card} onClick={selectCard} />;
           }
           return [];
         })}
