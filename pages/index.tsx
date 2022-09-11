@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { MyContextProvider } from "../context/MyContext";
+import { formatCardData } from "../utils/formatCardData";
 import { Card, CardFromApi, rarities } from "../utils/types";
 
 const SelectedCards = dynamic(
@@ -37,21 +38,12 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const data: CardFromApi[] = (await res.json()).items;
 
-  const cards: Card[] = data.flatMap(
-    ({ name, id, iconUrls: { medium }, maxLevel }) => {
-      if (["Super Mini P.E.K.K.A", "Barbarian Launcher"].includes(name)) {
-        return [];
-      }
-
-      return {
-        id,
-        name,
-        icon: medium,
-        rarity: rarities[maxLevel],
-        startingLevel: 15 - maxLevel,
-      };
+  const cards: Card[] = data.flatMap((card) => {
+    if (["Super Mini P.E.K.K.A", "Barbarian Launcher"].includes(card.name)) {
+      return [];
     }
-  );
+    return formatCardData(card);
+  });
 
   return { props: { cards } };
 };
