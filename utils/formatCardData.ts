@@ -1,4 +1,10 @@
-import { Card, CardFromApi, rarities } from "./types";
+import {
+  Card,
+  CardFromApi,
+  PlayerCard,
+  PlayerCardFromApi,
+  rarities,
+} from "./types";
 
 export const formatCardData = ({
   name,
@@ -12,5 +18,13 @@ export const formatCardData = ({
     icon: medium,
     rarity: rarities[maxLevel],
     startingLevel: 15 - maxLevel,
+  };
+};
+
+export const formatPlayerCardData = (card: PlayerCardFromApi): PlayerCard => {
+  return {
+    ...formatCardData(card),
+    count: card.count,
+    level: card.level,
   };
 };

@@ -1,4 +1,5 @@
 import { NextApiHandler } from "next";
+import { formatPlayerCardData } from "../../../utils/formatCardData";
 import { Player, PlayerFromApi } from "../../../utils/types";
 
 const handler: NextApiHandler = async (req, res) => {
@@ -15,17 +16,14 @@ const handler: NextApiHandler = async (req, res) => {
     );
     if (response.ok) {
       const data = await response.json();
+      console.log(data);
       const { name, cards, currentDeck } = data as PlayerFromApi;
 
       const player: Player = {
         tag,
         name,
-        cards: cards.map(({ id, level, count }) => ({
-          id,
-          level,
-          count,
-        })),
-        currentDeck: currentDeck.map(({ id }) => id),
+        cards: cards.map(formatPlayerCardData),
+        currentDeck: currentDeck.map(formatPlayerCardData),
       };
 
       res.status(200).json(player);

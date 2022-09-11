@@ -33,21 +33,24 @@ export interface SelectedCard {
   toLevel: number;
 }
 
-export interface PlayerCard {
-  id: number;
+type PlayerCardData = {
   level: number;
   count: number;
-}
+};
+
+export type PlayerCard = Card & PlayerCardData;
+
+export type PlayerCardFromApi = CardFromApi & PlayerCardData;
 
 export interface PlayerFromApi {
   name: string;
-  cards: PlayerCard[];
-  currentDeck: PlayerCard[];
+  cards: PlayerCardFromApi[];
+  currentDeck: PlayerCardFromApi[];
 }
 
 export interface Player {
   name: string;
   tag: string;
   cards: PlayerCard[];
-  currentDeck: number[];
+  currentDeck: PlayerCard[];
 }
