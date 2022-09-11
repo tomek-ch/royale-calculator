@@ -1,6 +1,8 @@
 import { useMyContext } from "../context/MyContext";
 import { useTransition } from "../hooks/useTransition";
+import { Player } from "../utils/types";
 import { Button } from "./Button";
+import { Deck } from "./Deck";
 import { User } from "./icons/User";
 import { LogInForm } from "./LogInForm";
 import { Modal } from "./Modal";
@@ -44,6 +46,8 @@ export const UserNav = () => {
       </Modal>
       <Modal type="drawer" title="Your decks" {...playerDecksModal}>
         <Button onClick={onLogOut}>Log out</Button>
+        <div className="mb-4 mt-8">Your current deck</div>
+        <Deck cards={(player as Player).currentDeck} />
       </Modal>
     </>
   );
