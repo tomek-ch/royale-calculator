@@ -50,8 +50,18 @@ export const SelectedCardData = ({
         <div>
           Required for level {selectedCard.toLevel}:
           <ul className="list-disc ml-4">
-            <li>{getRequiredGold(selectedCard).toLocaleString()} gold</li>
-            <li>{getRequiredCards(selectedCard).toLocaleString()} cards</li>
+            <li>
+              <span className="font-medium">
+                {getRequiredGold(selectedCard).toLocaleString()}
+              </span>{" "}
+              gold
+            </li>
+            <li>
+              <span className="font-medium">
+                {getRequiredCards(selectedCard).toLocaleString()}
+              </span>{" "}
+              cards
+            </li>
           </ul>
         </div>
       </div>
