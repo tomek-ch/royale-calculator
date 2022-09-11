@@ -16,7 +16,6 @@ const handler: NextApiHandler = async (req, res) => {
     );
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       const { name, cards, currentDeck } = data as PlayerFromApi;
 
       const player: Player = {
