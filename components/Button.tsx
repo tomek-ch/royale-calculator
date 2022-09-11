@@ -18,6 +18,7 @@ const styles = {
     "bg-blue-500 text-white hover:bg-blue-600 disabled:hover:bg-blue-500",
   secondary: "border-solid border-[1px] border-gray-300 hover:border-gray-400",
   round: "grid place-content-center hover:bg-slate-100 rounded-full",
+  ghost: "hover:bg-slate-100",
 } as const;
 
 const sizes = {

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { getPlayer } from "../api/getPlayer";
+import { useMyContext } from "../context/MyContext";
 import { useInput } from "../hooks/useInput";
 import { createSubmitHandler } from "../utils/createSubmitHandler";
 import { Player } from "../utils/types";
@@ -7,18 +8,19 @@ import { Button } from "./Button";
 import { ErrorMessage } from "./ErrorMessage";
 import { Input } from "./Input";
 
-interface LogInFormProps {}
+interface LogInFormProps {
+  onLogIn: () => void;
+}
 
-export const LogInForm = ({}: LogInFormProps) => {
+export const LogInForm = ({ onLogIn }: LogInFormProps) => {
   const [error, setError] = useState("");
   const [playerTag, setPlayerTag] = useInput(() => {
     setError("");
   });
   const [isLoading, setIsLoading] = useState(false);
-
-  const onSuccess = (player: Player) => {
-    console.log(player);
-  };
+  const {
+    player: { logIn },
+  } = useMyContext();
 
   const handleSubmit = createSubmitHandler(async () => {
     if (!playerTag) {
@@ -31,7 +33,8 @@ export const LogInForm = ({}: LogInFormProps) => {
       if (error) {
         setError(error);
       } else {
-        onSuccess(data as Player);
+        logIn(data as Player);
+        onLogIn();
       }
 
       setIsLoading(false);

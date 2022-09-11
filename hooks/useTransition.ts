@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { flushSync } from "react-dom";
+import { callMaybeFunction } from "../utils/callMaybeFunction";
 
 export const useTransition = ({
   onClose,
@@ -10,17 +11,20 @@ export const useTransition = ({
 } = {}) => {
   const [isActive, setIsActive] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
+  const [onToggle, setOnToggle] = useState<(() => void) | null>(null);
 
   const open = () => {
     onOpen?.();
     setIsActive(true);
   };
 
-  const toggle = () => {
+  const toggle = (cb?: () => void) => {
     if (isActive) {
       setIsExiting(true);
+      setOnToggle(cb ? () => cb : null);
     } else {
       open();
+      callMaybeFunction(cb);
     }
   };
 
@@ -37,6 +41,9 @@ export const useTransition = ({
       setIsExiting(false);
       setIsActive(false);
       onClose?.();
+
+      callMaybeFunction(onToggle);
+      setOnToggle(null);
     });
   };
 

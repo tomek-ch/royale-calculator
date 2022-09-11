@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Player } from "../utils/types";
 import { useSyncedValue } from "./useSyncedValue";
 
@@ -10,8 +10,8 @@ export const usePlayer = () => {
   );
   const [isLoading, setIsLoading] = useState(!!playerTag);
 
-  const logIn = (playerTag: string, player: Player) => {
-    setPlayerTag(playerTag);
+  const logIn = (player: Player) => {
+    setPlayerTag(player.tag);
     setPlayer(player);
   };
 

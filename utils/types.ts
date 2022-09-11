@@ -47,6 +47,7 @@ export interface PlayerFromApi {
 
 export interface Player {
   name: string;
+  tag: string;
   cards: PlayerCard[];
   currentDeck: number[];
 }

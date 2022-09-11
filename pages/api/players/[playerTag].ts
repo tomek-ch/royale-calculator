@@ -1,12 +1,11 @@
 import { NextApiHandler } from "next";
-import { PlayerFromApi } from "../../../utils/types";
+import { Player, PlayerFromApi } from "../../../utils/types";
 
 const handler: NextApiHandler = async (req, res) => {
   try {
+    const tag = req.query.playerTag as string;
     const response = await fetch(
-      `https://proxy.royaleapi.dev/v1/players/%23${(
-        req.query.playerTag as string
-      ).toUpperCase()}`,
+      `https://proxy.royaleapi.dev/v1/players/%23${tag.toUpperCase()}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.API_TOKEN}`,
@@ -17,7 +16,9 @@ const handler: NextApiHandler = async (req, res) => {
     if (response.ok) {
       const data = await response.json();
       const { name, cards, currentDeck } = data as PlayerFromApi;
-      res.status(200).json({
+
+      const player: Player = {
+        tag,
         name,
         cards: cards.map(({ id, level, count }) => ({
           id,
@@ -25,7 +26,9 @@ const handler: NextApiHandler = async (req, res) => {
           count,
         })),
         currentDeck: currentDeck.map(({ id }) => id),
-      });
+      };
+
+      res.status(200).json(player);
     } else {
       res.status(response.status).end();
     }
