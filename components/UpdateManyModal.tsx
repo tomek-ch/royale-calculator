@@ -58,7 +58,7 @@ export const UpdateManyModal = ({
         <SelectBtn>{inputTo || "Mixed"}</SelectBtn>
         <SelectOptions>
           {isSelectMode &&
-            getRange(maxStartLevel, 14).map((value) => (
+            getRange(inputFrom || maxStartLevel, 14).map((value) => (
               <SelectOption key={value} value={value}>
                 {value}
               </SelectOption>
