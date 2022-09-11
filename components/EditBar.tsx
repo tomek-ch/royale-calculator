@@ -62,14 +62,16 @@ export const EditBar = ({
         <div className="flex gap-6 items-center justify-between">
           <div className="ml-1 hidden md:block">{itemsSelected} selected</div>
           <div className="flex md:gap-2 w-full md:w-auto justify-evenly">
-            {(
-              [
-                ["Select all", selectAll, <Check width="20" />],
-                ["Edit", edit, <Edit width="20" />],
-                ["Delete", remove, <Trash width="20" />],
-              ] as const
-            ).map(([label, onClick, icon]) => (
-              <EditBarBtn key={label} {...{ icon, label, onClick }} />
+            {[
+              {
+                label: "Select all",
+                onClick: selectAll,
+                icon: <Check width="20" />,
+              },
+              { label: "Edit", onClick: edit, icon: <Edit width="20" /> },
+              { label: "Delete", onClick: remove, icon: <Trash width="20" /> },
+            ].map((props) => (
+              <EditBarBtn key={props.label} {...props} />
             ))}
           </div>
           <Button className="hidden md:block" onClick={cancel}>
