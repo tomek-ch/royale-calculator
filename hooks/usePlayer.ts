@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getPlayer } from "../api/getPlayer";
 import { Player } from "../utils/types";
 import { useSyncedValue } from "./useSyncedValue";
 
@@ -20,11 +21,23 @@ export const usePlayer = () => {
     setPlayer(null);
   };
 
+  useEffect(() => {
+    if (playerTag && !player) {
+      getPlayer(playerTag).then(([_err, data]) => {
+        if (data) {
+          setPlayer(data);
+        }
+        setIsLoading(false);
+      });
+    }
+  }, [playerTag, player]);
+
   return {
     player,
     setPlayer,
     setPlayerTag,
     logIn,
     logOut,
+    isLoading,
   };
 };

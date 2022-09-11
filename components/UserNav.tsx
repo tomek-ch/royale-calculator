@@ -7,7 +7,7 @@ import { Modal } from "./Modal";
 
 export const UserNav = () => {
   const {
-    player: { player, logOut },
+    player: { player, logOut, isLoading },
   } = useMyContext();
 
   const playerDecksModal = useTransition();
@@ -22,18 +22,20 @@ export const UserNav = () => {
     playerDecksModal.toggle(logOut);
   };
 
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <>
       {player ? (
-        <div className="py-[1px]">
-          <Button
-            className="flex gap-2 items-center"
-            variant="ghost"
-            onClick={playerDecksModal.toggle}
-          >
-            <User width="12" /> {player.name}
-          </Button>
-        </div>
+        <Button
+          className="flex gap-2 items-center"
+          variant="ghost"
+          onClick={playerDecksModal.toggle}
+        >
+          <User width="12" /> {player.name}
+        </Button>
       ) : (
         <Button onClick={logInModal.toggle}>Log in</Button>
       )}
