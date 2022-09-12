@@ -1,10 +1,9 @@
 import dynamic from "next/dynamic";
 import { Logo } from "./Logo";
 
-const UserNav = dynamic(
-  () => import("./UserNav").then(({ UserNav }) => UserNav),
-  { ssr: false }
-);
+const UserNav = dynamic(async () => (await import("./UserNav")).UserNav, {
+  ssr: false,
+});
 
 export const Header = () => {
   return (
