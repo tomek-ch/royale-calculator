@@ -35,6 +35,7 @@ export const usePlayer = () => {
   const playerDecks = player?.recentDecks || [];
   const playerCurrentDeck = player?.currentDeck || [];
   const playerName = player?.name || "";
+  const playerCards = player?.cards || [];
 
   return {
     player,
@@ -46,5 +47,6 @@ export const usePlayer = () => {
     playerDecks,
     playerCurrentDeck,
     playerName,
+    playerCards,
   };
 };

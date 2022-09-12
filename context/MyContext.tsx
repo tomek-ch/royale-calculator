@@ -23,9 +23,13 @@ export const MyContextProvider = ({
   cards: Card[];
 }) => {
   const decks = useDecks();
-  const selectedCard = useSelectedCard(decks.deck, decks.setDeck);
-  const bulkEdit = useBulkEdit(decks.deck, decks.setDeck);
   const player = usePlayer();
+  const selectedCard = useSelectedCard(
+    decks.deck,
+    decks.setDeck,
+    player.playerCards
+  );
+  const bulkEdit = useBulkEdit(decks.deck, decks.setDeck);
   return (
     <MyContext.Provider
       value={{

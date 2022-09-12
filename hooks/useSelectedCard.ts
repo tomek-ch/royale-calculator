@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Card, SelectedCard } from "../utils/types";
+import { Card, PlayerCard, SelectedCard } from "../utils/types";
 
 export const useSelectedCard = (
   deck: SelectedCard[],
-  setDeck: (cb: (prev: SelectedCard[]) => SelectedCard[]) => void
+  setDeck: (cb: (prev: SelectedCard[]) => SelectedCard[]) => void,
+  playerCards: PlayerCard[]
 ) => {
   const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null);
 
@@ -13,9 +14,10 @@ export const useSelectedCard = (
     if (editedCard) {
       setSelectedCard(editedCard);
     } else {
+      const playerCard = playerCards.find(({ id }) => id === card.id);
       setSelectedCard({
         card,
-        fromLevel: card.startingLevel,
+        fromLevel: playerCard?.level || card.startingLevel,
         toLevel: 14,
         isSelected: false,
       });

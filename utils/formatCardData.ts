@@ -25,6 +25,6 @@ export const formatPlayerCardData = (card: PlayerCardFromApi): PlayerCard => {
   return {
     ...formatCardData(card),
     count: card.count,
-    level: card.level,
+    level: card.level + 14 - card.maxLevel,
   };
 };
