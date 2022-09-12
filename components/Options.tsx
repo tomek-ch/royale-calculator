@@ -42,7 +42,7 @@ export const Options = ({ children }: OptionsProps) => {
     <Context.Provider value={toggle}>
       <div className="relative" ref={optionsContainer}>
         <button
-          onClick={toggle}
+          onClick={() => toggle()}
           className={`
           w-7 h-7 flex justify-center
           items-center rounded-full transition-all

@@ -20,7 +20,7 @@ export const SelectBtn = ({ children }: { children: ReactNode }) => {
   const { toggle } = useContext(Context);
   return (
     <button
-      onClick={toggle}
+      onClick={() => toggle()}
       className={`py-2 px-3 leading-5 bg-gray-200 hover:bg-gray-300 transition-colors w-full text-left`}
     >
       {children}

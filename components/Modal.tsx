@@ -49,7 +49,7 @@ export const Modal = ({
     return (
       <>
         <div
-          onClick={toggle}
+          onClick={() => toggle()}
           className={`fixed inset-0 bg-black/70 w-full z-10 ${
             isExiting ? "animate-fade-out" : "animate-fade-in"
           }`}
