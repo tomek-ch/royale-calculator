@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getPlayer } from "../api/getPlayer";
+import { getPlayer } from "../lib/getPlayer";
 import { useMyContext } from "../context/MyContext";
 import { useInput } from "../hooks/useInput";
 import { createSubmitHandler } from "../utils/createSubmitHandler";
