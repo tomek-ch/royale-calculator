@@ -53,4 +53,5 @@ export interface Player {
   tag: string;
   cards: PlayerCard[];
   currentDeck: PlayerCard[];
+  recentDecks: PlayerCard[][];
 }

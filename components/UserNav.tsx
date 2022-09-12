@@ -55,8 +55,14 @@ export const UserNav = () => {
             Log out <LogOut width="20" className="-mr-1" />
           </Button>
         </div>
-        <div className="mb-4 mt-8">Your current deck</div>
+        <div className="mb-4 mt-8">Current deck</div>
         <Deck cards={player!.currentDeck} />
+        <div className="mb-4 mt-8">Recent decks</div>
+        {player!.recentDecks.map((deck, idx) => (
+          <div className="mb-6" key={idx}>
+            <Deck cards={deck} />
+          </div>
+        ))}
       </Modal>
     </>
   );
