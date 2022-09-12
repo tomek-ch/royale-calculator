@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPlayer } from "../api/getPlayer";
+import { getPlayer } from "../lib/getPlayer";
 import { Player } from "../utils/types";
 import { useSyncedValue } from "./useSyncedValue";
 
