@@ -32,6 +32,10 @@ export const usePlayer = () => {
     }
   }, [playerTag, player]);
 
+  const playerDecks = player?.recentDecks || [];
+  const playerCurrentDeck = player?.currentDeck || [];
+  const playerName = player?.name || "";
+
   return {
     player,
     setPlayer,
@@ -39,5 +43,8 @@ export const usePlayer = () => {
     logIn,
     logOut,
     isLoading,
+    playerDecks,
+    playerCurrentDeck,
+    playerName,
   };
 };

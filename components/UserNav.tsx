@@ -9,7 +9,14 @@ import { Modal } from "./Modal";
 
 export const UserNav = () => {
   const {
-    player: { player, logOut, isLoading },
+    player: {
+      player,
+      logOut,
+      isLoading,
+      playerDecks,
+      playerCurrentDeck,
+      playerName,
+    },
   } = useMyContext();
 
   const playerDecksModal = useTransition();
@@ -36,7 +43,7 @@ export const UserNav = () => {
           variant="ghost"
           onClick={playerDecksModal.toggle}
         >
-          <User width="12" /> {player.name}
+          <User width="12" /> {playerName}
         </Button>
       ) : (
         <Button onClick={logInModal.toggle}>Log in</Button>
@@ -48,7 +55,7 @@ export const UserNav = () => {
         <div className="flex justify-between items-center">
           <div>
             <div className="flex gap-2 items-center">
-              <User width="12" /> {player!.name}
+              <User width="12" /> {playerName}
             </div>
           </div>
           <Button onClick={onLogOut} className="flex gap-3">
@@ -56,9 +63,9 @@ export const UserNav = () => {
           </Button>
         </div>
         <div className="mb-4 mt-8">Current deck</div>
-        <Deck cards={player!.currentDeck} />
+        <Deck cards={playerCurrentDeck} />
         <div className="mb-4 mt-8">Recent decks</div>
-        {player!.recentDecks.map((deck, idx) => (
+        {playerDecks.map((deck, idx) => (
           <div className="mb-6" key={idx}>
             <Deck cards={deck} />
           </div>
