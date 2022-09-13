@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getPlayer } from "../lib/getPlayer";
-import { Player } from "../utils/types";
+import { Player, PlayerCard } from "../utils/types";
 import { useSyncedValue } from "./useSyncedValue";
 
 export const usePlayer = () => {
@@ -10,6 +10,9 @@ export const usePlayer = () => {
     null
   );
   const [isLoading, setIsLoading] = useState(!!playerTag);
+  const [copiedDeck, setCopiedDeck] = useState<null | PlayerCard[]>(null);
+
+  const resetCopiedDeck = () => setCopiedDeck(null);
 
   const logIn = (player: Player) => {
     setPlayerTag(player.tag);
@@ -48,5 +51,8 @@ export const usePlayer = () => {
     playerCurrentDeck,
     playerName,
     playerCards,
+    copiedDeck,
+    setCopiedDeck,
+    resetCopiedDeck,
   };
 };

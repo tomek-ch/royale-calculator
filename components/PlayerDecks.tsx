@@ -10,7 +10,7 @@ interface PlayerDecksProps {
 
 export const PlayerDecks = ({ onLogOut }: PlayerDecksProps) => {
   const {
-    player: { playerName, playerDecks, playerCurrentDeck },
+    player: { playerName, playerDecks, playerCurrentDeck, setCopiedDeck },
   } = useMyContext();
   return (
     <>
@@ -26,11 +26,14 @@ export const PlayerDecks = ({ onLogOut }: PlayerDecksProps) => {
       </div>
       <div className="overflow-y-scroll h-[calc(100%-142px)] pr-2 mt-8">
         <div className="mb-4">Current deck</div>
-        <Deck cards={playerCurrentDeck} />
+        <Deck
+          cards={playerCurrentDeck}
+          onCopy={() => setCopiedDeck(playerCurrentDeck)}
+        />
         <div className="mb-4 mt-8">Recent decks</div>
         {playerDecks.map((deck, idx) => (
           <div className="mb-6" key={idx}>
-            <Deck cards={deck} />
+            <Deck cards={deck} onCopy={() => setCopiedDeck(deck)} />
           </div>
         ))}
       </div>

@@ -5,9 +5,10 @@ import { Copy } from "./icons/Copy";
 
 interface DeckProps {
   cards: PlayerCard[];
+  onCopy: () => void;
 }
 
-export const Deck = ({ cards }: DeckProps) => {
+export const Deck = ({ cards, onCopy }: DeckProps) => {
   return (
     <div>
       <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
@@ -15,7 +16,11 @@ export const Deck = ({ cards }: DeckProps) => {
           <CardImg key={card.id} card={card} />
         ))}
       </div>
-      <Button className="flex gap-2 ml-auto mt-4" variant="primary">
+      <Button
+        className="flex gap-2 ml-auto mt-4"
+        variant="primary"
+        onClick={onCopy}
+      >
         <Copy width="20" className="-ml-1" />
         Copy
       </Button>

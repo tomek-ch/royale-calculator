@@ -1,8 +1,6 @@
 import { useMyContext } from "../context/MyContext";
 import { useTransition } from "../hooks/useTransition";
 import { Button } from "./Button";
-import { Deck } from "./Deck";
-import { LogOut } from "./icons/LogOut";
 import { User } from "./icons/User";
 import { LogInForm } from "./LogInForm";
 import { Modal } from "./Modal";
@@ -10,10 +8,17 @@ import { PlayerDecks } from "./PlayerDecks";
 
 export const UserNav = () => {
   const {
-    player: { player, logOut, isLoading, playerName },
+    player: {
+      player,
+      logOut,
+      isLoading,
+      playerName,
+      copiedDeck,
+      resetCopiedDeck,
+    },
   } = useMyContext();
 
-  const playerDecksModal = useTransition();
+  const playerDecksModal = useTransition({ onClose: resetCopiedDeck });
   const logInModal = useTransition();
 
   const onLogIn = () => {
@@ -46,7 +51,7 @@ export const UserNav = () => {
         <LogInForm onLogIn={onLogIn} />
       </Modal>
       <Modal type="drawer" title="Your decks" {...playerDecksModal}>
-        <PlayerDecks onLogOut={onLogOut} />
+        {copiedDeck ? "Deck copied" : <PlayerDecks onLogOut={onLogOut} />}
       </Modal>
     </>
   );
