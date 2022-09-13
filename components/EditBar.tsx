@@ -29,7 +29,7 @@ const EditBarBtn = ({
 }) => {
   return (
     <label className="flex flex-col items-center w-20 md:w-auto relative">
-      <Tooltip title={label}>
+      <Tooltip title={label} className="whitespace-nowrap">
         <Button variant="round" size="md" onClick={onClick}>
           {icon}
         </Button>

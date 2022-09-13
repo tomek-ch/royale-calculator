@@ -1,10 +1,12 @@
 export const getRange = (
   from: number,
   to: number,
+  step = 1,
   arr: number[] = []
 ): number[] => {
-  if (from > to) {
-    return arr;
+  const newArr = [...arr, from];
+  if (from === to) {
+    return newArr;
   }
-  return getRange(from + 1, to, [...arr, from]);
+  return getRange(from + step, to, step, newArr);
 };
