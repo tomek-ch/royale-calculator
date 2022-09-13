@@ -59,7 +59,11 @@ export const UserNav = () => {
         title={playerModalTitle}
         {...playerDecksModal}
       >
-        {copiedDeck ? <PasteDeck /> : <PlayerDecks onLogOut={onLogOut} />}
+        {copiedDeck ? (
+          <PasteDeck onPaste={playerDecksModal.toggle} />
+        ) : (
+          <PlayerDecks onLogOut={onLogOut} />
+        )}
       </Modal>
     </>
   );

@@ -10,6 +10,8 @@ import { CardsModal } from "./CardsModal";
 export const SelectedCards = () => {
   const {
     selectedCard: { editSelectedCard, addSelectedCard, resetCard },
+    decks: { currentTab, setCurrentTab },
+    bulkEdit: { cancelSelect },
   } = useMyContext();
 
   const modal = useTransition({ onClose: resetCard });
@@ -24,9 +26,14 @@ export const SelectedCards = () => {
     modal.toggle();
   };
 
+  const handleTabChange = (newTab: number) => {
+    cancelSelect();
+    setCurrentTab(newTab);
+  };
+
   return (
     <>
-      <DeckTabs />
+      <DeckTabs onChange={handleTabChange} activeTab={currentTab} />
       <SelectedCardsList edit={handleEdit} />
       <Button variant="primary" className="mt-3 ml-auto" onClick={modal.toggle}>
         Add a card

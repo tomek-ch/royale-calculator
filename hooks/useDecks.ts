@@ -11,16 +11,23 @@ export const useDecks = () => {
   ]);
   const [currentTab, setCurrentTab] = useSyncedValue("tab", 0);
 
-  const deck = decks[currentTab];
-  const setDeck = (cb: (prev: SelectedCard[]) => SelectedCard[]) =>
+  const setSlot = (
+    slot: number,
+    cb: (prev: SelectedCard[]) => SelectedCard[]
+  ) =>
     setDecks((prev) =>
       prev.map((deck, idx) => {
-        if (idx === currentTab) {
-          return cb(prev[currentTab]);
+        if (idx === slot) {
+          return cb(prev[slot]);
         }
         return deck;
       })
     );
 
-  return { decks, deck, setDeck, currentTab, setCurrentTab };
+  const deck = decks[currentTab];
+  const setDeck = (cb: (prev: SelectedCard[]) => SelectedCard[]) => {
+    setSlot(currentTab, cb);
+  };
+
+  return { decks, deck, setDeck, currentTab, setCurrentTab, setSlot };
 };

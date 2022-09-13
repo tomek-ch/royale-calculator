@@ -8,20 +8,24 @@ export const useSelectedCard = (
 ) => {
   const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null);
 
-  const selectCard = (card: Card) => {
+  const getSelectedCard = (card: Card) => {
     const editedCard = deck.find(({ card: { id } }) => id === card.id);
 
     if (editedCard) {
-      setSelectedCard(editedCard);
+      return editedCard;
     } else {
       const playerCard = playerCards.find(({ id }) => id === card.id);
-      setSelectedCard({
+      return {
         card,
         fromLevel: playerCard?.level || card.startingLevel,
         toLevel: 14,
         isSelected: false,
-      });
+      };
     }
+  };
+
+  const selectCard = (card: Card) => {
+    setSelectedCard(getSelectedCard(card));
   };
 
   const resetCard = () => {
@@ -67,5 +71,6 @@ export const useSelectedCard = (
     setFromLevel,
     setToLevel,
     remove,
+    getSelectedCard,
   };
 };

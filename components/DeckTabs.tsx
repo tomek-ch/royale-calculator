@@ -1,29 +1,25 @@
 import { useMyContext } from "../context/MyContext";
 import { Tabs } from "./Tabs";
 
-interface DeckTabsProps {}
+interface DeckTabsProps {
+  onChange: (tab: number) => void;
+  activeTab: number;
+}
 
-export const DeckTabs = ({}: DeckTabsProps) => {
+export const DeckTabs = ({ activeTab, onChange }: DeckTabsProps) => {
   const {
-    decks: { decks, currentTab, setCurrentTab },
-    bulkEdit: { cancelSelect },
+    decks: { decks },
   } = useMyContext();
-
-  const handleTabChange = (newTab: number) => {
-    cancelSelect();
-    setCurrentTab(newTab);
-  };
-
   return (
     <Tabs
       tabs={decks.map((_, idx) => {
-        if (idx === currentTab) {
-          return `Deck ${idx + 1}`;
+        if (idx === activeTab) {
+          return `Slot ${idx + 1}`;
         }
         return (idx + 1).toString();
       })}
-      onChange={handleTabChange}
-      activeTab={currentTab}
+      onChange={onChange}
+      activeTab={activeTab}
     />
   );
 };

@@ -1,10 +1,10 @@
-import { PlayerCard } from "../utils/types";
+import { Card } from "../utils/types";
 import { Button } from "./Button";
 import { CardImg } from "./CardImg";
 import { Copy } from "./icons/Copy";
 
 interface DeckProps {
-  cards: PlayerCard[];
+  cards: Card[];
   onCopy?: () => void;
 }
 
