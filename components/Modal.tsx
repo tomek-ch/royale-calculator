@@ -10,6 +10,7 @@ type ModalProps = {
   size?: Size;
   title?: ReactNode;
   children: ReactNode;
+  onGoBack?: null | (() => void);
 } & Transition;
 
 const sizeClasses = {
@@ -37,6 +38,7 @@ export const Modal = ({
   isActive,
   isExiting,
   finishExit,
+  onGoBack,
 }: ModalProps) => {
   useNoScroll(isActive);
 
@@ -73,7 +75,7 @@ export const Modal = ({
             ${modalStyles[type].body}
             `}
           >
-            <ModalHeader close={toggle} title={title} />
+            <ModalHeader goBack={onGoBack} close={toggle} title={title} />
             {children}
           </div>
         </div>

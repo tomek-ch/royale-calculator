@@ -21,18 +21,8 @@ export const CardsModal = ({ transition, onAdd }: CardsModalProps) => {
     <Modal
       {...transition}
       type="drawer"
-      title={
-        selectedCard ? (
-          <div className="mb-3 flex gap-2">
-            <button onClick={resetCard}>
-              <ArrowLeft width={16} />
-            </button>
-            {modalTitle}
-          </div>
-        ) : (
-          modalTitle
-        )
-      }
+      title={modalTitle}
+      onGoBack={selectedCard ? resetCard : null}
     >
       {selectedCard ? <CardUpgradeForm addToDeck={onAdd} /> : <CardSearch />}
     </Modal>

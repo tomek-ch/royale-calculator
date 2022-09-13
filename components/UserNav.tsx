@@ -4,6 +4,7 @@ import { Button } from "./Button";
 import { User } from "./icons/User";
 import { LogInForm } from "./LogInForm";
 import { Modal } from "./Modal";
+import { PasteDeck } from "./PasteDeck";
 import { PlayerDecks } from "./PlayerDecks";
 
 export const UserNav = () => {
@@ -30,6 +31,8 @@ export const UserNav = () => {
     playerDecksModal.toggle(logOut);
   };
 
+  const playerModalTitle = copiedDeck ? "Copying deck" : "Your decks";
+
   if (isLoading) {
     return null;
   }
@@ -50,8 +53,13 @@ export const UserNav = () => {
       <Modal {...logInModal} title="Player tag" size="sm">
         <LogInForm onLogIn={onLogIn} />
       </Modal>
-      <Modal type="drawer" title="Your decks" {...playerDecksModal}>
-        {copiedDeck ? "Deck copied" : <PlayerDecks onLogOut={onLogOut} />}
+      <Modal
+        type="drawer"
+        onGoBack={copiedDeck ? resetCopiedDeck : null}
+        title={playerModalTitle}
+        {...playerDecksModal}
+      >
+        {copiedDeck ? <PasteDeck /> : <PlayerDecks onLogOut={onLogOut} />}
       </Modal>
     </>
   );
