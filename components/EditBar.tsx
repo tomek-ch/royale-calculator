@@ -6,6 +6,7 @@ import { Check } from "./icons/Check";
 import { Edit } from "./icons/Edit";
 import { Trash } from "./icons/Trash";
 import { Xmark } from "./icons/Xmark";
+import { Tooltip } from "./Tooltip";
 import { TopBar } from "./TopBar";
 
 interface EditBarProps {
@@ -27,10 +28,12 @@ const EditBarBtn = ({
   onClick: () => void;
 }) => {
   return (
-    <label className="flex flex-col items-center w-20 md:w-auto">
-      <Button variant="round" size="md" onClick={onClick}>
-        {icon}
-      </Button>
+    <label className="flex flex-col items-center w-20 md:w-auto relative">
+      <Tooltip title={label}>
+        <Button variant="round" size="md" onClick={onClick}>
+          {icon}
+        </Button>
+      </Tooltip>
       <div className="md:hidden -mt-1">{label}</div>
     </label>
   );
