@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
+import { useMyContext } from "../context/MyContext";
 import { getRequiredCards, getRequiredGold } from "../utils/getRequired";
 import { Card, SelectedCard } from "../utils/types";
+import { InlineAlert } from "./InlineAlert";
 import { CardBtn } from "./CardBtn";
 
 interface SelectedCardDataProps {
@@ -10,7 +12,42 @@ interface SelectedCardDataProps {
   onClick: (card: Card) => void;
   onSelect?: () => void;
   selected?: boolean;
+  className?: string;
 }
+
+interface CardCountAlertProps {
+  selectedCard: SelectedCard;
+  requiredCardCount: number;
+}
+
+const CardCountAlert = ({
+  selectedCard,
+  requiredCardCount,
+}: CardCountAlertProps) => {
+  const {
+    player: { player, playerCards },
+  } = useMyContext();
+
+  if (!player) {
+    return null;
+  }
+  const playerCard = playerCards.find(({ id }) => id === selectedCard.card.id);
+  if (!playerCard) {
+    return <InlineAlert variant="danger">Card not unlocked</InlineAlert>;
+  }
+  if (selectedCard.fromLevel !== playerCard.level) {
+    return <InlineAlert>Card level is different</InlineAlert>;
+  }
+  const cardCountDifference = requiredCardCount - playerCard.count;
+  if (cardCountDifference > 0) {
+    return (
+      <InlineAlert variant="warning">
+        {cardCountDifference} cards missing
+      </InlineAlert>
+    );
+  }
+  return <InlineAlert variant="success">No missing cards</InlineAlert>;
+};
 
 export const SelectedCardData = ({
   selectedCard,
@@ -19,10 +56,12 @@ export const SelectedCardData = ({
   onClick,
   onSelect,
   selected,
+  className = "",
 }: SelectedCardDataProps) => {
+  const requiredCardCount = getRequiredCards(selectedCard);
   return (
     <div
-      className={`p-4 rounded-xl flex gap-4 items-start ${
+      className={`p-4 rounded-xl flex gap-4 items-start ${className} ${
         withShadow ? "shadow-md" : "bg-slate-200"
       } ${onSelect ? "outline outline-2 transition-all" : ""} ${
         selected ? "outline-blue-500" : "outline-transparent"
@@ -58,12 +97,16 @@ export const SelectedCardData = ({
             </li>
             <li>
               <span className="font-medium">
-                {getRequiredCards(selectedCard).toLocaleString()}
+                {requiredCardCount.toLocaleString()}
               </span>{" "}
               cards
             </li>
           </ul>
         </div>
+        <CardCountAlert
+          requiredCardCount={requiredCardCount}
+          selectedCard={selectedCard}
+        />
       </div>
     </div>
   );

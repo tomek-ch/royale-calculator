@@ -5,7 +5,7 @@ import { useInput } from "../hooks/useInput";
 import { createSubmitHandler } from "../utils/createSubmitHandler";
 import { Player } from "../utils/types";
 import { Button } from "./Button";
-import { ErrorMessage } from "./ErrorMessage";
+import { InlineAlert } from "./InlineAlert";
 import { Input } from "./Input";
 
 interface LogInFormProps {
@@ -56,7 +56,9 @@ export const LogInForm = ({ onLogIn }: LogInFormProps) => {
           Log in
         </Button>
       </div>
-      <ErrorMessage className="mt-2">{error}</ErrorMessage>
+      <InlineAlert variant="danger" className="mt-2">
+        {error}
+      </InlineAlert>
     </form>
   );
 };
