@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { Transition } from "../hooks/useTransition";
 import { BottomBar } from "./BottomBar";
 import { Button } from "./Button";
-import { Check } from "./icons/Check";
+import { CheckBox } from "./icons/CheckBox";
 import { Edit } from "./icons/Edit";
 import { Trash } from "./icons/Trash";
 import { Xmark } from "./icons/Xmark";
@@ -69,7 +69,7 @@ export const EditBar = ({
               {
                 label: "Select all",
                 onClick: selectAll,
-                icon: <Check width="20" />,
+                icon: <CheckBox width="20" />,
               },
               { label: "Edit", onClick: edit, icon: <Edit width="20" /> },
               { label: "Delete", onClick: remove, icon: <Trash width="20" /> },

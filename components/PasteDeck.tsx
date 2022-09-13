@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useMyContext } from "../context/MyContext";
 import { Alert } from "./Alert";
 import { Button } from "./Button";
+import { Checkbox } from "./Checkbox";
 import { Deck } from "./Deck";
 import { DeckTabs } from "./DeckTabs";
 
@@ -17,9 +18,20 @@ export const PasteDeck = ({ onPaste }: PasteDeckProps) => {
   } = useMyContext();
 
   const [tabToPaste, setTabToPaste] = useState(0);
+  const [replace, setReplace] = useState(true);
 
   const paste = () => {
-    setSlot(tabToPaste, () => (copiedDeck || []).map(getSelectedCard));
+    const newCards = (copiedDeck || []).map(getSelectedCard);
+    if (replace) {
+      setSlot(tabToPaste, () => newCards);
+    } else {
+      setSlot(tabToPaste, (prev) => [
+        ...prev,
+        ...newCards.filter(
+          ({ card: { id } }) => !prev.some(({ card }) => id === card.id)
+        ),
+      ]);
+    }
     setCurrentTab(tabToPaste);
     onPaste();
   };
@@ -34,7 +46,13 @@ export const PasteDeck = ({ onPaste }: PasteDeckProps) => {
       ) : (
         <Alert>No cards here</Alert>
       )}
-      <Button variant="primary" className="mt-4 ml-auto" onClick={paste}>
+      <Checkbox
+        checked={replace}
+        onChange={setReplace}
+        label="Replace slot contents"
+        className="my-4"
+      />
+      <Button variant="primary" className="ml-auto" onClick={paste}>
         Paste
       </Button>
     </>
