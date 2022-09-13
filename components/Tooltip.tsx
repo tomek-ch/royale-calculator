@@ -7,9 +7,9 @@ interface TooltipProps {
 }
 
 export const Tooltip = ({ children, title }: TooltipProps) => {
-  const { isActive, isExiting, finishExit, toggle } = useTransition();
+  const { isActive, isExiting, finishExit, set } = useTransition();
   return (
-    <div onMouseEnter={() => toggle()} onMouseLeave={() => toggle()}>
+    <div onMouseEnter={() => set(true)} onMouseLeave={() => set(false)}>
       <div
         className={`
         absolute bottom-[calc(100%+0.25rem)] bg-black/70 text-white py-1 px-2 rounded-md
