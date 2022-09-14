@@ -24,9 +24,9 @@ export const AuthToast = () => {
     <>
       <Toast transition={loadingToast}>Logging in...</Toast>
       <Toast transition={errorToast}>
-        <div className="flex items-center">
+        <div className="flex items-center whitespace-nowrap">
           Error logging in
-          <Tooltip title="Retry">
+          <Tooltip title="Retry" className="hidden md:block">
             <Button
               variant="round"
               className="hover:!bg-white/10 ml-2"
@@ -37,7 +37,7 @@ export const AuthToast = () => {
               <Refresh width="16" />
             </Button>
           </Tooltip>
-          <Tooltip title="Close">
+          <Tooltip title="Close" className="hidden md:block">
             <Button
               variant="round"
               className="hover:!bg-white/10 ml-1"
