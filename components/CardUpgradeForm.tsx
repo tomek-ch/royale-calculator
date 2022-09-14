@@ -3,6 +3,7 @@ import { getRequiredCards } from "../utils/getRequired";
 import { getRange } from "../utils/range";
 import { SelectedCard } from "../utils/types";
 import { Button } from "./Button";
+import { ArrowUp } from "./icons/ArrowUp";
 import { CircleQuestion } from "./icons/CircleQuestion";
 import { Sync } from "./icons/Sync";
 import { Select, SelectBtn, SelectOption, SelectOptions } from "./Select";
@@ -106,7 +107,7 @@ export const CardUpgradeForm = ({ addToDeck }: CardUpgradeFormProps) => {
         {playerCard ? (
           <>
             <Button className="flex items-center gap-2" onClick={max}>
-              <Sync width="16" className="-ml-1" />
+              <ArrowUp height="16" className="-ml-1" />
               Max
             </Button>
             <Tooltip
