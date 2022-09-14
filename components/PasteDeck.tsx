@@ -37,7 +37,7 @@ export const PasteDeck = ({ onPaste }: PasteDeckProps) => {
   };
 
   return (
-    <>
+    <div className="overflow-y-auto h-[calc(100%-72px)] pr-2">
       <Deck cards={copiedDeck || []} />
       <div className="mt-8 mb-4">Select where to paste this deck</div>
       <DeckTabs onChange={setTabToPaste} activeTab={tabToPaste} />
@@ -55,6 +55,6 @@ export const PasteDeck = ({ onPaste }: PasteDeckProps) => {
       <Button variant="primary" className="ml-auto" onClick={paste}>
         Paste
       </Button>
-    </>
+    </div>
   );
 };
