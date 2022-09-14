@@ -33,6 +33,8 @@ export const SelectedCardsList = ({ edit }: SelectedCardsListProps) => {
 
   const [inputFrom, setInputFrom] = useState(selectedFromLevel);
   const [inputTo, setInputTo] = useState(selectedToLevel);
+  const [syncOnSave, setSyncOnSave] = useState(false);
+  const [maxOnSave, setMaxOnSave] = useState(false);
 
   const updateManyModal = useTransition({
     onClose: () => {
@@ -42,6 +44,8 @@ export const SelectedCardsList = ({ edit }: SelectedCardsListProps) => {
     onOpen: () => {
       setInputFrom(selectedFromLevel);
       setInputTo(selectedToLevel);
+      setSyncOnSave(false);
+      setMaxOnSave(false);
     },
   });
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -89,8 +93,18 @@ export const SelectedCardsList = ({ edit }: SelectedCardsListProps) => {
           transition={updateManyModal}
           inputFrom={inputFrom as number}
           inputTo={inputTo as number}
-          setInputFrom={setInputFrom}
-          setInputTo={setInputTo}
+          setInputFrom={(value) => {
+            setInputFrom(value);
+            setSyncOnSave(false);
+          }}
+          setInputTo={(value) => {
+            setInputTo(value);
+            setMaxOnSave(false);
+          }}
+          syncOnSave={syncOnSave}
+          maxOnSave={maxOnSave}
+          setSyncOnSave={setSyncOnSave}
+          setMaxOnSave={setMaxOnSave}
         />
       </div>
     </>

@@ -80,5 +80,6 @@ export const useBulkEdit = (
     maxStartLevel,
     isSelectMode,
     numberOfSelected,
+    selectedCards,
   };
 };
