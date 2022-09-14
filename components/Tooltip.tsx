@@ -30,7 +30,7 @@ export const Tooltip = ({
             ? "bottom-[calc(100%+0.25rem)]"
             : "top-[calc(100%+0.25rem)]"
         }
-        ${isActive ? "block" : "hidden"} ${
+        ${isActive ? "block" : "!hidden"} ${
           isExiting ? "animate-fade-out" : "animate-fade-in"
         }`}
         onAnimationEnd={({ animationName }) => {
