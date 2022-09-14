@@ -1,10 +1,11 @@
 import type { GetStaticProps, NextPage } from "next";
 import dynamic from "next/dynamic";
+import { AuthToast } from "../components/AuthToast";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { MyContextProvider } from "../context/MyContext";
 import { formatCardData } from "../utils/formatCardData";
-import { Card, CardFromApi, rarities } from "../utils/types";
+import { Card, CardFromApi } from "../utils/types";
 
 const SelectedCards = dynamic(
   async () => (await import("../components/SelectedCards")).SelectedCards,
@@ -21,6 +22,7 @@ const Home: NextPage<HomeProps> = ({ cards }) => {
       <Header />
       <SelectedCards />
       <Footer />
+      <AuthToast />
     </MyContextProvider>
   );
 };
