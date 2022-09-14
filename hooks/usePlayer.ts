@@ -10,6 +10,7 @@ export const usePlayer = () => {
     null
   );
   const [isLoading, setIsLoading] = useState(!!playerTag);
+  const [authError, setAuthError] = useState("");
   const [copiedDeck, setCopiedDeck] = useState<null | PlayerCard[]>(null);
 
   const resetCopiedDeck = () => setCopiedDeck(null);
@@ -24,14 +25,22 @@ export const usePlayer = () => {
     setPlayer(null);
   };
 
+  const syncPlayer = async () => {
+    setIsLoading(true);
+    const [err, data] = await getPlayer(playerTag as string);
+
+    if (data) {
+      setPlayer(data);
+    } else {
+      setAuthError(err);
+    }
+
+    setIsLoading(false);
+  };
+
   useEffect(() => {
     if (playerTag && !player) {
-      getPlayer(playerTag).then(([_err, data]) => {
-        if (data) {
-          setPlayer(data);
-        }
-        setIsLoading(false);
-      });
+      syncPlayer();
     }
   }, [playerTag, player]);
 
@@ -54,5 +63,7 @@ export const usePlayer = () => {
     copiedDeck,
     setCopiedDeck,
     resetCopiedDeck,
+    authError,
+    syncPlayer,
   };
 };

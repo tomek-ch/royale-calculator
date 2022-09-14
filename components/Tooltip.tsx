@@ -14,7 +14,7 @@ export const Tooltip = ({
   position = "top",
   className = "",
 }: TooltipProps) => {
-  const { isActive, isExiting, finishExit, set, toggle } = useTransition();
+  const { isActive, isExiting, finishExit, set } = useTransition();
   return (
     <div
       className="relative z-20"
@@ -23,7 +23,7 @@ export const Tooltip = ({
     >
       <div
         className={`
-        absolute bg-black/70 text-white py-1 px-2 rounded-md
+        absolute bg-black/80 text-white py-1 px-2 rounded-md
         left-1/2 -translate-x-1/2 ${className}
         ${
           position === "top"
