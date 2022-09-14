@@ -12,7 +12,7 @@ type BattleLog = {
 
 const handler: NextApiHandler = async (req, res) => {
   try {
-    const tag = (req.query.playerTag as string).toUpperCase();
+    const tag = (req.query.playerTag as string).toUpperCase().trim();
     const fetchConfig = {
       headers: { Authorization: `Bearer ${process.env.API_TOKEN}` },
     };
