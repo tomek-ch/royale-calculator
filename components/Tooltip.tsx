@@ -20,7 +20,6 @@ export const Tooltip = ({
       className="relative z-20"
       onMouseEnter={() => set(true)}
       onMouseLeave={() => set(false)}
-      onClick={() => toggle()}
     >
       <div
         className={`
