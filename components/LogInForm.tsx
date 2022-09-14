@@ -51,6 +51,7 @@ export const LogInForm = ({ onLogIn }: LogInFormProps) => {
           placeholder="#XXXXXX"
           autoFocus
           disabled={isLoading}
+          autoCapitalize="off"
         />
         <Button variant="primary" className="ml-auto" loading={isLoading}>
           Log in
