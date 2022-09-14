@@ -42,7 +42,7 @@ const CardCountAlert = ({
   if (cardCountDifference > 0) {
     return (
       <InlineAlert variant="warning">
-        {cardCountDifference} cards missing
+        {cardCountDifference.toLocaleString()} cards missing
       </InlineAlert>
     );
   }
