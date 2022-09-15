@@ -1,4 +1,5 @@
 import { NextApiHandler } from "next";
+import { chunkArr } from "../../../utils/chunkArr";
 import { areDecksTheSame } from "../../../utils/compareDecks";
 import { formatPlayerCardData } from "../../../utils/formatCardData";
 import { getUnique } from "../../../utils/getUnique";
@@ -46,11 +47,15 @@ const handler: NextApiHandler = async (req, res) => {
       cards: playerData.cards.map(formatPlayerCardData),
       currentDeck,
       recentDecks: getUnique(
-        (battleLogData as BattleLog).map(({ team: [{ cards }] }) =>
-          cards.map(formatPlayerCardData)
-        ),
+        battleLogData.flatMap(({ team: [{ cards }] }) => {
+          const deck = cards.map(formatPlayerCardData);
+          if (areDecksTheSame(deck, currentDeck)) {
+            return [];
+          }
+          return chunkArr(deck, 8);
+        }),
         areDecksTheSame
-      ).filter((deck) => !areDecksTheSame(deck, currentDeck)),
+      ),
     };
 
     res.status(200).json(player);
