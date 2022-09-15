@@ -9,14 +9,7 @@ import { PlayerDecks } from "./PlayerDecks";
 
 export const UserNav = () => {
   const {
-    player: {
-      player,
-      logOut,
-      isLoading,
-      playerName,
-      copiedDeck,
-      resetCopiedDeck,
-    },
+    player: { player, logOut, playerName, copiedDeck, resetCopiedDeck },
   } = useMyContext();
 
   const playerDecksModal = useTransition({ onClose: resetCopiedDeck });
@@ -32,10 +25,6 @@ export const UserNav = () => {
   };
 
   const playerModalTitle = copiedDeck ? "Copying deck" : "Your decks";
-
-  if (isLoading) {
-    return null;
-  }
 
   return (
     <>

@@ -3,6 +3,7 @@ import { useBulkEdit } from "../hooks/useBulkEdit";
 import { useDecks } from "../hooks/useDecks";
 import { usePlayer } from "../hooks/usePlayer";
 import { useSelectedCard } from "../hooks/useSelectedCard";
+import { useTheme } from "../hooks/useTheme";
 import { Card } from "../utils/types";
 
 interface MyContext {
@@ -10,6 +11,7 @@ interface MyContext {
   selectedCard: ReturnType<typeof useSelectedCard>;
   bulkEdit: ReturnType<typeof useBulkEdit>;
   player: ReturnType<typeof usePlayer>;
+  theme: ReturnType<typeof useTheme>;
   cards: Card[];
 }
 
@@ -30,6 +32,7 @@ export const MyContextProvider = ({
     player.playerCards
   );
   const bulkEdit = useBulkEdit(decks.deck, decks.setDeck);
+  const theme = useTheme();
   return (
     <MyContext.Provider
       value={{
@@ -38,6 +41,7 @@ export const MyContextProvider = ({
         bulkEdit,
         player,
         cards,
+        theme,
       }}
     >
       {children}
