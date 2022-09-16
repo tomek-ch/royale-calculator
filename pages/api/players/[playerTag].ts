@@ -8,6 +8,7 @@ import { Player, PlayerCardFromApi, PlayerFromApi } from "../../../utils/types";
 type BattleLog = {
   team: {
     cards: PlayerCardFromApi[];
+    tag: string;
   }[];
 }[];
 
@@ -47,13 +48,16 @@ const handler: NextApiHandler = async (req, res) => {
       cards: playerData.cards.map(formatPlayerCardData),
       currentDeck,
       recentDecks: getUnique(
-        battleLogData.flatMap(({ team: [{ cards }] }) => {
-          const deck = cards.map(formatPlayerCardData);
-          if (areDecksTheSame(deck, currentDeck)) {
-            return [];
-          }
-          return chunkArr(deck, 8);
-        }),
+        // teams -> player -> cards
+        battleLogData
+          // filter out teammates from 2v2 battles
+          .flatMap(({ team }) =>
+            team.filter((player) => player.tag.slice(1) === tag)
+          )
+          // split duel cards into decks
+          .flatMap(({ cards }) => chunkArr(cards.map(formatPlayerCardData), 8))
+          // do not repeat player's current deck
+          .filter((deck) => !areDecksTheSame(deck, currentDeck)),
         areDecksTheSame
       ),
     };
