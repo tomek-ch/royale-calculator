@@ -5,7 +5,7 @@ export const chunkArr = <T>(
   newArr: T[][] = []
 ): T[][] => {
   if (!head) {
-    return newArr;
+    return [...newArr, chunk];
   }
   if (chunk.length === size) {
     return chunkArr(tail, size, [head], [...newArr, chunk]);
