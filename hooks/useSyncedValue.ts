@@ -7,8 +7,9 @@ export const useSyncedValue = <T>(
   defaultValue: T,
   transform?: (value: T) => T
 ) => {
+  const initial = getFromStorage(storageKey);
   const [value, setValue] = useState<T>(
-    getFromStorage(storageKey) || defaultValue
+    initial === undefined ? defaultValue : initial
   );
   useLocalStorage(storageKey, value, transform);
   return [value, setValue] as const;

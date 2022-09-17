@@ -2,7 +2,7 @@ import { isServer } from "./isServer";
 
 export const getFromStorage = (key: string) => {
   if (isServer) {
-    return null;
+    return;
   }
   const data = localStorage.getItem(key);
   if (data) {
