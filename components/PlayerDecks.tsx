@@ -1,4 +1,5 @@
 import { useMyContext } from "../context/MyContext";
+import { Alert } from "./Alert";
 import { Button } from "./Button";
 import { Deck } from "./Deck";
 import { LogOut } from "./icons/LogOut";
@@ -31,11 +32,15 @@ export const PlayerDecks = ({ onLogOut }: PlayerDecksProps) => {
           onCopy={() => setCopiedDeck(playerCurrentDeck)}
         />
         <div className="mb-4 mt-8">Recent decks</div>
-        {playerDecks.map((deck, idx) => (
-          <div className="mb-6" key={idx}>
-            <Deck cards={deck} onCopy={() => setCopiedDeck(deck)} />
-          </div>
-        ))}
+        {playerDecks.length ? (
+          playerDecks.map((deck, idx) => (
+            <div className="mb-6" key={idx}>
+              <Deck cards={deck} onCopy={() => setCopiedDeck(deck)} />
+            </div>
+          ))
+        ) : (
+          <Alert>No recent decks found</Alert>
+        )}
       </div>
     </>
   );

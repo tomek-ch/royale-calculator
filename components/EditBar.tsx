@@ -30,7 +30,12 @@ const EditBarBtn = ({
   return (
     <label className="flex flex-col items-center w-20 md:w-auto relative">
       <Tooltip title={label} className="whitespace-nowrap hidden md:block">
-        <Button variant="round" size="md" onClick={onClick}>
+        <Button
+          variant="round"
+          size="md"
+          onClick={onClick}
+          className="dark:hover:bg-slate-600 dark:!text-slate-400"
+        >
           {icon}
         </Button>
       </Tooltip>
@@ -62,7 +67,7 @@ export const EditBar = ({
         </TopBar>
       </div>
       <BottomBar transition={transition}>
-        <div className="flex gap-6 items-center justify-between">
+        <div className="flex gap-6 items-center justify-between dark:text-white">
           <div className="ml-1 hidden md:block">{itemsSelected} selected</div>
           <div className="flex md:gap-2 w-full md:w-auto justify-evenly">
             {[

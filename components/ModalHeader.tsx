@@ -13,21 +13,24 @@ export const ModalHeader = ({ title, close, goBack }: ModalHeaderProps) => {
   return (
     <div className="flex text-xl mb-4 items-center">
       {goBack ? (
-        <Button onClick={goBack} variant="round" className="mr-2">
+        <Button
+          onClick={goBack}
+          variant="round"
+          className="mr-2 dark:hover:bg-slate-700"
+        >
           <ArrowLeft width="16" />
         </Button>
       ) : (
         <></>
       )}
-      {title}
-      <button
-        className="
-        ml-auto h-8 w-8 flex justify-center items-center
-        hover:bg-slate-100 rounded-full transition-all"
+      <div className="dark:text-white">{title}</div>
+      <Button
         onClick={close}
+        variant="round"
+        className="ml-auto dark:hover:bg-slate-700"
       >
         <Xmark />
-      </button>
+      </Button>
     </div>
   );
 };

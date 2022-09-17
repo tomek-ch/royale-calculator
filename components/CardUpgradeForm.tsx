@@ -57,13 +57,14 @@ export const CardUpgradeForm = ({ addToDeck }: CardUpgradeFormProps) => {
         selectedCard={selectedCard}
         withShadow={false}
         onClick={goBack}
+        className="dark:!bg-slate-700 dark:!text-slate-300"
       />
       <div className="mt-4 mb-2 items-center">What level is your card?</div>
       <div className="flex gap-2">
         <Select
           selected={1}
           onChange={handleFromLevelChange}
-          className="w-16 z-20"
+          className="w-20 z-20"
         >
           <SelectBtn>{selectedCard.fromLevel}</SelectBtn>
           <SelectOptions>
@@ -85,8 +86,15 @@ export const CardUpgradeForm = ({ addToDeck }: CardUpgradeFormProps) => {
               position="bottom"
               className="w-72 z-20"
             >
-              <Button variant="round" size="md" className="-ml-1">
-                <CircleQuestion width="20" className="text-slate-600" />
+              <Button
+                variant="round"
+                size="md"
+                className="-ml-1 dark:hover:!bg-slate-700"
+              >
+                <CircleQuestion
+                  width="20"
+                  className="text-slate-600 dark:text-slate-500"
+                />
               </Button>
             </Tooltip>
           </>
@@ -94,7 +102,7 @@ export const CardUpgradeForm = ({ addToDeck }: CardUpgradeFormProps) => {
       </div>
       <div className="mt-4 mb-2">What level do you want to upgrade it to?</div>
       <div className="flex gap-2 items-center">
-        <Select selected={1} onChange={setToLevel} className="w-16">
+        <Select selected={1} onChange={setToLevel} className="w-20">
           <SelectBtn>{selectedCard.toLevel}</SelectBtn>
           <SelectOptions>
             {getRange(selectedCard.fromLevel, 14).map((n) => (
@@ -115,8 +123,15 @@ export const CardUpgradeForm = ({ addToDeck }: CardUpgradeFormProps) => {
               position="bottom"
               className="w-72"
             >
-              <Button variant="round" size="md" className="-ml-1">
-                <CircleQuestion width="20" className="text-slate-600" />
+              <Button
+                variant="round"
+                size="md"
+                className="-ml-1 dark:hover:!bg-slate-700"
+              >
+                <CircleQuestion
+                  width="20"
+                  className="text-slate-600 dark:text-slate-500"
+                />
               </Button>
             </Tooltip>
           </>

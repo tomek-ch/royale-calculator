@@ -9,3 +9,7 @@ body {
 html, body, #__next {
   height: 100%;
 }
+
+.dark {
+  color-scheme: dark;
+}

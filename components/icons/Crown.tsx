@@ -7,6 +7,7 @@ export const Crown = (props: SVGProps<SVGSVGElement>) => (
     viewBox="0 0 24 24"
     width={24}
     height={24}
+    fill="currentColor"
     {...props}
   >
     <path fill="none" d="M0 0h24v24H0z" />

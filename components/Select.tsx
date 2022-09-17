@@ -21,7 +21,9 @@ export const SelectBtn = ({ children }: { children: ReactNode }) => {
   return (
     <button
       onClick={() => toggle()}
-      className={`py-2 px-3 leading-5 bg-gray-200 hover:bg-gray-300 transition-colors w-full text-left`}
+      className={`py-2 px-3 leading-5
+    bg-gray-200 hover:bg-gray-300 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-300
+      transition-colors w-full text-left`}
     >
       {children}
     </button>
@@ -46,7 +48,7 @@ export const SelectOption = <T,>({
     <button
       {...(isActive ? {} : { tabIndex: -1 })}
       onClick={handleClick}
-      className="text-left py-1 px-3 hover:bg-slate-100 transition-all"
+      className="text-left py-1 px-3 hover:bg-slate-100 dark:hover:bg-slate-600 transition-all"
     >
       {children}
     </button>
@@ -57,7 +59,7 @@ export const SelectOptions = ({ children }: { children: ReactNode }) => {
   const { isActive } = useContext(Context);
   return (
     <div
-      className={`absolute flex flex-col bg-white shadow-md w-full rounded-b-md max-h-36 ${
+      className={`absolute flex flex-col bg-white dark:bg-slate-700 shadow-md w-full rounded-b-md max-h-36 ${
         isActive ? "overflow-auto" : "overflow-hidden"
       }`}
     >

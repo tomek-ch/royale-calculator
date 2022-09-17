@@ -17,14 +17,14 @@ export const Tooltip = ({
   const { isActive, isExiting, finishExit, set } = useTransition();
   return (
     <div
-      className="relative z-20"
+      className="relative"
       onMouseEnter={() => set(true)}
       onMouseLeave={() => set(false)}
     >
       <div
         className={`
         absolute bg-black/80 text-white py-1 px-2 rounded-md
-        left-1/2 -translate-x-1/2 ${className}
+        left-1/2 -translate-x-1/2 ${className} z-10
         ${
           position === "top"
             ? "bottom-[calc(100%+0.25rem)]"

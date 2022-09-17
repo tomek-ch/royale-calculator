@@ -4,6 +4,7 @@ import { getRequiredCards, getRequiredGold } from "../utils/getRequired";
 import { Card, SelectedCard } from "../utils/types";
 import { InlineAlert } from "./InlineAlert";
 import { CardBtn } from "./CardBtn";
+import { Tooltip } from "./Tooltip";
 
 interface SelectedCardDataProps {
   selectedCard: SelectedCard;
@@ -36,7 +37,14 @@ const CardCountAlert = ({
     return <InlineAlert variant="danger">Card not unlocked</InlineAlert>;
   }
   if (selectedCard.fromLevel !== playerCard.level) {
-    return <InlineAlert>Card level is different</InlineAlert>;
+    return (
+      <Tooltip
+        className="w-60"
+        title={`Your ${selectedCard.card.name} is level ${playerCard.level}, but it is set to level ${selectedCard.fromLevel} here`}
+      >
+        <InlineAlert>Card level is different</InlineAlert>
+      </Tooltip>
+    );
   }
   const cardCountDifference = requiredCardCount - playerCard.count;
   if (cardCountDifference > 0) {
@@ -61,11 +69,11 @@ export const SelectedCardData = ({
   const requiredCardCount = getRequiredCards(selectedCard);
   return (
     <div
-      className={`p-4 rounded-xl flex gap-4 items-start ${className} ${
-        withShadow ? "shadow-md" : "bg-slate-200"
-      } ${onSelect ? "outline outline-2 transition-all" : ""} ${
-        selected ? "outline-blue-500" : "outline-transparent"
-      }`}
+      className={`p-4 rounded-xl flex gap-4 items-start
+      dark:bg-slate-800
+      ${className} ${withShadow ? "shadow-md" : "bg-slate-200"} ${
+        onSelect ? "outline outline-2 transition-all" : ""
+      } ${selected ? "outline-blue-500" : "outline-transparent"}`}
       onClick={(e) => {
         if (
           e.target instanceof HTMLButtonElement ||
@@ -79,7 +87,7 @@ export const SelectedCardData = ({
     >
       <CardBtn card={selectedCard.card} onClick={onClick} />
       <div className="flex flex-col gap-2 flex-grow">
-        <h4 className="text-lg font-medium flex justify-between items-center">
+        <h4 className="text-lg font-medium flex justify-between items-center dark:text-slate-300">
           <button onClick={() => onClick(selectedCard.card)}>
             {selectedCard.card.name}
           </button>

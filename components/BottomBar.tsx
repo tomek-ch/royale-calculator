@@ -18,7 +18,7 @@ export const BottomBar = ({
     <div className="flex justify-center">
       <div
         className={`
-      bg-white py-2 shadow-lg fixed z-10
+      bg-white py-2 shadow-lg fixed z-10 dark:bg-slate-700
         bottom-0 w-full px-4
         md:rounded-md md:bottom-4 md:px-2 md:w-auto
         animate-slide-up ${isExiting ? "animate-slide-down" : ""}

@@ -43,8 +43,8 @@ export const UpgradeSummary = () => {
 
   return (
     <div>
-      <div className="p-7 rounded-xl bg-slate-200 mt-4">
-        <h2 className="mb-4 font-medium text-lg">Summary</h2>
+      <div className="p-7 rounded-xl bg-slate-200 dark:bg-slate-800 mt-4">
+        <h2 className="mb-4 font-medium text-lg dark:text-white">Summary</h2>
         Required gold:{" "}
         <span className="font-medium">{requiredGold.toLocaleString()}</span>
         <h4 className="mt-4">Required cards:</h4>

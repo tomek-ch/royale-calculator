@@ -25,7 +25,8 @@ export const Option = ({ children, onClick }: OptionProps) => {
   return (
     <button
       onClick={handleClick}
-      className="block w-full text-left px-4 py-2 font-normal text-base hover:bg-slate-100 transition-all rounded-md"
+      className="block w-full text-left px-4 py-2 font-normal text-base hover:bg-slate-100
+      transition-all rounded-md dark:hover:bg-slate-600"
     >
       {children}
     </button>
@@ -46,7 +47,11 @@ export const Options = ({ children }: OptionsProps) => {
           className={`
           w-7 h-7 flex justify-center
           items-center rounded-full transition-all
-          ${isActive && !isExiting ? "bg-slate-900/10" : "hover:bg-slate-900/5"}
+          ${
+            isActive && !isExiting
+              ? "bg-slate-900/10 dark:bg-slate-600"
+              : "hover:bg-slate-900/5 dark:hover:bg-slate-700"
+          }
           `}
         >
           <VerticalDots height={16} />
@@ -55,6 +60,7 @@ export const Options = ({ children }: OptionsProps) => {
           <div
             className={`
             shadow-lg p-1 rounded-lg absolute bg-white whitespace-nowrap right-0
+            dark:bg-slate-700 dark:text-white
             ${isExiting ? "animate-hide" : "animate-pop-up"}
             `}
             onAnimationEnd={({ animationName }) => {

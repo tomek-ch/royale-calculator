@@ -12,7 +12,7 @@ interface InlineAlertProps {
 const variants = {
   danger: "text-red-600",
   warning: "text-amber-600",
-  info: "text-slate-600",
+  info: "text-slate-600 dark:text-slate-400",
   success: "text-green-700",
 };
 
@@ -20,7 +20,7 @@ const icons = {
   danger: <Warning width="16" />,
   warning: <Warning width="16" />,
   success: <CircleCheck width="16" />,
-  info: <Info width="16" />,
+  info: <Info width="16" className="text-slate-500" />,
 };
 
 export const InlineAlert = ({

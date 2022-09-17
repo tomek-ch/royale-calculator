@@ -71,7 +71,7 @@ export const Modal = ({
           <div
             className={`
             ${isExiting ? exitingAnimation : enteringAnimation}
-            p-6 bg-white w-full shadow-md
+            p-6 bg-white dark:bg-slate-800 w-full shadow-md
             ${modalStyles[type].body}
             `}
           >

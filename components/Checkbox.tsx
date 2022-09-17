@@ -10,12 +10,12 @@ interface CheckboxProps {
 
 export const Checkbox = ({
   label,
-  className,
+  className = "",
   checked,
   onChange,
 }: CheckboxProps) => {
   return (
-    <label className={`group flex gap-1 items-center ${className || ""}`}>
+    <label className={`group flex gap-2 items-center ${className}`}>
       <input
         checked={checked}
         type="checkbox"
@@ -28,7 +28,7 @@ export const Checkbox = ({
         className={`w-4 h-4 rounded-[4px] transition-colors grid place-content-center ${
           checked
             ? "bg-blue-500 group-hover:bg-blue-600 text-white"
-            : "bg-slate-300 group-hover:bg-slate-400/70 text-transparent"
+            : "bg-slate-300 group-hover:bg-slate-400/70 text-transparent dark:bg-slate-600"
         }`}
       >
         <Check width="12" />

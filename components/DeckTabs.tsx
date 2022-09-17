@@ -4,9 +4,10 @@ import { Tabs } from "./Tabs";
 interface DeckTabsProps {
   onChange: (tab: number) => void;
   activeTab: number;
+  className?: string;
 }
 
-export const DeckTabs = ({ activeTab, onChange }: DeckTabsProps) => {
+export const DeckTabs = ({ activeTab, onChange, className }: DeckTabsProps) => {
   const {
     decks: { decks },
   } = useMyContext();
@@ -20,6 +21,7 @@ export const DeckTabs = ({ activeTab, onChange }: DeckTabsProps) => {
       })}
       onChange={onChange}
       activeTab={activeTab}
+      className={className}
     />
   );
 };

@@ -14,7 +14,7 @@ export const CardImg = ({ card }: CardImgProps) => {
       alt={card.name}
       width="90.25"
       height="107.52"
-      className={isLoading ? "bg-slate-200 rounded-lg" : ""}
+      className={isLoading ? "bg-slate-200 dark:bg-slate-700 rounded-lg" : ""}
       onLoad={() => setIsLoading(false)}
     />
   );

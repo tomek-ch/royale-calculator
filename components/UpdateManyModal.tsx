@@ -131,8 +131,15 @@ export const UpdateManyModal = ({
                 position="bottom"
                 className="w-72 z-20"
               >
-                <Button variant="round" size="md" className="-ml-1">
-                  <CircleQuestion width="20" className="text-slate-600" />
+                <Button
+                  variant="round"
+                  size="md"
+                  className="-ml-1 dark:hover:!bg-slate-700"
+                >
+                  <CircleQuestion
+                    width="20"
+                    className="text-slate-600 dark:text-slate-500"
+                  />
                 </Button>
               </Tooltip>
             </>
@@ -169,8 +176,15 @@ export const UpdateManyModal = ({
                 position="bottom"
                 className="w-72"
               >
-                <Button variant="round" size="md" className="-ml-1">
-                  <CircleQuestion width="20" className="text-slate-600" />
+                <Button
+                  variant="round"
+                  size="md"
+                  className="-ml-1 dark:hover:!bg-slate-700"
+                >
+                  <CircleQuestion
+                    width="20"
+                    className="text-slate-600 dark:text-slate-500"
+                  />
                 </Button>
               </Tooltip>
             </>

@@ -37,7 +37,9 @@ export const UserNav = () => {
           <User width="12" /> {playerName}
         </Button>
       ) : (
-        <Button onClick={logInModal.toggle}>Log in</Button>
+        <Button onClick={logInModal.toggle} className="ml-3">
+          Log in
+        </Button>
       )}
       <Modal {...logInModal} title="Player tag" size="sm">
         <LogInForm onLogIn={onLogIn} />

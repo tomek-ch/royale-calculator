@@ -14,11 +14,13 @@ type ButtonProps = {
 };
 
 const styles = {
-  primary:
-    "bg-blue-500 text-white hover:bg-blue-600 disabled:hover:bg-blue-500",
-  secondary: "border-solid border-[1px] border-gray-300 hover:border-gray-400",
-  round: "grid place-content-center hover:bg-slate-100 rounded-full",
-  ghost: "hover:bg-slate-100",
+  primary: `bg-blue-500 text-white hover:bg-blue-600 disabled:hover:bg-blue-500
+    dark:bg-blue-600 dark:hover:bg-blue-700`,
+  secondary: `border-solid border-[1px] border-gray-300 hover:border-gray-400
+    dark:border-slate-600 dark:hover:border-slate-500 dark:text-slate-200`,
+  round: `grid place-content-center hover:bg-slate-100 rounded-full
+    dark:text-slate-200 dark:hover:bg-slate-800`,
+  ghost: "hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-slate-200",
 } as const;
 
 const sizes = {
