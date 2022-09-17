@@ -1,5 +1,6 @@
 import { useMyContext } from "../context/MyContext";
 import { Transition } from "../hooks/useTransition";
+import { areAllTheSame } from "../utils/areAllTheSame";
 import { getRequiredCards } from "../utils/getRequired";
 import { getRange } from "../utils/range";
 import { Button } from "./Button";
@@ -54,10 +55,7 @@ export const UpdateManyModal = ({
     );
     const firstPlayerCardLvl = playerCardLevels[0];
 
-    if (
-      firstPlayerCardLvl &&
-      playerCardLevels.every((lvl) => lvl === firstPlayerCardLvl)
-    ) {
+    if (firstPlayerCardLvl && areAllTheSame(playerCardLevels)) {
       setInputFrom(firstPlayerCardLvl);
       setSyncOnSave(true);
     } else if (playerCardLevels.some((lvl) => !!lvl)) {
@@ -86,7 +84,7 @@ export const UpdateManyModal = ({
 
     const firstMaxLevel = maxLevels[0];
 
-    if (firstMaxLevel && maxLevels.every((lvl) => lvl === firstMaxLevel)) {
+    if (firstMaxLevel && areAllTheSame(maxLevels)) {
       setInputTo(firstMaxLevel);
       setMaxOnSave(true);
     } else if (maxLevels.some((lvl) => !!lvl)) {
