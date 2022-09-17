@@ -7,6 +7,9 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      screens: {
+        xs: "470px",
+      },
       gridTemplateColumns: {
         fill: "repeat(auto-fill, minmax(73px, 1fr))",
       },

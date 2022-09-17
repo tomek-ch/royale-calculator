@@ -17,7 +17,7 @@ export const CardSearch = () => {
         placeholder="Search for cards"
         autoFocus
       />
-      <div className="grid gap-2 grid-cols-fill auto-rows-min mt-4 overflow-y-scroll h-[calc(100%-124px)] pr-2">
+      <div className="grid gap-2 grid-cols-4 xs:grid-cols-fill auto-rows-min mt-4 overflow-y-scroll h-[calc(100%-124px)] pr-2">
         {cards.flatMap((card) => {
           if (
             !input ||
