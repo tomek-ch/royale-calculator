@@ -30,6 +30,7 @@ export const usePlayer = () => {
     const [err, data] = await getPlayer(playerTag as string);
 
     if (data) {
+      setAuthError("");
       setPlayer(data);
     } else {
       setAuthError(err);
