@@ -70,7 +70,11 @@ export const UpdateManyModal = ({
         (card) => card.id === selectedCard.card.id
       );
 
-      const maxLevel = getRange(14, playerCard!.level, -1).find((toLevel) => {
+      if (!playerCard) {
+        return;
+      }
+
+      const maxLevel = getRange(14, playerCard.level, -1).find((toLevel) => {
         const missingCount =
           getRequiredCards({
             ...selectedCard,
