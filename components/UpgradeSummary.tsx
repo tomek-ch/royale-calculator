@@ -4,7 +4,6 @@ import {
   getRequiredGold,
   getXpGained,
 } from "../utils/getRequired";
-import { sumArr } from "../utils/sumArr";
 import { Rarity, rarityList, SelectedCard } from "../utils/types";
 import { InlineAlert } from "./InlineAlert";
 
@@ -18,8 +17,11 @@ export const UpgradeSummary = () => {
     return null;
   }
 
-  const requiredGold = sumArr(selectedCards, getRequiredGold);
-  const gainedXp = sumArr(selectedCards, getXpGained);
+  const sumCards = (cb: (selectedCard: SelectedCard) => number) =>
+    selectedCards.reduce((acc, item) => acc + cb(item), 0);
+
+  const requiredGold = sumCards(getRequiredGold);
+  const gainedXp = sumCards(getXpGained);
 
   const getMissingCount = (
     { fromLevel, card: { id } }: SelectedCard,
