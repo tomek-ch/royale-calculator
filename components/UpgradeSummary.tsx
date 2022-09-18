@@ -4,37 +4,56 @@ import {
   getRequiredGold,
   getXpGained,
 } from "../utils/getRequired";
+import { sumArr } from "../utils/sumArr";
 import { Rarity, rarityList, SelectedCard } from "../utils/types";
+import { InlineAlert } from "./InlineAlert";
 
 export const UpgradeSummary = () => {
   const {
     decks: { deck: selectedCards },
+    player: { playerCards },
   } = useMyContext();
 
   if (!selectedCards.length) {
     return null;
   }
 
-  const sumCards = (cb: (selectedCard: SelectedCard) => number) =>
-    selectedCards.reduce((acc, item) => acc + cb(item), 0);
+  const requiredGold = sumArr(selectedCards, getRequiredGold);
+  const gainedXp = sumArr(selectedCards, getXpGained);
 
-  const requiredGold = sumCards(getRequiredGold);
-  const gainedXp = sumCards(getXpGained);
+  const getMissingCount = (
+    { fromLevel, card: { id } }: SelectedCard,
+    required: number
+  ) => {
+    const playerCard = playerCards.find((item) => item.id === id);
+    if (!playerCard || fromLevel !== playerCard.level) {
+      return 0;
+    }
+    const difference = required - playerCard.count;
+    return difference > 0 ? difference : 0;
+  };
 
-  const requiredCards = selectedCards.reduce<Partial<Record<Rarity, number>>>(
-    (acc, item) => ({
+  const requiredCards = selectedCards.reduce<
+    Partial<Record<Rarity, { required: number; missing: number }>>
+  >((acc, item) => {
+    const rarity = acc[item.card.rarity];
+    const required = getRequiredCards(item);
+    const missing = getMissingCount(item, required);
+    return {
       ...acc,
-      [item.card.rarity]: getRequiredCards(item) + (acc[item.card.rarity] || 0),
-    }),
-    {}
-  );
+      [item.card.rarity]: {
+        required: required + (rarity?.required || 0),
+        missing: missing + (rarity?.missing || 0),
+      },
+    };
+  }, {});
 
   const requiredCardsSorted = rarityList
     .flatMap((rarity) => {
       const value = requiredCards[rarity];
 
       if (value) {
-        return [[rarity, value]];
+        return [{ ...value, rarity }];
       }
 
       return [];
@@ -51,9 +70,20 @@ export const UpgradeSummary = () => {
           Required cards: {!requiredCardsSorted.length && 0}
         </h4>
         <ul className="list-disc ml-4 mt-1">
-          {requiredCardsSorted.map(([k, v]) => (
-            <li className="capitalize" key={k}>
-              {k} - <span className="font-medium">{v.toLocaleString()}</span>
+          {requiredCardsSorted.map(({ missing, rarity, required }) => (
+            <li
+              className="capitalize flex gap-x-4 gap-y-2 flex-wrap"
+              key={rarity}
+            >
+              <span>
+                {rarity} -{" "}
+                <span className="font-medium">{required.toLocaleString()}</span>
+              </span>
+              {!!missing && (
+                <InlineAlert variant="warning" className="">
+                  {missing.toLocaleString()} cards missing
+                </InlineAlert>
+              )}
             </li>
           ))}
         </ul>
