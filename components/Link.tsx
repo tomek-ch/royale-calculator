@@ -1,19 +1,31 @@
 import { ReactNode } from "react";
 
-interface InlineLinkProps {
+type LinkProps = {
   children: ReactNode;
-  onClick: () => void;
-}
+  href?: string;
+  onClick?: () => void;
+  variant?: keyof typeof variants;
+};
 
-export const Link = ({ onClick, children }: InlineLinkProps) => {
+const variants = {
+  secondary:
+    "text-gray-600 hover:text-black dark:text-slate-400 dark:hover:text-slate-300",
+  primary: "text-blue-500 hover:text-blue-600",
+};
+
+export const Link = ({
+  children,
+  href,
+  onClick,
+  variant = "secondary",
+}: LinkProps) => {
+  const Element = onClick ? "button" : "a";
   return (
-    <button
-      onClick={onClick}
-      className="inline-block text-gray-600 hover:text-black
-      active:scale-95 transition-all
-      dark:text-slate-400 dark:hover:text-slate-300"
+    <Element
+      {...(onClick ? { onClick } : { href, target: "_blank" })}
+      className={`active:scale-95 transition-all ${variants[variant]}`}
     >
       {children}
-    </button>
+    </Element>
   );
 };
