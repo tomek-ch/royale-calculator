@@ -5,13 +5,13 @@ import { useSyncedValue } from "./useSyncedValue";
 export const useTheme = () => {
   const [isDarkMode, setIsDarkMode] = useSyncedValue(
     "isDarkMode",
-    isClient ? window.matchMedia("(prefers-color-scheme: dark)").matches : false
+    isClient ? window.matchMedia("(prefers-color-scheme: dark)").matches : null
   );
   const toggleTheme = () => setIsDarkMode((prev) => !prev);
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add("dark");
-    } else {
+    } else if (isDarkMode === false) {
       document.documentElement.classList.remove("dark");
     }
   }, [isDarkMode]);

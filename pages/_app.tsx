@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import Script from "next/script";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -12,6 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>Royale Calculator</title>
         <link rel="icon" href="favicon.svg" />
       </Head>
+      <Script src="/theme.js" strategy="beforeInteractive" />
       <Component {...pageProps} />
     </div>
   );
