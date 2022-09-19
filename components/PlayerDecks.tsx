@@ -14,7 +14,7 @@ export const PlayerDecks = ({ onLogOut }: PlayerDecksProps) => {
     player: { playerName, playerDecks, playerCurrentDeck, setCopiedDeck },
   } = useMyContext();
   return (
-    <>
+    <div className="dark:text-slate-300 h-full">
       <div className="flex justify-between items-center">
         <div>
           <div className="flex gap-2 items-center">
@@ -42,6 +42,6 @@ export const PlayerDecks = ({ onLogOut }: PlayerDecksProps) => {
           <Alert>No recent decks found</Alert>
         )}
       </div>
-    </>
+    </div>
   );
 };
