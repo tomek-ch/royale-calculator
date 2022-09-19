@@ -31,7 +31,7 @@ export const InlineAlert = ({
   if (children) {
     return (
       <div
-        className={` flex gap-2 items-center ${className} ${variants[variant]}`}
+        className={`flex gap-2 items-center ${className} ${variants[variant]}`}
       >
         {icons[variant]}
         {children}
