@@ -71,21 +71,25 @@ export const UpgradeSummary = () => {
         <h4 className="mt-4">
           Required cards: {!requiredCardsSorted.length && 0}
         </h4>
-        <ul className="list-disc ml-4 mt-1">
+        <ul className="list-disc ml-4 mt-2">
           {requiredCardsSorted.map(({ missing, rarity, required }) => (
-            <li
-              className="capitalize flex gap-x-4 gap-y-2 flex-wrap"
-              key={rarity}
-            >
-              <span>
-                {rarity} -{" "}
-                <span className="font-medium">{required.toLocaleString()}</span>
-              </span>
-              {!!missing && (
-                <InlineAlert variant="warning" className="">
-                  {missing.toLocaleString()} cards missing
-                </InlineAlert>
-              )}
+            <li key={rarity}>
+              <div className="md:flex gap-3">
+                <span className="capitalize">
+                  {rarity} -{" "}
+                  <span className="font-medium">
+                    {required.toLocaleString()}
+                  </span>
+                </span>
+                {!!missing && (
+                  <InlineAlert
+                    variant="warning"
+                    className="!gap-1 mb-2 md:mb-0"
+                  >
+                    {missing.toLocaleString()} missing
+                  </InlineAlert>
+                )}
+              </div>
             </li>
           ))}
         </ul>
