@@ -54,7 +54,7 @@ export const UpgradeSummary = () => {
     .flatMap((rarity) => {
       const value = requiredCards[rarity];
 
-      if (value) {
+      if (value?.required) {
         return [{ ...value, rarity }];
       }
 
