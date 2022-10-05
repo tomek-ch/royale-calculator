@@ -5,6 +5,7 @@ import { Button } from "./Button";
 import { Checkbox } from "./Checkbox";
 import { Deck } from "./Deck";
 import { DeckTabs } from "./DeckTabs";
+import { MsgBox } from "./Tutorial";
 
 interface PasteDeckProps {
   onPaste: () => void;
@@ -13,11 +14,12 @@ interface PasteDeckProps {
 export const PasteDeck = ({ onPaste }: PasteDeckProps) => {
   const {
     player: { copiedDeck },
-    decks: { decks, setSlot, setCurrentTab },
+    decks: { decks, setSlot, setCurrentTab, currentTab },
     selectedCard: { getSelectedCard },
+    tutorial,
   } = useMyContext();
 
-  const [tabToPaste, setTabToPaste] = useState(0);
+  const [tabToPaste, setTabToPaste] = useState(currentTab);
   const [replace, setReplace] = useState(true);
 
   const paste = () => {
@@ -56,7 +58,18 @@ export const PasteDeck = ({ onPaste }: PasteDeckProps) => {
         label="Replace slot contents"
         className="my-4"
       />
-      <Button variant="primary" className="ml-auto" onClick={paste}>
+      {tutorial.isPasteStep && (
+        <div className="fixed inset-0 bg-black/70 w-full z-10" />
+      )}
+      {tutorial.isPasteStep && (
+        <div className="relative">
+          <MsgBox className="absolute right-0 mb-2 bottom-full">
+            Click here to paste the deck into the calculator and see the upgrade
+            costs
+          </MsgBox>
+        </div>
+      )}
+      <Button variant="primary" className="ml-auto z-10" onClick={paste}>
         Paste
       </Button>
     </div>

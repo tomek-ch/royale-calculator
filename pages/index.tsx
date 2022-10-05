@@ -12,6 +12,11 @@ const SelectedCards = dynamic(
   { ssr: false }
 );
 
+const Tutorial = dynamic(
+  async () => (await import("../components/Tutorial")).Tutorial,
+  { ssr: false }
+);
+
 type HomeProps = {
   cards: Card[];
 };
@@ -23,6 +28,7 @@ const Home: NextPage<HomeProps> = ({ cards }) => {
       <SelectedCards />
       <Footer />
       <AuthToast />
+      <Tutorial />
     </MyContextProvider>
   );
 };

@@ -4,6 +4,7 @@ import { Button } from "./Button";
 import { Deck } from "./Deck";
 import { LogOut } from "./icons/LogOut";
 import { User } from "./icons/User";
+import { MsgBox } from "./Tutorial";
 
 interface PlayerDecksProps {
   onLogOut: () => void;
@@ -12,6 +13,7 @@ interface PlayerDecksProps {
 export const PlayerDecks = ({ onLogOut }: PlayerDecksProps) => {
   const {
     player: { playerName, playerDecks, playerCurrentDeck, setCopiedDeck },
+    tutorial,
   } = useMyContext();
   return (
     <div className="dark:text-slate-300 h-full">
@@ -27,10 +29,26 @@ export const PlayerDecks = ({ onLogOut }: PlayerDecksProps) => {
       </div>
       <div className="overflow-y-scroll h-[calc(100%-142px)] pr-2 mt-8">
         <div className="mb-4">Current deck</div>
+        {tutorial.isCopyStep && (
+          <div className="fixed inset-0 bg-black/70 w-full z-10" />
+        )}
         <Deck
+          className="z-20 relative"
           cards={playerCurrentDeck}
-          onCopy={() => setCopiedDeck(playerCurrentDeck)}
+          onCopy={() => {
+            if (tutorial.isCopyStep) {
+              tutorial.nextStep();
+            }
+            setCopiedDeck(playerCurrentDeck);
+          }}
         />
+        {tutorial.isCopyStep && (
+          <div className="relative">
+            <MsgBox className="absolute right-0">
+              Click here to copy your current deck
+            </MsgBox>
+          </div>
+        )}
         <div className="mb-4 mt-8">Recent decks</div>
         {playerDecks.length ? (
           playerDecks.map((deck, idx) => (

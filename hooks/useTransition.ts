@@ -3,13 +3,15 @@ import { flushSync } from "react-dom";
 import { callMaybeFunction } from "../utils/callMaybeFunction";
 
 export const useTransition = ({
+  defaultVal = false,
   onClose,
   onOpen,
 }: {
+  defaultVal?: boolean;
   onOpen?: () => void;
   onClose?: () => void;
 } = {}) => {
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(defaultVal);
   const [isExiting, setIsExiting] = useState(false);
   const [onToggle, setOnToggle] = useState<(() => void) | null>(null);
 

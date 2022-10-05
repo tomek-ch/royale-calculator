@@ -20,6 +20,7 @@ export const LogInForm = ({ onLogIn }: LogInFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const {
     player: { logIn },
+    tutorial,
   } = useMyContext();
 
   const handleSubmit = createSubmitHandler(async () => {
@@ -41,25 +42,34 @@ export const LogInForm = ({ onLogIn }: LogInFormProps) => {
     }
   });
 
+  const zIndexClass = tutorial.isLogInFormStep ? "z-20" : "";
+
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex gap-2">
-        <Input
-          value={playerTag}
-          onChange={setPlayerTag}
-          id="player-tag"
-          placeholder="#XXXXXX"
-          autoFocus
-          disabled={isLoading}
-          autoCapitalize="off"
-        />
-        <Button variant="primary" className="ml-auto" loading={isLoading}>
-          Log in
-        </Button>
+      <div className="flex flex-col">
+        <div className="flex gap-2">
+          <Input
+            value={playerTag}
+            onChange={setPlayerTag}
+            id="player-tag"
+            placeholder="#XXXXXX"
+            autoFocus
+            disabled={isLoading}
+            autoCapitalize="off"
+            className={zIndexClass}
+          />
+          <Button
+            variant="primary"
+            className={`ml-auto ${zIndexClass}`}
+            loading={isLoading}
+          >
+            Log in
+          </Button>
+        </div>
+        <InlineAlert variant="danger" className={`mt-2 ${zIndexClass}`}>
+          {error}
+        </InlineAlert>
       </div>
-      <InlineAlert variant="danger" className="mt-2">
-        {error}
-      </InlineAlert>
     </form>
   );
 };

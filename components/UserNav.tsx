@@ -6,10 +6,12 @@ import { LogInForm } from "./LogInForm";
 import { Modal } from "./Modal";
 import { PasteDeck } from "./PasteDeck";
 import { PlayerDecks } from "./PlayerDecks";
+import { MsgBox } from "./Tutorial";
 
 export const UserNav = () => {
   const {
     player: { player, logOut, playerName, copiedDeck, resetCopiedDeck },
+    tutorial,
   } = useMyContext();
 
   const playerDecksModal = useTransition({ onClose: resetCopiedDeck });
@@ -18,6 +20,10 @@ export const UserNav = () => {
   const onLogIn = () => {
     logInModal.toggle();
     playerDecksModal.toggle();
+
+    if (tutorial.isLogInFormStep) {
+      tutorial.nextStep();
+    }
   };
 
   const onLogOut = () => {
@@ -37,21 +43,54 @@ export const UserNav = () => {
           <User width="12" /> {playerName}
         </Button>
       ) : (
-        <Button onClick={logInModal.toggle} className="ml-3">
+        <Button
+          variant="primary"
+          onClick={() => {
+            if (tutorial.isLogInBtnStep) {
+              tutorial.nextStep();
+            }
+            logInModal.toggle();
+          }}
+          className={`ml-3 ${tutorial.isLogInBtnStep ? "relative z-20" : ""}`}
+        >
           Log in
         </Button>
       )}
-      <Modal {...logInModal} title="Player tag" size="sm">
+      <Modal
+        {...logInModal}
+        title="Player tag"
+        size="sm"
+        closeOnClickOutside={!tutorial.isLogInFormStep}
+        withCloseBtn={!tutorial.isLogInFormStep}
+      >
         <LogInForm onLogIn={onLogIn} />
+        {tutorial.isLogInFormStep && (
+          <div className="relative">
+            <MsgBox className="absolute max">
+              Enter your player tag or try an example one like #PLV9L88J.
+            </MsgBox>
+          </div>
+        )}
       </Modal>
       <Modal
         type="drawer"
         onGoBack={copiedDeck ? resetCopiedDeck : null}
         title={playerModalTitle}
+        backdropClass={
+          tutorial.isCopyStep || tutorial.isPasteStep ? "!bg-black/80" : ""
+        }
         {...playerDecksModal}
       >
         {copiedDeck ? (
-          <PasteDeck onPaste={playerDecksModal.toggle} />
+          <PasteDeck
+            onPaste={() =>
+              playerDecksModal.toggle(() => {
+                if (tutorial.isPasteStep) {
+                  tutorial.nextStep();
+                }
+              })
+            }
+          />
         ) : (
           <PlayerDecks onLogOut={onLogOut} />
         )}

@@ -6,11 +6,12 @@ import { Copy } from "./icons/Copy";
 interface DeckProps {
   cards: Card[];
   onCopy?: () => void;
+  className?: string;
 }
 
-export const Deck = ({ cards, onCopy }: DeckProps) => {
+export const Deck = ({ cards, onCopy, className = "" }: DeckProps) => {
   return (
-    <div>
+    <div className={className}>
       <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
         {cards.map((card) => (
           <CardImg key={card.id} card={card} />

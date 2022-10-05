@@ -7,9 +7,15 @@ interface ModalHeaderProps {
   title: ReactNode;
   close: () => void;
   goBack?: (() => void) | null;
+  withCloseBtn?: boolean;
 }
 
-export const ModalHeader = ({ title, close, goBack }: ModalHeaderProps) => {
+export const ModalHeader = ({
+  title,
+  close,
+  goBack,
+  withCloseBtn,
+}: ModalHeaderProps) => {
   return (
     <div className="flex text-xl mb-4 items-center">
       {goBack ? (
@@ -24,13 +30,15 @@ export const ModalHeader = ({ title, close, goBack }: ModalHeaderProps) => {
         <></>
       )}
       <div className="dark:text-white">{title}</div>
-      <Button
-        onClick={close}
-        variant="round"
-        className="ml-auto dark:hover:bg-slate-700"
-      >
-        <Xmark />
-      </Button>
+      {withCloseBtn && (
+        <Button
+          onClick={close}
+          variant="round"
+          className="ml-auto dark:hover:bg-slate-700"
+        >
+          <Xmark />
+        </Button>
+      )}
     </div>
   );
 };

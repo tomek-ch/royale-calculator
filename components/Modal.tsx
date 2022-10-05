@@ -11,6 +11,9 @@ type ModalProps = {
   title?: ReactNode;
   children: ReactNode;
   onGoBack?: null | (() => void);
+  withCloseBtn?: boolean;
+  closeOnClickOutside?: boolean;
+  backdropClass?: string;
 } & Transition;
 
 const sizeClasses = {
@@ -40,6 +43,9 @@ export const Modal = ({
   isExiting,
   finishExit,
   onGoBack,
+  withCloseBtn = true,
+  closeOnClickOutside = true,
+  backdropClass = "",
 }: ModalProps) => {
   useNoScroll(isActive);
 
@@ -52,10 +58,14 @@ export const Modal = ({
     return (
       <>
         <div
-          onClick={() => toggle()}
+          onClick={() => {
+            if (closeOnClickOutside) {
+              toggle();
+            }
+          }}
           className={`fixed inset-0 bg-black/70 w-full z-10 ${
             isExiting ? "animate-fade-out" : "animate-fade-in"
-          }`}
+          } ${backdropClass}`}
           onAnimationEnd={({ animationName }) => {
             if (animationName === "fade-out") {
               finishExit();
@@ -76,7 +86,12 @@ export const Modal = ({
             ${modalStyles[type].body}
             `}
           >
-            <ModalHeader goBack={onGoBack} close={toggle} title={title} />
+            <ModalHeader
+              withCloseBtn={withCloseBtn}
+              goBack={onGoBack}
+              close={toggle}
+              title={title}
+            />
             {children}
           </div>
         </div>
