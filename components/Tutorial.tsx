@@ -35,35 +35,13 @@ const WelcomeStep = () => {
 };
 
 const LogInBtnStep = () => (
-  // <div className="fixed inset-0 bg-black/70 w-full z-10 text-white">
-  //   <div className="w-full h-full max-w-5xl mx-auto relative">
-  //     <div
-  //       className="absolute -right-[310px] -top-[350px] w-[700px] h-[700px]
-  //         bg-slate-800 rounded-full"
-  //     >
-  //       <div
-  //         className="absolute w-1/3 h-1/3 bg-slate-700 z-20
-  //         left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 rounded-full"
-  //       >
-  //         <div className="top-3/4 right-1/4 absolute mr-8 whitespace-nowrap text-center z-20">
-  //           Click here to log in
-  //           <br />
-  //           with your player tag
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  // </div>
-  <>
-    <div className="fixed inset-0 bg-black/70 w-full z-10">
-      <div className="w-full h-full max-w-5xl mx-auto relative">
-        <MsgBox className="absolute top-12 right-4 ml-4">
-          Click here to log in with your player tag
-        </MsgBox>
-      </div>
+  <div className="fixed inset-0 bg-black/70 w-full z-10">
+    <div className="w-full h-full max-w-5xl mx-auto relative">
+      <MsgBox className="absolute top-12 right-4 ml-4">
+        Click here to log in with your player tag
+      </MsgBox>
     </div>
-  </>
-  // <></>
+  </div>
 );
 
 const CurrentStep = () => {
