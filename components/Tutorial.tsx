@@ -19,7 +19,7 @@ const WelcomeStep = () => {
   });
   useSync(step === 0 && isActive, modal.set);
   return (
-    <Modal title="Welcome to Calculator Royale" {...modal}>
+    <Modal title="Welcome to Royale Calculator" {...modal}>
       <p>
         Ready to find out know how much gold you need to upgrade your Clash
         Royale deck?
