@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { useMyContext } from "../context/MyContext";
 import { useNoScroll } from "../hooks/useNoScroll";
 import { Transition } from "../hooks/useTransition";
 import { ModalHeader } from "./ModalHeader";
@@ -48,6 +49,7 @@ export const Modal = ({
   backdropClass = "",
 }: ModalProps) => {
   useNoScroll(isActive);
+  const { tutorial } = useMyContext();
 
   const [enteringAnimation, exitingAnimation] =
     type === "modal"
@@ -64,7 +66,11 @@ export const Modal = ({
             }
           }}
           className={`fixed inset-0 bg-black/70 w-full z-10 ${
-            isExiting ? "animate-fade-out" : "animate-fade-in"
+            isExiting
+              ? "animate-fade-out"
+              : !tutorial.isActive
+              ? "animate-fade-in"
+              : ""
           } ${backdropClass}`}
           onAnimationEnd={({ animationName }) => {
             if (animationName === "fade-out") {
