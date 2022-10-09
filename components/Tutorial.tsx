@@ -76,11 +76,34 @@ const CurrentStep = () => {
   return null;
 };
 
+const SkipButton = () => {
+  const {
+    tutorial: { finishTutorial, isWelcomeStep, isSummaryStep, isActive },
+  } = useMyContext();
+
+  if (isActive && !isWelcomeStep && !isSummaryStep) {
+    return (
+      <div className="w-full max-w-5xl mx-auto relative">
+        <Button
+          onClick={finishTutorial}
+          className="absolute bottom-4 right-0 z-10 bg-slate-200
+          dark:bg-slate-700 dark:text-white !border-0"
+        >
+          Skip
+        </Button>
+      </div>
+    );
+  }
+
+  return null;
+};
+
 export const Tutorial = () => {
   return (
     <>
       <WelcomeStep />
       <CurrentStep />
+      <SkipButton />
     </>
   );
 };

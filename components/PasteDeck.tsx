@@ -69,7 +69,11 @@ export const PasteDeck = ({ onPaste }: PasteDeckProps) => {
           </MsgBox>
         </div>
       )}
-      <Button variant="primary" className="ml-auto z-10" onClick={paste}>
+      <Button
+        variant="primary"
+        className="ml-auto relative z-10"
+        onClick={paste}
+      >
         Paste
       </Button>
     </div>

@@ -41,7 +41,7 @@ export const Button = ({
       disabled={loading}
       className={`
       block transition-all whitespace-nowrap leading-5
-      active:scale-95 active:disabled:scale-100 relative
+      active:scale-95 active:disabled:scale-100
       ${styles[variant]}
       ${loading ? "text-transparent" : ""}
       ${variant === "round" ? sizes[size] : "py-2 px-4 rounded-md"}
@@ -50,10 +50,10 @@ export const Button = ({
       onClick={() => onClick?.()}
     >
       {loading ? (
-        <>
+        <div className="relative">
           <Spinner className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
           {children}
-        </>
+        </div>
       ) : (
         children
       )}
