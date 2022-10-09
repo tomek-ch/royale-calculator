@@ -66,7 +66,7 @@ export const UserNav = () => {
         <LogInForm onLogIn={onLogIn} />
         {tutorial.isLogInFormStep && (
           <div className="relative">
-            <MsgBox className="absolute max">
+            <MsgBox className="absolute max dark:!bg-slate-700">
               Enter your player tag or try an example one like #PLV9L88J.
             </MsgBox>
           </div>
