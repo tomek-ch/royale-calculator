@@ -90,7 +90,7 @@ export const UpgradeSummary = () => {
           <div className="fixed inset-0 bg-black/70 w-full z-10" />
           <MsgBox className="absolute max-w-xl sm:flex items-center bottom-full">
             Here you can find the upgrade costs of your deck. The default
-            upgrade level is 14 but you can adjust it for every card.
+            upgrade level is 14, but you can adjust it for every card.
             <Button
               variant="primary"
               className="mt-2 ml-auto sm:mt-0"
