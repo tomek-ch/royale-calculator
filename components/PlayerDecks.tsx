@@ -27,7 +27,11 @@ export const PlayerDecks = ({ onLogOut }: PlayerDecksProps) => {
           Log out <LogOut width="20" className="-mr-1" />
         </Button>
       </div>
-      <div className="overflow-y-scroll h-[calc(100%-142px)] pr-2 mt-8">
+      <div
+        className={`${
+          tutorial.isCopyStep ? "overflow-y-hidden" : "overflow-y-scroll"
+        } h-[calc(100%-142px)] pr-2 mt-8`}
+      >
         <div className="mb-4">Current deck</div>
         {tutorial.isCopyStep && (
           <div className="fixed inset-0 bg-black/70 w-full z-10" />
