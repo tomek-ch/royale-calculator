@@ -115,7 +115,10 @@ export const UpgradeSummary = () => {
           {requiredGold.toLocaleString()}
         </span>
         <h4 className="mt-4">
-          Required cards: {!requiredCardsSorted.length && 0}
+          Required cards:{" "}
+          <span className="font-medium dark:text-slate-200">
+            {!requiredCardsSorted.length && 0}
+          </span>
         </h4>
         <ul className="list-disc ml-4 mt-2">
           {requiredCardsSorted.map(({ missing, rarity, required }) => (
