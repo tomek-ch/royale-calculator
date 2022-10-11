@@ -68,6 +68,10 @@ export const useBulkEdit = (
     1,
     ...selectedCards.map(({ card: { startingLevel } }) => startingLevel)
   );
+  const minStartLevel = Math.min(
+    1,
+    ...selectedCards.map(({ card: { startingLevel } }) => startingLevel)
+  );
 
   const numberOfSelected = selectedCards.length;
   const isSelectMode = !!numberOfSelected;
@@ -106,6 +110,36 @@ export const useBulkEdit = (
     setMaxOnSave(true);
   };
 
+  const updateSync = () => {
+    setDeck((prev) =>
+      prev.map((item) => {
+        const playerCard = playerCardsMap[item.card.id];
+        if (!playerCard) return item;
+        return {
+          ...item,
+          fromLevel: playerCard.level,
+          toLevel:
+            playerCard.level > item.toLevel ? playerCard.level : item.toLevel,
+        };
+      })
+    );
+  };
+
+  const updateMax = () => {
+    setDeck((prev) =>
+      prev.map((item) => {
+        const maxLevel = getMaxUpgradeLevel(item);
+        if (!maxLevel) {
+          return item;
+        }
+        return {
+          ...item,
+          toLevel: maxLevel,
+        };
+      })
+    );
+  };
+
   return {
     selectForEdit,
     cancelSelect,
@@ -129,39 +163,16 @@ export const useBulkEdit = (
     setInputFrom,
     inputTo,
     setInputTo,
+    minStartLevel,
     updateMany: () => {
       if (syncOnSave) {
-        setDeck((prev) =>
-          prev.map((item) => {
-            const playerCard = playerCardsMap[item.card.id];
-            if (!playerCard) return item;
-            return {
-              ...item,
-              fromLevel: playerCard.level,
-              toLevel:
-                playerCard.level > item.toLevel
-                  ? playerCard.level
-                  : item.toLevel,
-            };
-          })
-        );
+        updateSync();
       } else if (inputFrom) {
         updateManyFrom(inputFrom);
       }
 
       if (maxOnSave) {
-        setDeck((prev) =>
-          prev.map((item) => {
-            const maxLevel = getMaxUpgradeLevel(item);
-            if (!maxLevel) {
-              return item;
-            }
-            return {
-              ...item,
-              toLevel: maxLevel,
-            };
-          })
-        );
+        updateMax();
       } else if (inputTo) {
         updateManyTo(inputTo);
       }
