@@ -32,19 +32,32 @@ export const useBulkEdit = (
   const selectAll = () =>
     setDeck((prev) => prev.map((item) => ({ ...item, isSelected: true })));
 
-  const updateMany = (key: "fromLevel" | "toLevel") => (value: number) => {
+  const updateManyFrom = (value: number) => {
     setDeck((prev) =>
       prev.map((item) => {
-        if (item.isSelected) {
-          return { ...item, [key]: value };
+        if (!item.isSelected) {
+          return item;
         }
-        return item;
+        if (item.card.startingLevel > value) {
+          return { ...item, fromLevel: item.card.startingLevel };
+        }
+        return { ...item, fromLevel: value };
       })
     );
   };
-
-  const updateManyFrom = updateMany("fromLevel");
-  const updateManyTo = updateMany("toLevel");
+  const updateManyTo = (value: number) => {
+    setDeck((prev) =>
+      prev.map((item) => {
+        if (!item.isSelected) {
+          return item;
+        }
+        if (item.fromLevel > value) {
+          return { ...item, toLevel: item.fromLevel };
+        }
+        return { ...item, toLevel: value };
+      })
+    );
+  };
 
   const selectedCards = deck.filter((item) => item.isSelected);
 
@@ -64,13 +77,12 @@ export const useBulkEdit = (
 
   const selectedFromLevel = getSelectedCardsUpgradeLevel("fromLevel");
   const selectedToLevel = getSelectedCardsUpgradeLevel("toLevel");
-  const maxStartLevel = Math.max(
-    1,
+
+  const minStartLevel = Math.min(
     ...selectedCards.map(({ card: { startingLevel } }) => startingLevel)
   );
-  const minStartLevel = Math.min(
-    1,
-    ...selectedCards.map(({ card: { startingLevel } }) => startingLevel)
+  const minCurrentLevel = Math.min(
+    ...selectedCards.map(({ fromLevel }) => fromLevel)
   );
 
   const numberOfSelected = selectedCards.length;
@@ -149,7 +161,6 @@ export const useBulkEdit = (
     updateManyTo,
     selectedFromLevel,
     selectedToLevel,
-    maxStartLevel,
     isSelectMode,
     numberOfSelected,
     selectedCards,
@@ -164,6 +175,7 @@ export const useBulkEdit = (
     inputTo,
     setInputTo,
     minStartLevel,
+    minCurrentLevel,
     updateMany: () => {
       if (syncOnSave) {
         updateSync();

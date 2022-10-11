@@ -1,7 +1,5 @@
 import { useMyContext } from "../context/MyContext";
 import { Transition } from "../hooks/useTransition";
-import { areAllTheSame } from "../utils/areAllTheSame";
-import { getRequiredCards } from "../utils/getRequired";
 import { getRange } from "../utils/range";
 import { Button } from "./Button";
 import { ArrowUp } from "./icons/ArrowUp";
@@ -21,7 +19,6 @@ export const UpdateManyModal = ({ transition }: UpdateManyModalProps) => {
     bulkEdit: {
       numberOfSelected,
       isSelectMode,
-      maxStartLevel,
       cancelSelect,
       maxOnSave,
       syncOnSave,
@@ -32,6 +29,8 @@ export const UpdateManyModal = ({ transition }: UpdateManyModalProps) => {
       sync,
       max,
       updateMany,
+      minStartLevel,
+      minCurrentLevel,
     },
     player: { player },
   } = useMyContext();
@@ -54,7 +53,7 @@ export const UpdateManyModal = ({ transition }: UpdateManyModalProps) => {
             <SelectBtn>{inputFrom || "Mixed"}</SelectBtn>
             <SelectOptions>
               {isSelectMode &&
-                getRange(maxStartLevel, 14).map((value) => (
+                getRange(minStartLevel, inputTo || 14).map((value) => (
                   <SelectOption key={value} value={value}>
                     {value}
                   </SelectOption>
@@ -99,7 +98,7 @@ export const UpdateManyModal = ({ transition }: UpdateManyModalProps) => {
             <SelectBtn>{inputTo || "Mixed"}</SelectBtn>
             <SelectOptions>
               {isSelectMode &&
-                getRange(inputFrom || maxStartLevel, 14).map((value) => (
+                getRange(inputFrom || minCurrentLevel, 14).map((value) => (
                   <SelectOption key={value} value={value}>
                     {value}
                   </SelectOption>
