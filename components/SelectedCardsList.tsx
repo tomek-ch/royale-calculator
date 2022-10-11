@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useMyContext } from "../context/MyContext";
 import { useClickOutside } from "../hooks/useClickOutside";
 import { useSync } from "../hooks/useSync";
@@ -24,17 +24,16 @@ export const SelectedCardsList = ({ edit }: SelectedCardsListProps) => {
       selectedFromLevel,
       selectedToLevel,
       isSelectMode,
+      setMaxOnSave,
+      setSyncOnSave,
+      setInputFrom,
+      setInputTo,
     },
   } = useMyContext();
   const cardTiles = useRef<(HTMLDivElement | null)[]>([]);
 
   const editBar = useTransition();
   const editBarRef = useRef<HTMLDivElement | null>(null);
-
-  const [inputFrom, setInputFrom] = useState(selectedFromLevel);
-  const [inputTo, setInputTo] = useState(selectedToLevel);
-  const [syncOnSave, setSyncOnSave] = useState(false);
-  const [maxOnSave, setMaxOnSave] = useState(false);
 
   const updateManyModal = useTransition({
     onClose: () => {
@@ -89,23 +88,7 @@ export const SelectedCardsList = ({ edit }: SelectedCardsListProps) => {
         <CardsEditBar transition={editBar} onEdit={updateManyModal.toggle} />
       </div>
       <div ref={modalRef}>
-        <UpdateManyModal
-          transition={updateManyModal}
-          inputFrom={inputFrom as number}
-          inputTo={inputTo as number}
-          setInputFrom={(value) => {
-            setInputFrom(value);
-            setSyncOnSave(false);
-          }}
-          setInputTo={(value) => {
-            setInputTo(value);
-            setMaxOnSave(false);
-          }}
-          syncOnSave={syncOnSave}
-          maxOnSave={maxOnSave}
-          setSyncOnSave={setSyncOnSave}
-          setMaxOnSave={setMaxOnSave}
-        />
+        <UpdateManyModal transition={updateManyModal} />
       </div>
     </>
   );

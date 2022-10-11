@@ -14,88 +14,27 @@ import { Tooltip } from "./Tooltip";
 
 interface UpdateManyModalProps {
   transition: Transition;
-  inputFrom: number;
-  setInputFrom: (value: number | null) => void;
-  inputTo: number;
-  setInputTo: (value: number | null) => void;
-  syncOnSave: boolean;
-  maxOnSave: boolean;
-  setSyncOnSave: (value: boolean) => void;
-  setMaxOnSave: (value: boolean) => void;
 }
 
-export const UpdateManyModal = ({
-  transition,
-  inputFrom,
-  setInputFrom,
-  inputTo,
-  setInputTo,
-  maxOnSave,
-  setMaxOnSave,
-  setSyncOnSave,
-  syncOnSave,
-}: UpdateManyModalProps) => {
+export const UpdateManyModal = ({ transition }: UpdateManyModalProps) => {
   const {
     bulkEdit: {
       numberOfSelected,
       isSelectMode,
       maxStartLevel,
       cancelSelect,
-      updateManyFrom,
-      updateManyTo,
-      selectedCards,
+      maxOnSave,
+      syncOnSave,
+      inputFrom,
+      setInputFrom,
+      inputTo,
+      setInputTo,
+      sync,
+      max,
+      updateMany,
     },
-    decks: { setDeck },
-    player: { player, playerCards },
+    player: { player },
   } = useMyContext();
-
-  const sync = () => {
-    const playerCardLevels = selectedCards.map(
-      ({ card: { id } }) => playerCards.find((card) => card.id === id)?.level
-    );
-    const firstPlayerCardLvl = playerCardLevels[0];
-
-    if (firstPlayerCardLvl && areAllTheSame(playerCardLevels)) {
-      setInputFrom(firstPlayerCardLvl);
-      setSyncOnSave(true);
-    } else if (playerCardLevels.some((lvl) => !!lvl)) {
-      setInputFrom(null);
-      setSyncOnSave(true);
-    }
-  };
-
-  const max = () => {
-    const maxLevels = selectedCards.map((selectedCard) => {
-      const playerCard = playerCards.find(
-        (card) => card.id === selectedCard.card.id
-      );
-
-      if (!playerCard) {
-        return;
-      }
-
-      const maxLevel = getRange(14, playerCard.level, -1).find((toLevel) => {
-        const missingCount =
-          getRequiredCards({
-            ...selectedCard,
-            toLevel,
-          }) - playerCard!.count;
-        return missingCount <= 0;
-      });
-
-      return maxLevel;
-    });
-
-    const firstMaxLevel = maxLevels[0];
-
-    if (firstMaxLevel && areAllTheSame(maxLevels)) {
-      setInputTo(firstMaxLevel);
-      setMaxOnSave(true);
-    } else if (maxLevels.some((lvl) => !!lvl)) {
-      setInputTo(null);
-      setMaxOnSave(true);
-    }
-  };
 
   return (
     <Modal
@@ -210,55 +149,8 @@ export const UpdateManyModal = ({
         <Button
           variant="primary"
           onClick={() => {
-            if (syncOnSave) {
-              setDeck((prev) =>
-                prev.map((item) => {
-                  const playerCard = playerCards.find(
-                    ({ id }) => id === item.card.id
-                  );
-                  if (!playerCard) return item;
-                  return {
-                    ...item,
-                    fromLevel: playerCard.level,
-                    toLevel:
-                      playerCard.level > item.toLevel
-                        ? playerCard.level
-                        : item.toLevel,
-                  };
-                })
-              );
-            } else if (inputFrom) {
-              updateManyFrom(inputFrom);
-            }
-
-            if (maxOnSave) {
-              setDeck((prev) =>
-                prev.map((item) => {
-                  const playerCard = playerCards.find(
-                    ({ id }) => id === item.card.id
-                  );
-                  if (!playerCard) return item;
-                  const maxLevel = getRange(14, playerCard!.level, -1).find(
-                    (toLevel) => {
-                      const missingCount =
-                        getRequiredCards({
-                          ...item,
-                          toLevel,
-                        }) - playerCard!.count;
-                      return missingCount <= 0;
-                    }
-                  ) as number;
-                  return {
-                    ...item,
-                    toLevel: maxLevel,
-                  };
-                })
-              );
-            } else if (inputTo) {
-              updateManyTo(inputTo);
-            }
+            updateMany();
             transition.toggle();
-            cancelSelect();
           }}
         >
           Save

@@ -14,7 +14,7 @@ import { MsgBox } from "./Tutorial";
 export const UpgradeSummary = () => {
   const {
     decks: { deck: selectedCards },
-    player: { playerCards },
+    player: { playerCardsMap },
     tutorial,
   } = useMyContext();
 
@@ -48,7 +48,7 @@ export const UpgradeSummary = () => {
     { fromLevel, card: { id } }: SelectedCard,
     required: number
   ) => {
-    const playerCard = playerCards.find((item) => item.id === id);
+    const playerCard = playerCardsMap[id];
     if (!playerCard || fromLevel !== playerCard.level) {
       return 0;
     }

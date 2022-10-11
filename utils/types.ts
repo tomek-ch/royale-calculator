@@ -48,10 +48,12 @@ export interface PlayerFromApi {
   currentDeck: PlayerCardFromApi[];
 }
 
+export type PlayerCards = Record<number, PlayerCard>;
+
 export interface Player {
   name: string;
   tag: string;
-  cards: PlayerCard[];
+  cardsMap: PlayerCards;
   currentDeck: PlayerCard[];
   recentDecks: PlayerCard[][];
 }

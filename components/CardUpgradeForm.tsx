@@ -23,7 +23,7 @@ export const CardUpgradeForm = ({ addToDeck }: CardUpgradeFormProps) => {
       setFromLevel,
       setToLevel,
     },
-    player: { playerCards },
+    player: { playerCardsMap },
   } = useMyContext();
   const selectedCard = maybeSelectedCard as SelectedCard;
 
@@ -34,7 +34,7 @@ export const CardUpgradeForm = ({ addToDeck }: CardUpgradeFormProps) => {
     setFromLevel(value);
   };
 
-  const playerCard = playerCards.find(({ id }) => id === selectedCard.card.id);
+  const playerCard = playerCardsMap[selectedCard.card.id];
   const sync = () => {
     setFromLevel(playerCard!.level);
   };

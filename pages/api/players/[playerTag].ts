@@ -41,11 +41,14 @@ const handler: NextApiHandler = async (req, res) => {
       await Promise.all([playerRes.json(), battleLogRes.json()]);
 
     const currentDeck = playerData.currentDeck.map(formatPlayerCardData);
+    const cards = playerData.cards.map(formatPlayerCardData);
 
     const player: Player = {
       tag,
       name: playerData.name,
-      cards: playerData.cards.map(formatPlayerCardData),
+      cardsMap: Object.fromEntries(
+        cards.map((playerCard) => [playerCard.id, playerCard] as const)
+      ),
       currentDeck,
       recentDecks: getUnique(
         // teams -> player -> cards

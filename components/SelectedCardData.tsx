@@ -26,13 +26,13 @@ const CardCountAlert = ({
   requiredCardCount,
 }: CardCountAlertProps) => {
   const {
-    player: { player, playerCards },
+    player: { player, playerCardsMap },
   } = useMyContext();
 
   if (!player) {
     return null;
   }
-  const playerCard = playerCards.find(({ id }) => id === selectedCard.card.id);
+  const playerCard = playerCardsMap[selectedCard.card.id];
   if (!playerCard) {
     return <InlineAlert variant="danger">Card not unlocked</InlineAlert>;
   }

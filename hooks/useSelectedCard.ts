@@ -4,12 +4,12 @@ import { Card, PlayerCard, SelectedCard } from "../utils/types";
 export const useSelectedCard = (
   deck: SelectedCard[],
   setDeck: (cb: (prev: SelectedCard[]) => SelectedCard[]) => void,
-  playerCards: PlayerCard[]
+  playerCardsMap: Record<number, PlayerCard>
 ) => {
   const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null);
 
   const getSelectedCard = (card: Card): SelectedCard => {
-    const playerCard = playerCards.find(({ id }) => id === card.id);
+    const playerCard = playerCardsMap[card.id];
     return {
       card,
       fromLevel: playerCard?.level || card.startingLevel,

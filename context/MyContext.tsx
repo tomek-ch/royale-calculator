@@ -31,9 +31,9 @@ export const MyContextProvider = ({
   const selectedCard = useSelectedCard(
     decks.deck,
     decks.setDeck,
-    player.playerCards
+    player.playerCardsMap
   );
-  const bulkEdit = useBulkEdit(decks.deck, decks.setDeck);
+  const bulkEdit = useBulkEdit(decks.deck, player, decks.setDeck);
   const theme = useTheme();
   const tutorial = useTutorial();
   return (

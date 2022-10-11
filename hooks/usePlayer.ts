@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getPlayer } from "../lib/getPlayer";
-import { Player, PlayerCard } from "../utils/types";
+import { getRequiredCards } from "../utils/getRequired";
+import { getRange } from "../utils/range";
+import { Player, PlayerCard, SelectedCard } from "../utils/types";
 import { useSyncedValue } from "./useSyncedValue";
 
 export const usePlayer = () => {
@@ -48,7 +50,19 @@ export const usePlayer = () => {
   const playerDecks = player?.recentDecks || [];
   const playerCurrentDeck = player?.currentDeck || [];
   const playerName = player?.name || "";
-  const playerCards = player?.cards || [];
+  const playerCardsMap = player?.cardsMap || {};
+
+  const getMaxUpgradeLevel = (selectedCard: SelectedCard) => {
+    const playerCard = playerCardsMap[selectedCard.card.id];
+    return getRange(14, playerCard!.level, -1).find((toLevel) => {
+      const missingCount =
+        getRequiredCards({
+          ...selectedCard,
+          toLevel,
+        }) - playerCard!.count;
+      return missingCount <= 0;
+    });
+  };
 
   return {
     player,
@@ -60,11 +74,12 @@ export const usePlayer = () => {
     playerDecks,
     playerCurrentDeck,
     playerName,
-    playerCards,
     copiedDeck,
     setCopiedDeck,
     resetCopiedDeck,
     authError,
     syncPlayer,
+    getMaxUpgradeLevel,
+    playerCardsMap,
   };
 };
