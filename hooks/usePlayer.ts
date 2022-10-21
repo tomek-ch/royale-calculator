@@ -54,7 +54,12 @@ export const usePlayer = () => {
 
   const getMaxUpgradeLevel = (selectedCard: SelectedCard) => {
     const playerCard = playerCardsMap[selectedCard.card.id];
-    return getRange(14, playerCard!.level, -1).find((toLevel) => {
+
+    if (!playerCard) {
+      return;
+    }
+
+    return getRange(14, playerCard.level, -1).find((toLevel) => {
       const missingCount =
         getRequiredCards({
           ...selectedCard,
