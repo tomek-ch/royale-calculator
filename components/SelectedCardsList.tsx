@@ -48,7 +48,10 @@ export const SelectedCardsList = ({ edit }: SelectedCardsListProps) => {
               ref={(el) => (cardTiles.current[idx] = el)}
             >
               <SelectedCardData
-                onClick={() => edit(selectedCard)}
+                onClick={() => {
+                  edit(selectedCard);
+                  cancelSelect();
+                }}
                 selectedCard={selectedCard}
                 options={
                   <Options>
