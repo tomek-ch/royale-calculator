@@ -3,7 +3,7 @@ import { useClickOutside } from "../hooks/useClickOutside";
 import { useTransition } from "../hooks/useTransition";
 
 interface SelectProps<T> {
-  selected: T;
+  selected: T | null;
   children: ReactNode;
   onChange: (value: T) => void;
   className?: string;

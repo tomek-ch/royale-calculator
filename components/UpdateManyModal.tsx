@@ -1,6 +1,5 @@
 import { useMyContext } from "../context/MyContext";
 import { Transition } from "../hooks/useTransition";
-import { getRange } from "../utils/range";
 import { Button } from "./Button";
 import { ArrowUp } from "./icons/ArrowUp";
 import { CircleQuestion } from "./icons/CircleQuestion";
@@ -22,15 +21,16 @@ export const UpdateManyModal = ({ transition }: UpdateManyModalProps) => {
       cancelSelect,
       maxOnSave,
       syncOnSave,
-      inputFrom,
-      setInputFrom,
-      inputTo,
-      setInputTo,
-      sync,
-      max,
-      updateMany,
-      minStartLevel,
-      minCurrentLevel,
+      updateFrom,
+      updateTo,
+      updateFromRange,
+      updateToRange,
+      setUpdateFrom,
+      setUpdateTo,
+      setMaxOnSave,
+      setSyncOnSave,
+      save,
+      canSync,
     },
     player: { player },
   } = useMyContext();
@@ -46,23 +46,26 @@ export const UpdateManyModal = ({ transition }: UpdateManyModalProps) => {
       <div className="mt-2 mb-4">
         <div className="flex gap-2 items-center">
           <Select
-            selected={inputFrom}
-            onChange={setInputFrom}
+            selected={updateFrom}
+            onChange={setUpdateFrom}
             className="w-20 z-10"
           >
-            <SelectBtn>{inputFrom || "Mixed"}</SelectBtn>
+            <SelectBtn>{updateFrom || "Mixed"}</SelectBtn>
             <SelectOptions>
               {isSelectMode &&
-                getRange(minStartLevel, inputTo || 14).map((value) => (
+                updateFromRange.map((value) => (
                   <SelectOption key={value} value={value}>
                     {value}
                   </SelectOption>
                 ))}
             </SelectOptions>
           </Select>
-          {player && (
+          {canSync && (
             <>
-              <Button className="flex items-center gap-2" onClick={sync}>
+              <Button
+                className="flex items-center gap-2"
+                onClick={setSyncOnSave}
+              >
                 <Sync width="16" className="-ml-1" />
                 Sync
               </Button>
@@ -94,20 +97,23 @@ export const UpdateManyModal = ({ transition }: UpdateManyModalProps) => {
       Upgrade to level
       <div className="mt-2">
         <div className="flex gap-2 items-center">
-          <Select selected={inputTo} onChange={setInputTo} className="w-20">
-            <SelectBtn>{inputTo || "Mixed"}</SelectBtn>
+          <Select selected={updateTo} onChange={setUpdateTo} className="w-20">
+            <SelectBtn>{updateTo || "Mixed"}</SelectBtn>
             <SelectOptions>
               {isSelectMode &&
-                getRange(inputFrom || minCurrentLevel, 14).map((value) => (
+                updateToRange.map((value) => (
                   <SelectOption key={value} value={value}>
                     {value}
                   </SelectOption>
                 ))}
             </SelectOptions>
           </Select>
-          {player && (
+          {canSync && (
             <>
-              <Button className="flex items-center gap-2" onClick={max}>
+              <Button
+                className="flex items-center gap-2"
+                onClick={setMaxOnSave}
+              >
                 <ArrowUp height="16" className="-ml-1" />
                 Max
               </Button>
@@ -148,7 +154,7 @@ export const UpdateManyModal = ({ transition }: UpdateManyModalProps) => {
         <Button
           variant="primary"
           onClick={() => {
-            updateMany();
+            save();
             transition.toggle();
           }}
         >

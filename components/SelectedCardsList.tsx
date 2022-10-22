@@ -18,17 +18,7 @@ export const SelectedCardsList = ({ edit }: SelectedCardsListProps) => {
   const {
     decks: { deck: cards },
     selectedCard: { remove },
-    bulkEdit: {
-      selectForEdit,
-      cancelSelect,
-      selectedFromLevel,
-      selectedToLevel,
-      isSelectMode,
-      setMaxOnSave,
-      setSyncOnSave,
-      setInputFrom,
-      setInputTo,
-    },
+    bulkEdit: { selectForEdit, cancelSelect, isSelectMode, initModal },
   } = useMyContext();
   const cardTiles = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -36,16 +26,7 @@ export const SelectedCardsList = ({ edit }: SelectedCardsListProps) => {
   const editBarRef = useRef<HTMLDivElement | null>(null);
 
   const updateManyModal = useTransition({
-    onClose: () => {
-      setInputFrom(null);
-      setInputTo(null);
-    },
-    onOpen: () => {
-      setInputFrom(selectedFromLevel);
-      setInputTo(selectedToLevel);
-      setSyncOnSave(false);
-      setMaxOnSave(false);
-    },
+    onOpen: initModal,
   });
   const modalRef = useRef<HTMLDivElement | null>(null);
 

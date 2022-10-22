@@ -1,5 +1,4 @@
 import { useMyContext } from "../context/MyContext";
-import { getRequiredCards } from "../utils/getRequired";
 import { getRange } from "../utils/range";
 import { SelectedCard } from "../utils/types";
 import { Button } from "./Button";
@@ -23,7 +22,7 @@ export const CardUpgradeForm = ({ addToDeck }: CardUpgradeFormProps) => {
       setFromLevel,
       setToLevel,
     },
-    player: { playerCardsMap },
+    player: { playerCardsMap, getMaxUpgradeLevel },
   } = useMyContext();
   const selectedCard = maybeSelectedCard as SelectedCard;
 
@@ -40,14 +39,7 @@ export const CardUpgradeForm = ({ addToDeck }: CardUpgradeFormProps) => {
   };
 
   const max = () => {
-    const maxLevel = getRange(14, playerCard!.level, -1).find((toLevel) => {
-      const missingCount =
-        getRequiredCards({
-          ...selectedCard,
-          toLevel,
-        }) - playerCard!.count;
-      return missingCount <= 0;
-    }) as number;
+    const maxLevel = getMaxUpgradeLevel(selectedCard) as number;
     setToLevel(maxLevel);
   };
 

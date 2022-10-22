@@ -1,11 +1,17 @@
 import { useState } from "react";
-import { areAllTheSame } from "../utils/areAllTheSame";
+import {
+  initModal,
+  setMaxOnSave,
+  setSyncOnSave,
+  updateInputFrom,
+  updateInputTo,
+} from "../lib/bulkEdit";
 import { SelectedCard } from "../utils/types";
 import { usePlayer } from "./usePlayer";
 
 export const useBulkEdit = (
   deck: SelectedCard[],
-  { playerCardsMap, getMaxUpgradeLevel }: ReturnType<typeof usePlayer>,
+  { playerCardsMap }: ReturnType<typeof usePlayer>,
   setDeck: (cb: (prev: SelectedCard[]) => SelectedCard[]) => void
 ) => {
   const selectForEdit = (id: number) => {
@@ -32,124 +38,42 @@ export const useBulkEdit = (
   const selectAll = () =>
     setDeck((prev) => prev.map((item) => ({ ...item, isSelected: true })));
 
-  const updateManyFrom = (value: number) => {
-    setDeck((prev) =>
-      prev.map((item) => {
-        if (!item.isSelected) {
-          return item;
-        }
-        if (item.card.startingLevel > value) {
-          return { ...item, fromLevel: item.card.startingLevel };
-        }
-        return { ...item, fromLevel: value };
-      })
-    );
-  };
-  const updateManyTo = (value: number) => {
-    setDeck((prev) =>
-      prev.map((item) => {
-        if (!item.isSelected) {
-          return item;
-        }
-        if (item.fromLevel > value) {
-          return { ...item, toLevel: item.fromLevel };
-        }
-        return { ...item, toLevel: value };
-      })
-    );
-  };
-
   const selectedCards = deck.filter((item) => item.isSelected);
-
-  const getSelectedCardsUpgradeLevel = (key: "fromLevel" | "toLevel") => {
-    if (!selectedCards.length) {
-      return null;
-    }
-    const firstSelectedLevel = selectedCards[0][key];
-    const areSelectedSameLevel = selectedCards.every(
-      (item) => item[key] === firstSelectedLevel
-    );
-    if (areSelectedSameLevel) {
-      return firstSelectedLevel;
-    }
-    return null;
-  };
-
-  const selectedFromLevel = getSelectedCardsUpgradeLevel("fromLevel");
-  const selectedToLevel = getSelectedCardsUpgradeLevel("toLevel");
-
-  const minStartLevel = Math.min(
-    ...selectedCards.map(({ card: { startingLevel } }) => startingLevel)
-  );
-  const minCurrentLevel = Math.min(
-    ...selectedCards.map(({ fromLevel }) => fromLevel)
-  );
 
   const numberOfSelected = selectedCards.length;
   const isSelectMode = !!numberOfSelected;
 
-  const [inputFrom, setInputFrom] = useState(selectedFromLevel);
-  const [inputTo, setInputTo] = useState(selectedToLevel);
+  const [bulkUpdate, setBulkUpdate] = useState(
+    initModal(selectedCards, playerCardsMap)
+  );
+  const setUpdateFrom = (value: number) =>
+    setBulkUpdate((prev) => updateInputFrom(prev, value));
+  const setUpdateTo = (value: number) =>
+    setBulkUpdate((prev) => updateInputTo(prev, value));
+  const {
+    updateFrom,
+    updateTo,
+    updateFromRange,
+    updateToRange,
+    maxOnSave,
+    syncOnSave,
+    updatedCards,
+    canSync,
+  } = bulkUpdate;
 
-  const [syncOnSave, setSyncOnSave] = useState(false);
-  const [maxOnSave, setMaxOnSave] = useState(false);
-
-  const sync = () => {
-    const playerCardLevels = selectedCards.map(
-      ({ card: { id } }) => playerCardsMap[id]?.level
-    );
-    const [firstPlayerCardLvl] = playerCardLevels;
-
-    if (firstPlayerCardLvl && areAllTheSame(playerCardLevels)) {
-      setInputFrom(firstPlayerCardLvl);
-    } else if (playerCardLevels.some((lvl) => !!lvl)) {
-      setInputFrom(null);
-    }
-
-    setSyncOnSave(true);
-  };
-
-  const max = () => {
-    const maxLevels = selectedCards.map(getMaxUpgradeLevel);
-    const [firstMaxLevel] = maxLevels;
-
-    if (firstMaxLevel && areAllTheSame(maxLevels)) {
-      setInputTo(firstMaxLevel);
-    } else if (maxLevels.some((lvl) => !!lvl)) {
-      setInputTo(null);
-    }
-
-    setMaxOnSave(true);
-  };
-
-  const updateSync = () => {
+  const save = () => {
     setDeck((prev) =>
       prev.map((item) => {
-        const playerCard = playerCardsMap[item.card.id];
-        if (!playerCard) return item;
-        return {
-          ...item,
-          fromLevel: playerCard.level,
-          toLevel:
-            playerCard.level > item.toLevel ? playerCard.level : item.toLevel,
-        };
-      })
-    );
-  };
-
-  const updateMax = () => {
-    setDeck((prev) =>
-      prev.map((item) => {
-        const maxLevel = getMaxUpgradeLevel(item);
-        if (!maxLevel) {
+        const updatedCard = updatedCards.find(
+          ({ card: { id } }) => id === item.card.id
+        );
+        if (!updatedCard) {
           return item;
         }
-        return {
-          ...item,
-          toLevel: maxLevel,
-        };
+        return updatedCard;
       })
     );
+    cancelSelect();
   };
 
   return {
@@ -157,38 +81,23 @@ export const useBulkEdit = (
     cancelSelect,
     deleteMany,
     selectAll,
-    updateManyFrom,
-    updateManyTo,
-    selectedFromLevel,
-    selectedToLevel,
     isSelectMode,
     numberOfSelected,
     selectedCards,
-    syncOnSave,
+    setMaxOnSave: () =>
+      setBulkUpdate((prev) => setMaxOnSave(prev, playerCardsMap)),
+    setSyncOnSave: () =>
+      setBulkUpdate((prev) => setSyncOnSave(prev, playerCardsMap)),
+    setUpdateFrom,
+    setUpdateTo,
+    updateFromRange,
+    updateToRange,
+    updateFrom,
+    updateTo,
     maxOnSave,
-    setSyncOnSave,
-    setMaxOnSave,
-    sync,
-    max,
-    inputFrom,
-    setInputFrom,
-    inputTo,
-    setInputTo,
-    minStartLevel,
-    minCurrentLevel,
-    updateMany: () => {
-      if (syncOnSave) {
-        updateSync();
-      } else if (inputFrom) {
-        updateManyFrom(inputFrom);
-      }
-
-      if (maxOnSave) {
-        updateMax();
-      } else if (inputTo) {
-        updateManyTo(inputTo);
-      }
-      cancelSelect();
-    },
+    syncOnSave,
+    save,
+    initModal: () => setBulkUpdate(initModal(selectedCards, playerCardsMap)),
+    canSync,
   };
 };
