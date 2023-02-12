@@ -17,7 +17,7 @@ yarn
 
 Then create a copy of `.env.local.example`, rename it to `.env.local`, and add your Clash Royale API key. If you don't have one, you can get it from [Supercell's website](https://developer.clashroyale.com/).
 
-After creating the `.env` file, you can start the project on [localhost:3000](http://localhost:3000) by running:
+After creating the `.env.local` file, you can start the project on [localhost:3000](http://localhost:3000) by running:
 
 ```bash
 yarn dev
